@@ -23,14 +23,13 @@ public class FriendListMain extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_list_main);
+
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.friend_recyclerView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         getPhoneNumList();
-        ///System.out.println(friendDataList.get(0).getName()+","+friendDataList.get(0).getPhoneNum());
-
         recyclerView.setAdapter(new FriendListAdapter(friendDataList));
     }
 
@@ -45,7 +44,6 @@ public class FriendListMain extends Activity{
                 while (cursor.moveToNext()) {
 
                     if (cursor.getString(1) != null) {
-                        //System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
                         if (list.size()==0) {
                             friendData = new FriendData();
                             friendData.setName(cursor.getString(0));
