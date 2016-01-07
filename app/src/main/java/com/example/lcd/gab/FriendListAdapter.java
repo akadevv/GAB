@@ -5,11 +5,8 @@ import android.support.v7.widget.RecyclerView;
 /**
  * Created by LCD on 2016-01-07.
  */
-public class FriendListAdapter extends RecyclerView.Adapter<ViewHolder>{
+public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    @Override
-    public static class ViewHolder extends RecyclerView.ViewHolder{
 
-    }
 
 }

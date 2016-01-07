@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by LCD on 2016-01-07.
  */
-public class FriendListActivity extends Activity{
+public class FriendListMain extends Activity{
 
     ArrayList<FriendData> friendDataList;
     ArrayList<FriendData> list;
@@ -23,26 +23,30 @@ public class FriendListActivity extends Activity{
         setContentView(R.layout.friend_list_main);
 
         getPhoneNumList();
+
+
     }
 
-    public void getPhoneNumList(){
+    public void getPhoneNumList() {
         Cursor cursor = null;
-        try{
+        try {
             Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
             String phoneName = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
-            String [] ad = new String[] {ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
+            String[] ad = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
             cursor = getContentResolver().query(uri, ad, null, null, phoneName);
-            while(cursor.moveToNext()) {
-                if (cursor.getString(1) != null) {
 
-                    if (list.size() == 0) {
+            cursor.moveToFirst();
+            while(cursor.moveToNext()){
+
+                if(cursor.getString(1)!=null){
+                    if(list.size() == 0){
                         friendData = new FriendData();
                         friendData.setName(cursor.getString(0));
                         friendData.setPhoneNum(cursor.getString(1));
                         list.add(friendData);
                     }
-                    else {
-                        if (!list.get(list.size() - 1).getPhoneNum().equals(cursor.getString(1))) {
+                    else{
+                        if(!list.get(list.size()-1).getPhoneNum().equals(cursor.getString(1))){
                             friendData = new FriendData();
                             friendData.setName(cursor.getString(0));
                             friendData.setPhoneNum(cursor.getString(1));
