@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/friend_recycler_view"
-        android:layout_below="@+id/friend_search_view" />
+        android:layout_below="@+id/friend_search_view"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
