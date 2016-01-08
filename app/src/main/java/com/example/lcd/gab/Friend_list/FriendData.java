@@ -1,4 +1,4 @@
-package com.example.lcd.gab;
+package com.example.lcd.gab.Friend_list;
 
 /**
  * Created by LCD on 2016-01-07.

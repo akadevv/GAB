@@ -1,4 +1,4 @@
-package com.example.lcd.gab;
+package com.example.lcd.gab.Friend_list;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -8,6 +8,8 @@ import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.lcd.gab.R;
+
 import java.util.ArrayList;
 
 /**
@@ -15,12 +17,12 @@ import java.util.ArrayList;
  */
 public class FriendListMain extends Activity{
 
-    ArrayList<FriendData> friendDataList;
-    ArrayList<FriendData> list = new ArrayList<>();
-    FriendData friendData;
-    RecyclerView recyclerView;
-    FriendListAdapter friendListAdapter;
-    android.widget.SearchView searchView;
+    private ArrayList<FriendData> friendDataList;
+    private ArrayList<FriendData> list = new ArrayList<>();
+    private FriendData friendData;
+    private RecyclerView recyclerView;
+    private FriendListAdapter friendListAdapter;
+    private android.widget.SearchView searchView;
 
 
     @Override
@@ -31,6 +33,8 @@ public class FriendListMain extends Activity{
         recyclerView = (RecyclerView)findViewById(R.id.friend_recycler_view);
         searchView = (android.widget.SearchView) findViewById(R.id.friend_search_view);
 
+
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -38,8 +42,8 @@ public class FriendListMain extends Activity{
 
         getPhoneNumList();
 
-        recyclerView.setAdapter(new FriendListAdapter(friendDataList));
-
+        friendListAdapter = new FriendListAdapter((friendDataList));
+        recyclerView.setAdapter(friendListAdapter);
         searchView.setOnQueryTextListener(listener);
     }
 
@@ -56,6 +60,9 @@ public class FriendListMain extends Activity{
                         filteredList.add(friendDataList.get(i));
                     }
                     else if(phoneNum.contains(query)){
+                        filteredList.add(friendDataList.get(i));
+                    }
+                    else if(InitialSoundSearcher.patternMatching(name, query)){
                         filteredList.add(friendDataList.get(i));
                     }
                 }

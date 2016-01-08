@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.lcd.gab.Friend_list.FriendListMain;
+
 /**
  * Created by LCD on 2016-01-07.
  */
