@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="World's Simplest Register"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/id_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label1"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="userID"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/id_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/id_textview"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/label1"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/id_textview"
+        android:hint="insert your id"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:id="@+id/password_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_textview"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="userPassword"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/password_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/password_textview"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/label1"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/password_textview"
+        android:hint="insert your password"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/passwordcheck_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password_textview"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="PasswordCheck"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/passwordcheck_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/passwordcheck_textview"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/password_edittext"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/passwordcheck_textview"
+        android:hint="Password checking"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/certify_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordcheck_textview"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="Certified number"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/certify_editview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/certify_textview"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/passwordcheck_edittext"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/certify_textview"
+        android:hint="certificated number"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/phone_number_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/certify_textview"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="Phone number"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/phone_number_editview_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/phone_number_textview"
+        android:layout_below="@+id/certify_editview"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/phone_number_textview"
+        android:hint="010"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+
+    <EditText
+        android:id="@+id/phone_number_editview_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/phone_number_textview"
+        android:layout_below="@+id/certify_editview"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/phone_number_editview_1"
+        android:hint="0000"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/phone_number_editview_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/phone_number_textview"
+        android:layout_below="@+id/certify_editview"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@+id/phone_number_editview_2"
+        android:hint="0000"
+        android:padding="5dp"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone_number_editview_1"
+        android:text = "가입 완료"/>
+
+
+
+</RelativeLayout>
