@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FriendListMain"/>
+        <activity android:name=".Friend_list.FriendListMain"/>
         <activity android:name =".jjunest.registerMain"/>
 
 

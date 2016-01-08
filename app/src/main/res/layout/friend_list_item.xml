@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="60dp"
     android:background="#FFF">
 
     <TextView
@@ -13,6 +13,7 @@
         android:textColor="#000"
         android:padding="7dp"
         android:id="@+id/name"
+        android:layout_centerVertical="true"
         />
 
     <TextView
@@ -23,8 +24,7 @@
         android:textColor="#000"
         android:padding="7dp"
         android:id="@+id/phone_number"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/name"
         android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>
