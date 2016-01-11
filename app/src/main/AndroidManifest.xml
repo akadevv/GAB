@@ -26,7 +26,7 @@
 
         <activity android:name=".Friend_list.FriendListMain"/>
         <activity android:name =".jjunest.registerMain"/>
-
+        <activity android:name =".Pay_room.RoomMain"/>
 
     </application>
 
