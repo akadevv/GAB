@@ -1,13 +1,17 @@
 package com.example.lcd.gab.Friend_list;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.lcd.gab.Pay_room.RoomMain;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ public class FriendListMain extends Activity{
     private RecyclerView recyclerView;
     private FriendListAdapter friendListAdapter;
     private android.widget.SearchView searchView;
+    private Button button;
 
 
     @Override
@@ -32,7 +37,7 @@ public class FriendListMain extends Activity{
 
         recyclerView = (RecyclerView)findViewById(R.id.friend_recycler_view);
         searchView = (android.widget.SearchView) findViewById(R.id.friend_search_view);
-
+        button = (Button) findViewById(R.id.roomButton);
 
 
         recyclerView.setHasFixedSize(true);
@@ -44,7 +49,16 @@ public class FriendListMain extends Activity{
 
         friendListAdapter = new FriendListAdapter((friendDataList));
         recyclerView.setAdapter(friendListAdapter);
+
         searchView.setOnQueryTextListener(listener);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RoomMain.class);
+                startActivity(intent);
+            }
+        });
     }
 
         android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
