@@ -25,6 +25,7 @@
         android:padding="7dp"
         android:id="@+id/phone_number"
         android:layout_alignTop="@+id/name"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
