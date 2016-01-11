@@ -11,7 +11,7 @@ import com.example.lcd.gab.Friend_list.FriendListMain;
 /**
  * Created by LCD on 2016-01-07.
  */
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,19 @@ public class MainActivity extends Activity{
         });
 
         Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener(){
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.example.lcd.gab.jjunest.registerMain.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.example.lcd.gab.jjunest.test_getmyphonenumber.class);
                 startActivity(intent);
             }
         });
