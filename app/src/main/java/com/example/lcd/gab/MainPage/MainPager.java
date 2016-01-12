@@ -2,7 +2,6 @@ package com.example.lcd.gab.MainPage;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -16,27 +15,22 @@ import com.viewpagerindicator.UnderlinePageIndicator;
  */
 public class MainPager extends FragmentActivity {
 
-
-    ViewPager viewPager;
-    LinearLayout linearLayout;
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    FragmentManager fragmentManager;
+    private ViewPager viewPager;
+    private LinearLayout linearLayout;
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_pager);
 
-
         button1 = (Button) findViewById(R.id.B1);
         button2 = (Button) findViewById(R.id.B2);
         button3 = (Button) findViewById(R.id.B3);
         button4 = (Button) findViewById(R.id.B4);
-
-
 
         linearLayout = (LinearLayout) findViewById(R.id.pager);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -68,10 +62,7 @@ public class MainPager extends FragmentActivity {
             }
         });
 
-
         UnderlinePageIndicator underlinePageIndicator = (UnderlinePageIndicator) findViewById(R.id.title);
         underlinePageIndicator.setViewPager(viewPager);
     }
-
-
 }
