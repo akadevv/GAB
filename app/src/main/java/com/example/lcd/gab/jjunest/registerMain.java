@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,11 +34,12 @@ public class registerMain extends Activity {
     String phonenum_full;
     String DBlink;
     Context mycontext;
+    String phoneNumber;
+    TelephonyManager telManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.j_register);
-
          mycontext= getApplicationContext();
          id_edittext = (EditText) findViewById(R.id.id_edittext);
          password_edittext = (EditText) findViewById(R.id.password_edittext);
@@ -45,6 +47,25 @@ public class registerMain extends Activity {
          phonenum_edittext_1 = (EditText) findViewById(R.id.phone_number_editview_1);
          phonenum_edittext_2 = (EditText) findViewById(R.id.phone_number_editview_2);
          phonenum_edittext_3 = (EditText) findViewById(R.id.phone_number_editview_3);
+
+        telManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+
+        phoneNumber = telManager.getLine1Number();
+
+        if(phoneNumber.length()==11){
+            System.out.println("this is phonenumber.length ==11 :"+phoneNumber.length());
+            phonenum_edittext_1.setText(phoneNumber.substring(0,3));
+            phonenum_edittext_2.setText(phoneNumber.substring(3,7));
+            phonenum_edittext_3.setText(phoneNumber.substring(7,11));
+        }else if(phoneNumber.length() == 10){
+            System.out.println("this is phonenumber.length ==10 :"+phoneNumber.length());
+            phonenum_edittext_1.setText(phoneNumber.substring(0,3));
+            phonenum_edittext_2.setText(phoneNumber.substring(3,6));
+            phonenum_edittext_3.setText(phoneNumber.substring(6,10));
+        }else{
+
+
+        }
 
 //        System.out.println("byjjnest_ id_edittext.gettext : "+id_edittext.getText());
 //        System.out.println("byjjnest_ id_edittext.gettext.tostring : "+id_edittext.getText().toString());
