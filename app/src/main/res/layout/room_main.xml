@@ -1,13 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+  >
 
 
-    <TextView
+
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dutch pay Roomname"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/edittext2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint = "Roomname"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_alignBaseline="@id/textView2"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_margin="5dp"
+            android:text="date"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView android:id="@+id/date_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_alignBaseline="@id/textView3"
+            android:text="2015-01-04"/>
+
+
+        <Button android:id="@+id/pickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change the date"
+            android:layout_toRightOf="@+id/date_display"
+            android:layout_alignBaseline="@id/textView3"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:text="dutchpay list"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal" />
+
+
+        <CheckBox android:id="@+id/checkbox_meat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView4"
+            android:layout_alignBaseline="@+id/textView4"
+            android:text="meat"
+            android:onClick="onCheckboxClicked"/>
+
+
+        <CheckBox android:id="@+id/checkbox_cheese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cheese"
+            android:layout_toRightOf="@+id/checkbox_meat"
+            android:layout_alignBaseline="@+id/checkbox_meat"
+            android:onClick="onCheckboxClicked"/>
+
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView4"
+            android:layout_margin="5dp"
+            android:text="Total"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/edittext5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="10000"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/textView5"
+            android:layout_alignBaseline="@id/textView5"/>
+</RelativeLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id= "@+id/participants_layout">
+
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView5"
+            android:text="participant"
+            android:layout_margin="5dp"
+            android:textSize="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/edittext6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="01072729771"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/textView6"
+            android:layout_alignBaseline="@id/textView6"/>
+
+</LinearLayout>
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_below="@id/textView6"
+            android:textSize="20dp">
+        </Button>
+<LinearLayout
+    android:orientation="horizontal"
+    android:id="@+id/selectLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/beerimg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Room"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_margin="5dp"
+        android:src="@drawable/beer"/>
+    <ImageView
+        android:id="@+id/chickenimg"
+        android:layout_toRightOf="@+id/beerimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:src="@drawable/chicken"/>
+    <ImageView
+        android:id="@+id/hambuger"
+        android:layout_toRightOf="@+id/chickenimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:src="@drawable/hambuger"/>
+</LinearLayout>
+        <LinearLayout
+              android:id="@+id/selectedLayout"
+              android:layout_width="match_parent"
+               android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="#ffff00">
+
+
+        </LinearLayout>
 </LinearLayout>
