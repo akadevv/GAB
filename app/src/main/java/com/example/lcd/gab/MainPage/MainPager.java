@@ -1,13 +1,17 @@
 package com.example.lcd.gab.MainPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.example.lcd.gab.PayRoom.PayRoomMain;
 import com.example.lcd.gab.R;
+import com.example.lcd.gab.TransferRoom.TransferRoomMain;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
 /**
@@ -15,24 +19,34 @@ import com.viewpagerindicator.UnderlinePageIndicator;
  */
 public class MainPager extends FragmentActivity {
 
+    private boolean menuOnOff = false;
+    private boolean payRoom;
     private ViewPager viewPager;
-    private LinearLayout linearLayout;
     private Button button1;
     private Button button2;
     private Button button3;
     private Button button4;
+    private Button menuButton;
+    private RelativeLayout shadowLayout;
+    private RelativeLayout originalLayout;
+    private TextView payRoomText;
+    private TextView transferRoomText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_pager);
+        setContentView(R.layout.main_page);
 
         button1 = (Button) findViewById(R.id.B1);
         button2 = (Button) findViewById(R.id.B2);
         button3 = (Button) findViewById(R.id.B3);
         button4 = (Button) findViewById(R.id.B4);
+        menuButton = (Button) findViewById(R.id.menu_anim_button);
+        shadowLayout = (RelativeLayout) findViewById(R.id.shadow_layout);
+        originalLayout = (RelativeLayout) findViewById(R.id.original_layout);
+        payRoomText = (TextView) findViewById(R.id.pay_room_text);
+        transferRoomText = (TextView) findViewById(R.id.transfer_room_text);
 
-        linearLayout = (LinearLayout) findViewById(R.id.pager);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 
@@ -64,5 +78,38 @@ public class MainPager extends FragmentActivity {
 
         UnderlinePageIndicator underlinePageIndicator = (UnderlinePageIndicator) findViewById(R.id.title);
         underlinePageIndicator.setViewPager(viewPager);
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!menuOnOff) {
+                    shadowLayout.bringToFront();
+                    menuButton.bringToFront();
+
+                    payRoomText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), PayRoomMain.class);
+                            startActivity(intent);
+
+                        }
+                    });
+                    transferRoomText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), TransferRoomMain.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                    menuOnOff = true;
+                } else {
+                    originalLayout.bringToFront();
+                    menuButton.bringToFront();
+                    menuOnOff = false;
+                }
+            }
+        });
+
     }
 }

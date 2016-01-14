@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="#8F000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shadow_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pay Room"
+            android:textColor="#ffff"
+            android:id="@+id/pay_room_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="84dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transfer Room"
+            android:textColor="#ffff"
+            android:id="@+id/transfer_room_text"
+            android:layout_above="@+id/pay_room_text"
+            android:layout_alignRight="@+id/pay_room_text"
+            android:layout_alignEnd="@+id/pay_room_text"
+            android:layout_marginBottom="23dp"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:background="#8F000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/original_layout">
+
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
-    android:id="@+id/pager"
+    android:id="@+id/page"
     >
+
 
     <LinearLayout
         android:id="@+id/buttonLayout"
@@ -71,5 +117,21 @@
         android:layout_alignParentStart="true"
         android:layout_weight="89"
         />
-
 </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/float_button"
+        android:id="@+id/menu_anim_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
+
+

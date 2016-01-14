@@ -1,6 +1,5 @@
 package com.example.lcd.gab.Friend_list;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,13 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.lcd.gab.Friend_list.FriendData;
-import com.example.lcd.gab.Friend_list.FriendListAdapter;
-import com.example.lcd.gab.Friend_list.InitialSoundSearcher;
-import com.example.lcd.gab.Pay_room.RoomMain;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -31,8 +25,7 @@ public class FriendListMain extends android.support.v4.app.Fragment{
     private RecyclerView recyclerView;
     private FriendListAdapter friendListAdapter;
     private android.widget.SearchView searchView;
-    private Button button;
-    private RelativeLayout relativeLayout;
+    private RelativeLayout recyclerLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,33 +34,24 @@ public class FriendListMain extends android.support.v4.app.Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        relativeLayout = (RelativeLayout) inflater.inflate(R.layout.friend_list_main, container, false);
+        recyclerLayout = (RelativeLayout) inflater.inflate(R.layout.friend_list_main, container, false);
 
-        recyclerView = (RecyclerView)relativeLayout.findViewById(R.id.friend_recycler_view);
-        searchView = (android.widget.SearchView) relativeLayout.findViewById(R.id.friend_search_view);
-        button = (Button) relativeLayout.findViewById(R.id.roomButton);
+        recyclerView = (RecyclerView)recyclerLayout.findViewById(R.id.friend_recycler_view);
+        searchView = (android.widget.SearchView) recyclerLayout.findViewById(R.id.friend_search_view);
 
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(relativeLayout.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerLayout.getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         getPhoneNumList();
 
-        friendListAdapter = new FriendListAdapter((friendDataList));
+        friendListAdapter = new FriendListAdapter(friendDataList, recyclerLayout.getContext());
         recyclerView.setAdapter(friendListAdapter);
 
         searchView.setOnQueryTextListener(listener);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(relativeLayout.getContext(), RoomMain.class);
-                startActivity(intent);
-            }
-        });
-
-        return relativeLayout;
+        return recyclerLayout;
     }
 
     android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
@@ -89,8 +73,8 @@ public class FriendListMain extends android.support.v4.app.Fragment{
                     filteredList.add(friendDataList.get(i));
                 }
             }
-            recyclerView.setLayoutManager(new LinearLayoutManager(relativeLayout.getContext()));
-            friendListAdapter = new FriendListAdapter(filteredList);
+            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerLayout.getContext()));
+            friendListAdapter = new FriendListAdapter(filteredList, recyclerLayout.getContext());
             recyclerView.setAdapter(friendListAdapter);
             friendListAdapter.notifyDataSetChanged();
             return true;
@@ -105,7 +89,7 @@ public class FriendListMain extends android.support.v4.app.Fragment{
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         String phoneName = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
         String[] ad = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
-        cursor = relativeLayout.getContext().getContentResolver().query(uri, ad, null, null, phoneName);
+        cursor = recyclerLayout.getContext().getContentResolver().query(uri, ad, null, null, phoneName);
 
         if(cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
@@ -130,4 +114,9 @@ public class FriendListMain extends android.support.v4.app.Fragment{
         cursor.close();
         cursor = null;
     }
+
+    public ArrayList<FriendData> getFriendDataList(){
+        return friendDataList;
+    }
+
 }
