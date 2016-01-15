@@ -6,8 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +15,9 @@ import android.widget.TextView;
 
 import com.example.lcd.gab.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by LCD on 2016-01-11.
@@ -33,14 +33,20 @@ public class PayRoomMain extends Activity {
     String log="jjunest";
     String roomname;
     String roomdate;
-    java.util.List<java.util.Map.Entry<String,Integer>> itemLists= new java.util.ArrayList<>();
+    int roomdate_int;
+    java.util.List<java.util.Map.Entry<String,Integer>> itemLists= new java.util.ArrayList<>(); //(item 명 + 가격)
+    List<DRoomItemInfo> DRoom_itemLists = new ArrayList<DRoomItemInfo>();
+
     String itemname;
     int itemprice;
     int totalRoomPrice=0;
     String roomtotalprice;
     TextView date_textview;
     //java.util.Map.Entry<String,Integer> pair1=new java.util.AbstractMap.SimpleEntry<>("Not Unique key1",1);
-    java.util.List<java.util.Map.Entry<String,Integer>> partyList = new java.util.ArrayList<>();
+    java.util.List<java.util.Map.Entry<String,Integer>> partyList = new java.util.ArrayList<>(); //(party phonenum, partymoney , party_finished)
+    List<DRoomPartyInfo> DRoom_partyLists = new ArrayList<DRoomPartyInfo>();
+    DRoom_FullInfo DRoom_fullinfo;
+
     int partyphonenum;
 
     //for Tag
@@ -115,7 +121,7 @@ public class PayRoomMain extends Activity {
 
 
 
-            //Room making buttonclicked
+            //Room making buttonclicked 방만들기 버튼 눌렀을 시에
         Button DroomButton = (Button)findViewById(R.id.DRoom_makingbutton);
         DroomButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +194,9 @@ public class PayRoomMain extends Activity {
                 }
                 Log.d(log, "this is total price" + totalRoomPrice);
 
+
+                //전송할 Droom_full_info 생성
+            DRoom_fullinfo = new DRoom_FullInfo(roomname,roomdate_int,DRoom_itemLists,totalRoomPrice,DRoom_partyLists);
 
             }
         });
