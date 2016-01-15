@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+       android:text = "alert page"
+        android:textSize = "100dp"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:text = "alert page"
+        android:textSize = "100dp"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:text = "alert page"
+        android:textSize = "100dp"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:text = "alert page"
+        android:textSize = "150dp"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:text = "alert page"
+        android:textSize = "150dp"/>
+
+    <Button
+        android:id="@+id/selectPartyBT"
+        android:layout_width="100px"
+        android:layout_height="wrap_content"
+        android:text=" Ok "
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/image"
+        />
+</LinearLayout>
+</ScrollView>

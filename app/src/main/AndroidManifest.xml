@@ -30,7 +30,7 @@
         <activity android:name=".jjunest.test_getmyphonenumber" />
         <activity android:name =".PayRoom.PayRoomMain"/>
         <activity android:name =".TransferRoom.TransferRoomMain"/>
-
+        <activity android:name=".PayRoom.inviteParty"/>
     </application>
 
 </manifest>

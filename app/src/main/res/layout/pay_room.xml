@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
@@ -10,4 +15,149 @@
         android:text="pay Room"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pay Room name"
+        android:id="@+id/roomname_text"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomname_edit"
+        android:layout_gravity="center_horizontal"
+        android:hint= "방 이름"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pay Room DATE"
+        android:id="@+id/roomdate_text"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomdate_edit"
+        android:layout_gravity="center_horizontal"
+        android:hint= "날짜"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/room_date_selector"
+        android:layout_gravity="center_horizontal"
+        android:text= "날짜 선택 버튼"/>
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id= "@+id/dutchPayItemLayout"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="더치페이 품목명1"
+        android:id="@+id/roomitem_text1"
+        android:layout_gravity="center_horizontal"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showItemListBT"
+        android:text = "더치페이 item 추가"
+        android:layout_gravity="center_horizontal"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomitem_edit1_name"
+        android:layout_gravity="center_horizontal"
+        android:hint= "더치페이 품복1"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomitem_edit1_price"
+        android:layout_gravity="center_horizontal"
+        android:hint= "더치페이 가격명1"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="품목명2"
+        android:id="@+id/roomitem_text2"
+        android:layout_gravity="center_horizontal"
+     />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomitem_edit2_name"
+        android:layout_gravity="center_horizontal"
+        android:hint= "더치페이 품목명2"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomitem_edit2_price"
+        android:layout_gravity="center_horizontal"
+        android:hint= "더치페이 가격명2"/>
 </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총 비용"
+        android:id="@+id/roomprice_text"
+        android:layout_gravity="center_horizontal"
+     />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/roomprice_edit"
+        android:layout_gravity="center_horizontal"
+        android:hint= "총 비용"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="참가자 추가"
+        android:id="@+id/party_text"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showFriendsList"
+        android:text = "친구 추가"
+        android:layout_gravity="center_horizontal">
+
+    </Button>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/party_edit1"
+        android:layout_gravity="center_horizontal"
+        android:hint= "더치페이 참석인원 선택"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/party_edit2"
+        android:layout_gravity="center_horizontal"
+        android:hint= "더치페이 참석인원 선택"/>
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/DRoom_makingbutton"
+    android:text = "방만들기"/>
+
+
+
+</LinearLayout>
+    </ScrollView>
