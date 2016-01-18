@@ -126,30 +126,33 @@ public class ACCESS_INTO_DB {
         Log.d(log, "newDroominfo is : " + newDroominfo);
         Gson gson = new Gson();
         String jsonTransfered = gson.toJson(newDroominfo);
-        Log.d(log, "json transfered new Droominfo is : " + jsonTransfered);
+        System.out.println("this is transerfed String :  " + jsonTransfered);
+
         //url 을 통해 send해준다
         try {
+            Log.d(log, "testing3 started-----");
             String data = URLEncoder.encode("newRoomInfo", "UTF-8") + "=" + URLEncoder.encode(jsonTransfered, "UTF-8");
-            URL urlc = new URL(phpurl);
+            URL urlc = new URL("http://jjunest.cafe24.com/DB/insert_into_DRoomInfo.php");
             URLConnection conn = urlc.openConnection();
             conn.setDoOutput(true);
 
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             wr.write(data);
             wr.flush();
-            Log.d(log, "this is after Flush data");
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             StringBuilder sb = new StringBuilder();
             String line = null;
 
             // Read Server Response
-
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
                 break;
+
             }
-            Log.d(log, "received message is : " + sb);
+            System.out.println("this is response : " + sb);
+            Log.d(log, "testing3 ended-----");
         } catch (Exception e) {
             e.printStackTrace();
         }
