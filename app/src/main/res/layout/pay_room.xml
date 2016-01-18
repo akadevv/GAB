@@ -133,7 +133,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/showFriendsList"
+        android:id="@+id/showFriendListBT"
         android:text = "친구 추가"
         android:layout_gravity="center_horizontal">
 
@@ -143,13 +143,29 @@
         android:layout_height="wrap_content"
         android:id="@+id/party_edit1"
         android:layout_gravity="center_horizontal"
-        android:hint= "더치페이 참석인원 선택"/>
+        android:hint= "더치페이 참석인원 선택1"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/party_edit1_mooney"
+            android:layout_gravity="center_horizontal"
+            android:hint= "내야할 금액1"/>
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/party_edit2"
         android:layout_gravity="center_horizontal"
-        android:hint= "더치페이 참석인원 선택"/>
+        android:hint= "더치페이 참석인원 선택2"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/party_edit2_mooney"
+            android:layout_gravity="center_horizontal"
+            android:hint= "내야할 금액2"/>
+
 
 <Button
     android:layout_width="wrap_content"

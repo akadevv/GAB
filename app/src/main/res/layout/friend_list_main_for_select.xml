@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    android:id="@+id/recyclerview_layout"
+    android:id="@+id/friendList_ForSelect"
     >
 
     <SearchView
@@ -13,7 +13,12 @@
         android:id="@+id/friend_search_view"
         android:layout_gravity="center_vertical"
         android:queryHint="이름, 전화번호 검색"/>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/FriendListSelect_BT"
+        android:layout_centerHorizontal="true"
+        android:text= "선택 완료"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -21,5 +26,4 @@
         android:id="@+id/friend_recycler_view"
         android:layout_below="@+id/friend_search_view"
         android:layout_alignParentBottom="true" />
-
 </RelativeLayout>
