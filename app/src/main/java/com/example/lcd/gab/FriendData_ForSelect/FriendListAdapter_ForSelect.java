@@ -1,4 +1,4 @@
-package com.example.lcd.gab.Friend_list;
+package com.example.lcd.gab.FriendData_ForSelect;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.lcd.gab.Friend_list.FriendData;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.lcd.gab.Friend_list;
+package com.example.lcd.gab.FriendData_ForSelect;
 
 import java.io.Serializable;
 

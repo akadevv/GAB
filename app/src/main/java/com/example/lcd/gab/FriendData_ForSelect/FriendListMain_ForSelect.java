@@ -1,4 +1,4 @@
-package com.example.lcd.gab.Friend_list;
+package com.example.lcd.gab.FriendData_ForSelect;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.example.lcd.gab.FriendData_ForSelect.FriendListAdapter_ForSelect;
+import com.example.lcd.gab.Friend_list.FriendData;
+import com.example.lcd.gab.Friend_list.InitialSoundSearcher;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;

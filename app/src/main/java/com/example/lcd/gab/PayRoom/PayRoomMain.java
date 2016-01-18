@@ -14,7 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.lcd.gab.Friend_list.FriendListMain_ForSelect;
+import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;

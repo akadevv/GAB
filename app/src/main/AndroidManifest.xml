@@ -31,7 +31,7 @@
         <activity android:name =".PayRoom.PayRoomMain"/>
         <activity android:name =".TransferRoom.TransferRoomMain"/>
         <activity android:name=".PayRoom.inviteParty"/>
-        <activity android:name=".Friend_list.FriendListMain_ForSelect"/>
+        <activity android:name=".FriendData_ForSelect.FriendListMain_ForSelect"/>
     </application>
 
 </manifest>
