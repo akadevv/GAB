@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:id="@+id/recyclerview_item"
+    android:id="@+id/friend_recyclerview_item"
     android:background="#FFF">
 
     <TextView
