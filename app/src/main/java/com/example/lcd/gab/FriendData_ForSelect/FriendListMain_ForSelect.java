@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.lcd.gab.FriendData_ForSelect.FriendListAdapter_ForSelect;
 import com.example.lcd.gab.Friend_list.FriendData;
 import com.example.lcd.gab.Friend_list.InitialSoundSearcher;
 import com.example.lcd.gab.R;
@@ -33,6 +32,7 @@ public class FriendListMain_ForSelect extends Activity{
     private FriendListAdapter_ForSelect friendListAdapterForSelect;
     private android.widget.SearchView searchView;
     private RelativeLayout recyclerLayout;
+    private ArrayList<FriendData> filteredDataList;
     Context ListContext;
 
     @Override
@@ -73,7 +73,10 @@ public class FriendListMain_ForSelect extends Activity{
         FriendListSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                filteredDataList = FriendListAdapter_ForSelect.getFilteredDataList();
+                for(int i =0;i<filteredDataList.size();i++){
+                    Log.d(log,"this is selected :" +filteredDataList.get(i).getName());
+                }
             }
         });
 
