@@ -51,7 +51,7 @@ public class PayRoomMain extends Activity {
     DRoomItemInfo newDroomItem;
     int partyphonenum;
     EditText party_phoneNum;
-    int party_phoneNum_int;
+    String party_phoneNum_String;
     DRoomPartyInfo newDroomPartyInfo;
     EditText party_Money;
     int party_Money_int;
@@ -60,6 +60,7 @@ public class PayRoomMain extends Activity {
     //for Tag
     String ItemTag = "itemTag";
     String masterID;
+    String masterPhoneNum;
     ACCESS_INTO_DB InsertRoomInfo;
     //for friends list 부를때 코드
     public static final int FriendListREQUEST_CODE = 2001;
@@ -188,21 +189,22 @@ public class PayRoomMain extends Activity {
                 Log.d(log, "this is total price" + totalRoomPrice);
                 //partyList 데이터 꺼내오기 (파티원 전화번호, 파티원에 해당되는 금액)
                  party_phoneNum = (EditText)findViewById(R.id.party_edit1);
-                 party_phoneNum_int = Integer.parseInt(party_phoneNum.getText().toString());
+                party_phoneNum_String = party_phoneNum.getText().toString();
                  party_Money = (EditText)findViewById(R.id.party_edit1_mooney);
                  party_Money_int = Integer.parseInt(party_Money.getText().toString());
-                newDroomPartyInfo = new DRoomPartyInfo(party_phoneNum_int,party_Money_int,0);
+                newDroomPartyInfo = new DRoomPartyInfo(party_phoneNum_String,party_Money_int,0);
                 DRoom_partyLists.add(newDroomPartyInfo);
 
                 party_phoneNum = (EditText)findViewById(R.id.party_edit2);
-                party_phoneNum_int = Integer.parseInt(party_phoneNum.getText().toString());
+                party_phoneNum_String = party_phoneNum.getText().toString();
                 party_Money = (EditText)findViewById(R.id.party_edit2_mooney);
                 party_Money_int = Integer.parseInt(party_Money.getText().toString());
-                newDroomPartyInfo = new DRoomPartyInfo(party_phoneNum_int,party_Money_int,0);
+                newDroomPartyInfo = new DRoomPartyInfo(party_phoneNum_String,party_Money_int,0);
                 DRoom_partyLists.add(newDroomPartyInfo);
                 masterID="jjunest";
+                masterPhoneNum = "01072729771";
                 //전송할 Droom_full_info 생성
-                DRoom_fullinfo = new DRoom_FullInfo(masterID,roomname,roomdate_int,DRoom_itemLists,totalRoomPrice,DRoom_partyLists);
+                DRoom_fullinfo = new DRoom_FullInfo(masterID,masterPhoneNum,roomname,roomdate_int,DRoom_itemLists,totalRoomPrice,DRoom_partyLists);
 
 
                 new InsertDRoomFullToDB().execute(DRoom_fullinfo);

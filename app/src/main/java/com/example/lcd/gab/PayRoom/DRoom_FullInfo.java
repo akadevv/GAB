@@ -9,14 +9,17 @@ import java.util.List;
  */
 public class DRoom_FullInfo implements Serializable {
     String MasterID;
+    String MasterPhoneNum;
     String DRoomName;
+
     int DRoomDate;
     List<DRoomItemInfo> DRoomItemList = new ArrayList<DRoomItemInfo>();
     int totalPrice;
     List<DRoomPartyInfo> DRoomPartyList = new ArrayList<DRoomPartyInfo>();
 
-    public DRoom_FullInfo(String masterID, String DRoomName, int DRoomDate, List<DRoomItemInfo> DRoomItemList, int totalPrice, List<DRoomPartyInfo> DRoomPartyList) {
+    public DRoom_FullInfo(String masterID, String masterPhoneNum, String DRoomName, int DRoomDate, List<DRoomItemInfo> DRoomItemList, int totalPrice, List<DRoomPartyInfo> DRoomPartyList) {
         MasterID = masterID;
+        MasterPhoneNum = masterPhoneNum;
         this.DRoomName = DRoomName;
         this.DRoomDate = DRoomDate;
         this.DRoomItemList = DRoomItemList;
@@ -30,6 +33,14 @@ public class DRoom_FullInfo implements Serializable {
 
     public void setMasterID(String masterID) {
         MasterID = masterID;
+    }
+
+    public String getMasterPhoneNum() {
+        return MasterPhoneNum;
+    }
+
+    public void setMasterPhoneNum(String masterPhoneNum) {
+        MasterPhoneNum = masterPhoneNum;
     }
 
     public String getDRoomName() {
