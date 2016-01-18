@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +33,8 @@ public class MainPager extends FragmentActivity {
     private RelativeLayout originalLayout;
     private TextView payRoomText;
     private TextView transferRoomText;
+    private Animation menuRotate;
+    private Animation menuOrigin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class MainPager extends FragmentActivity {
         originalLayout = (RelativeLayout) findViewById(R.id.original_layout);
         payRoomText = (TextView) findViewById(R.id.pay_room_text);
         transferRoomText = (TextView) findViewById(R.id.transfer_room_text);
+        menuRotate = AnimationUtils.loadAnimation(this, R.anim.menu_rotate);
+        menuOrigin = AnimationUtils.loadAnimation(this, R.anim.menu_origin);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
@@ -86,6 +92,8 @@ public class MainPager extends FragmentActivity {
                     shadowLayout.bringToFront();
                     menuButton.bringToFront();
 
+                    menuButton.setAnimation(menuRotate);
+
                     payRoomText.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -102,14 +110,24 @@ public class MainPager extends FragmentActivity {
                         }
                     });
 
+                    shadowLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            originalLayout.bringToFront();
+                            menuButton.bringToFront();
+                            menuOnOff = false;
+                        }
+                    });
+
                     menuOnOff = true;
                 } else {
                     originalLayout.bringToFront();
                     menuButton.bringToFront();
+                    menuButton.setAnimation(menuOrigin);
+
                     menuOnOff = false;
                 }
             }
         });
-
     }
 }

@@ -22,6 +22,7 @@ public class FriendListAdapter_ForSelect extends RecyclerView.Adapter<FriendList
     public static String log = "jjunest";
     private Context mContext;
     private ArrayList<FriendData> mFriendDataList;
+    private static ArrayList<FriendData> filteredDataList = new ArrayList<>();
 
     public FriendListAdapter_ForSelect(Context mContext, ArrayList<FriendData> mFriendDataList) {
         this.mContext = mContext;
@@ -65,12 +66,18 @@ public class FriendListAdapter_ForSelect extends RecyclerView.Adapter<FriendList
                 CheckBox cb = (CheckBox) v;
                 if(cb.isChecked()) {
                     Log.d(log, "this is checkbox clicked");
+                    filteredDataList.add(friendData);
                 }else{
                     Log.d(log, "this is not checkbox clicked");
+                    filteredDataList.remove(friendData);
                 }
 
             }
         });
 
+    }
+
+    public static ArrayList<FriendData> getFilteredDataList(){
+        return filteredDataList;
     }
 }
