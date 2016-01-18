@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.lcd.gab.ACCESS_TO_DB.Insert_DRoom_FullInfo_DB;
 import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
 import com.example.lcd.gab.R;
 
@@ -61,7 +62,7 @@ public class PayRoomMain extends Activity {
     String ItemTag = "itemTag";
     String masterID;
     String masterPhoneNum;
-    ACCESS_INTO_DB InsertRoomInfo;
+    Insert_DRoom_FullInfo_DB InsertRoomInfo;
     //for friends list 부를때 코드
     public static final int FriendListREQUEST_CODE = 2001;
 
@@ -275,7 +276,7 @@ public class PayRoomMain extends Activity {
         protected String doInBackground(DRoom_FullInfo... params) {
         try {
 
-            InsertRoomInfo = new ACCESS_INTO_DB();
+            InsertRoomInfo = new Insert_DRoom_FullInfo_DB();
             DRoom_FullInfo newDRoom = (DRoom_FullInfo)params[0];
             Log.d(log,"InsertDRoomFullToDB() DRoomname ="+newDRoom.getDRoomName());
             InsertRoomInfo.insertIntoDB_DroomFullInfo(newDRoom, PHPlink);
