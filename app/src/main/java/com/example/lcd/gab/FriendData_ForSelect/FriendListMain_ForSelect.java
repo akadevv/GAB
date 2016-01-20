@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.Friend_list.FriendData;
-import com.example.lcd.gab.Friend_list.InitialSoundSearcher;
+import com.example.lcd.gab.Friend_list.InitialSoundSearcher_ForFriendList;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -117,7 +117,7 @@ public class FriendListMain_ForSelect extends Activity{
                 else if(phoneNum.contains(query)){
                     filteredList.add(friendDataList.get(i));
                 }
-                else if(InitialSoundSearcher.patternMatching(name, query)){
+                else if(InitialSoundSearcher_ForFriendList.patternMatching(name, query)){
                     filteredList.add(friendDataList.get(i));
                 }
             }

@@ -3,14 +3,14 @@ package com.example.lcd.gab.Friend_list;
 /**
  * Created by LCD on 2016-01-08.
  */
-public class InitialSoundSearcher {
+public class InitialSoundSearcher_ForFriendList {
 
     private static final char KOREAN_BEGIN_UNI = 44032;
     private static final char KOREAN_LAST_UNI = 55203;
     private static final char KOREAN_BASE_UNIT = 588;
     private static final char[] INITIAL_SOUND = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' };
 
-    public InitialSoundSearcher(){}
+    public InitialSoundSearcher_ForFriendList(){}
 
     public static boolean patternMatching(String value, String search){
         int t = 0;

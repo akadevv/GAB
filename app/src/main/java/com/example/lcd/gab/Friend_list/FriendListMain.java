@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.R;
@@ -72,7 +71,7 @@ public class FriendListMain extends android.support.v4.app.Fragment{
                 else if(phoneNum.contains(query)){
                     filteredList.add(friendDataList.get(i));
                 }
-                else if(InitialSoundSearcher.patternMatching(name, query)){
+                else if(InitialSoundSearcher_ForFriendList.patternMatching(name, query)){
                     filteredList.add(friendDataList.get(i));
                 }
             }
