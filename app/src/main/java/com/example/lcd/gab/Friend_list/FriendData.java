@@ -1,9 +1,11 @@
 package com.example.lcd.gab.Friend_list;
 
+import java.io.Serializable;
+
 /**
  * Created by LCD on 2016-01-07.
  */
-public class FriendData {
+public class FriendData implements Serializable {
 
     private String name;
     private String phoneNum;

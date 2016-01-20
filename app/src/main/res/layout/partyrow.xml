@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "선택된 친구 폰번호"
+        android:id = "@+id/partyPhoneNumTextView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "선택된 친구이름"
+        android:id = "@+id/partyNameTextView"
+        android:layout_toRightOf="@+id/partyPhoneNumTextView"/>
+
+    <EditText
+        android:id="@+id/partyMoneyEditView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint = "해당 되는 가격"
+        android:layout_toRightOf="@+id/partyNameTextView"/>
+    <Button
+        android:id="@+id/partyRemoved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/partyMoneyEditView"
+        android:text = "친구 삭제"/>
+
+
+</RelativeLayout>

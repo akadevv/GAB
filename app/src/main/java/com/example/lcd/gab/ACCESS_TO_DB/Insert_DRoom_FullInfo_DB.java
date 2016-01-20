@@ -24,8 +24,8 @@ public class Insert_DRoom_FullInfo_DB {
     String log = "jjunest";
     private final String USER_AGENT = "Mozilla/5.0";
 
+    //DBRoom_FullInfo 객체와 phpURL을 넘겨주면, DB의 history table 에 넘겨준다.
     public void insertIntoDB_DroomFullInfo(DRoom_FullInfo newDroominfo, String phpurl) {
-
 
         //making newDroominfo OBJECT TO JSON TYPE;
         Log.d(log, "newDroominfo is : " + newDroominfo);
