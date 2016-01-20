@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.lcd.gab.MainPage.MainPager;
+import com.example.lcd.gab.MasterInfo.MasterInfo;
 
 /**
  * Created by LCD on 2016-01-07.
  */
 public class MainActivity extends Activity {
+
+    private static MasterInfo masterInfo = new MasterInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +26,10 @@ public class MainActivity extends Activity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                masterInfo.setUserId("lce6292");
                 Intent intent = new Intent(getApplicationContext(), MainPager.class);
                 startActivity(intent);
+
             }
         });
 
@@ -45,5 +50,9 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    public static MasterInfo getMasterInfo(){
+        return masterInfo;
     }
 }

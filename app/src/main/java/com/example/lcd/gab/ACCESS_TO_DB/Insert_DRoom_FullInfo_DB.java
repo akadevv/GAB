@@ -2,28 +2,15 @@ package com.example.lcd.gab.ACCESS_TO_DB;
 
 import android.util.Log;
 
-import com.example.lcd.gab.PayRoom.DRoomItemInfo;
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Administrator on 2016-01-15.

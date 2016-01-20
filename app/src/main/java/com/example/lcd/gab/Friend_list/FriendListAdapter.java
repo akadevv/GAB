@@ -67,7 +67,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             super(v);
             vName = (TextView) v.findViewById(R.id.name);
             vPhone = (TextView) v.findViewById(R.id.phone_number);
-            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.recyclerview_item);
+            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.friend_recyclerview_item);
         }
     }
 

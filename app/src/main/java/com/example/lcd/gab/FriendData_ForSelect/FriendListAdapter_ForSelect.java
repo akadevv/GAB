@@ -50,7 +50,7 @@ public class FriendListAdapter_ForSelect extends RecyclerView.Adapter<FriendList
             super(v);
             vName = (TextView) v.findViewById(R.id.name);
             vPhone = (TextView) v.findViewById(R.id.phone_number);
-            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.recyclerview_item);
+            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.FriendSearchLayout);
             friendSelected = (CheckBox)v.findViewById(R.id.FriendCheckBOX);
         }
     }
