@@ -1,7 +1,68 @@
 package com.example.lcd.gab.RoomList;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
+import com.example.lcd.gab.R;
+
+import java.util.List;
+
 /**
  * Created by LCD on 2016-01-18.
  */
-public class RoomListAdapter {
+public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListViewHolder>{
+
+    private Context mContext;
+    private List<DRoom_FullInfo> mRoomListDatas;
+
+    public RoomListAdapter(List<DRoom_FullInfo> roomListDatas, Context context){
+        mContext=context;
+        mRoomListDatas=roomListDatas;
+    }
+
+    @Override
+    public int getItemCount(){return mRoomListDatas.size();}
+
+    @Override
+    public void onBindViewHolder(final ListViewHolder listViewHolder, final int position){
+        final DRoom_FullInfo roomListData = mRoomListDatas.get(position);
+        String memberName = "";
+
+        listViewHolder.vRoomName.setText(roomListData.getDRoomName());
+        listViewHolder.vRoomDate.setText(Integer.toString(roomListData.getDRoomDate()));
+
+        for(int i=0;i<roomListData.getDRoomPartyList().size();i++)
+            if(i != roomListData.getDRoomPartyList().size()-1)
+                memberName = memberName + roomListData.getDRoomPartyList().get(i).getParty_name() +",";
+            else
+                memberName = memberName + roomListData.getDRoomPartyList().get(i).getParty_name();
+
+        listViewHolder.vRoomMember.setText(memberName);
+    }
+
+    @Override
+    public ListViewHolder onCreateViewHolder(ViewGroup parent, int position){
+        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.room_list_item,parent,false);
+        return new ListViewHolder(viewItem);
+    }
+
+
+    public static class ListViewHolder extends RecyclerView.ViewHolder{
+        protected TextView vRoomName;
+        protected TextView vRoomDate;
+        protected TextView vRoomMember;
+
+        public ListViewHolder(View v){
+            super(v);
+            vRoomName = (TextView)v.findViewById(R.id.room_name);
+            vRoomDate = (TextView)v.findViewById(R.id.room_date);
+            vRoomMember = (TextView)v.findViewById(R.id.room_member);
+        }
+
+    }
 }

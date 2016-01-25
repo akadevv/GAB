@@ -51,8 +51,6 @@ public class FriendListMain extends android.support.v4.app.Fragment{
 
         searchView.setOnQueryTextListener(listener);
 
-
-
         return recyclerLayout;
     }
 

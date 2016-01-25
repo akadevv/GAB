@@ -3,6 +3,8 @@ package com.example.lcd.gab.RoomList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.MainActivity;
+import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
+import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
 import com.example.lcd.gab.R;
 
 import org.json.JSONArray;
@@ -18,10 +22,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by LCD on 2016-01-18.
@@ -31,8 +35,9 @@ public class RoomListMain extends Fragment{
     String log = "이창대";
     private String masterId = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
-    private StringBuilder sb = new StringBuilder();
-
+    private RecyclerView recyclerView;
+    private ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
+    private android.widget.SearchView searchView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,94 +46,232 @@ public class RoomListMain extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        recyclerLayout = (RelativeLayout) inflater.inflate(R.layout.room_list_main, container,false);
-        Log.d(log, "this is my phone number" + masterId);
+        recyclerLayout = (RelativeLayout) inflater.inflate(R.layout.room_list_main, container, false);
+        recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.room_list_recycler_view);
+        searchView = (android.widget.SearchView) recyclerLayout.findViewById(R.id.room_list_search_view);
 
-        getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/getRoomInfo.php"); // 마스터 핸드폰 번호 php로 넘기기
+        SendPost sendPost = new SendPost();
+        sendPost.execute();
 
+        searchView.setOnQueryTextListener(listener);
 
         return recyclerLayout;
     }
 
-    class backgroundTask extends AsyncTask<String, Integer, String>{
+    android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
         @Override
-        protected String doInBackground(String... urls) {
-            StringBuilder jsonHtml = new StringBuilder();
-            String return_str="";
+        public boolean onQueryTextChange(String query){
+            query = query.toLowerCase();
+            final ArrayList<DRoom_FullInfo> filteredList = new ArrayList<>();
 
-            while (return_str.equalsIgnoreCase("")) {
-                try{
-                    URL data_url = new URL(urls[0]);
-                    System.out.println(urls[0]);
-                    HttpURLConnection conn = (HttpURLConnection)data_url.openConnection();
-                    if(conn != null){
-                        conn.setConnectTimeout(10000);
-                        conn.setUseCaches(false);
-                        if(conn.getResponseCode() == HttpURLConnection.HTTP_OK){
-                            Log.d(log, "This is Connection success");
-                            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-                            for(;;){
-                                String line = br.readLine();
-                                if(line == null) break;
-                                jsonHtml.append(line + "\n");
-                            }
-                            br.close();
-                        }
-                        conn.disconnect();
+            for(int i=0; i< roomListDatas.size(); i++){
+                final DRoom_FullInfo tempRoomInfos = roomListDatas.get(i);
+
+                final String name = tempRoomInfos.getDRoomName().toLowerCase();
+                final String date = Integer.toString(tempRoomInfos.getDRoomDate());
+                Log.d(log, Integer.toString(tempRoomInfos.getDRoomPartyList().size()));
+
+                String [] phoneNum = new String[tempRoomInfos.getDRoomPartyList().size()];
+
+                for(int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++){
+                    phoneNum[j] = tempRoomInfos.getDRoomPartyList().get(j).getPartyPhonenum();
+                }
+
+                if(name.contains(query)){
+                    filteredList.add(roomListDatas.get(i));
+                }
+                else if(date.contains(query)){
+                    filteredList.add(roomListDatas.get(i));
+                }
+                else if(InitialSoundSearcher_ForRoomList.patternMatching(name, query)){
+                    filteredList.add(roomListDatas.get(i));
+                }
+                else if(InitialSoundSearcher_ForRoomList.patternMatching(phoneNum, query)){
+                    filteredList.add(roomListDatas.get(i));
+                }
+                else{
+                    for(int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++){
+                        if(phoneNum[j].contains(query))
+                            filteredList.add(roomListDatas.get(i));
                     }
-                }catch(Exception ex){
-                    ex.printStackTrace();
                 }
-                return_str = jsonHtml.toString();
+            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerLayout.getContext()));
+            RoomListAdapter roomListAdapter = new RoomListAdapter(filteredList, recyclerLayout.getContext());
+            recyclerView.setAdapter(roomListAdapter);
+            roomListAdapter.notifyDataSetChanged();
+            return true;
+        }
+        public boolean onQueryTextSubmit(String query){
+            return false;
+        }
+    };
+
+
+    private class SendPost extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... unused) {
+            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+
+            ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
+            ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
+
+            try {
+
+
+                JSONObject root = new JSONObject(content);
+
+                JSONArray resultsJa = root.getJSONArray("results");
+
+                JSONObject partyInfoJo = new JSONObject(resultsJa.getString(0));
+                JSONArray partyInfoJa = partyInfoJo.getJSONArray("party_info_cur");
+
+
+                for (int i = 0; i < partyInfoJa.length(); i++) {
+                    JSONArray ja = partyInfoJa.getJSONArray(i);
+                    ArrayList<DRoomPartyInfo> memberInfoList = new ArrayList<>();
+
+
+                    for (int j = 0; j < ja.length(); j++) {
+
+                        JSONObject jo = ja.getJSONObject(j);
+
+                        DRoomPartyInfo memberInfo = new DRoomPartyInfo();
+
+
+                        String rcdNum = jo.getString("room_rcdnum");
+                        String memberName = jo.getString("member_name");
+                        String memberPhoneNum = jo.getString("member_phonenum");
+
+                        int roomRcdNum = Integer.parseInt(rcdNum);
+
+                        memberInfo.setRoomRcdNum(roomRcdNum);
+                        memberInfo.setParty_name(memberName);
+                        memberInfo.setPartyPhonenum(memberPhoneNum);
+
+                        memberInfoList.add(memberInfo);
+                    }
+
+                    if (!roomPartyInfos.isEmpty()) {
+                        for (int k = 0; k < roomPartyInfos.size(); k++) {
+
+                            if (roomPartyInfos.get(k).getDRoomRcdNum() == memberInfoList.get(0).getRoomRcdNum()) {
+                                roomPartyInfos.get(k).setDRoomRcdNum(memberInfoList.get(0).getRoomRcdNum());
+                                roomPartyInfos.get(k).setDRoomPartyList(memberInfoList);
+                                break;
+                            }
+                        }
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), memberInfoList);
+                        roomPartyInfos.add(tempData);
+                    } else {
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), memberInfoList);
+                        roomPartyInfos.add(tempData);
+                    }
+                }
+
+                JSONObject roomInfoJo = new JSONObject(resultsJa.getString(1));
+
+                JSONArray roomInfoJa = roomInfoJo.getJSONArray("room_info_cur");
+
+                for (int i = 0; i < roomInfoJa.length(); i++) {
+                    JSONArray ja = roomInfoJa.getJSONArray(i);
+
+                    for (int j = 0; j < ja.length(); j++) {
+                        JSONObject jo = ja.getJSONObject(j);
+
+                        String rcdNum = jo.getString("rcdno");
+                        String roomName = jo.getString("room_name");
+                        String makingDate = jo.getString("making_date");
+
+                        String tempDate = makingDate.substring(0, 4);
+                        tempDate += makingDate.substring(5, 7);
+                        tempDate += makingDate.substring(8, 10);
+
+                        int roomRcdNum = Integer.parseInt(rcdNum);
+                        int roomDate = Integer.parseInt(tempDate);
+
+
+                        if (!roomInfos.isEmpty()) {
+                            for (int k = 0; k < roomInfos.size(); k++) {
+
+                                if (roomInfos.get(k).getDRoomRcdNum() == roomRcdNum) {
+                                    roomInfos.get(k).setDRoomRcdNum(roomRcdNum);
+                                    roomInfos.get(k).setDRoomName(roomName);
+                                    roomInfos.get(k).setDRoomDate(roomDate);
+                                    break;
+                                }
+                            }
+                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomName));
+                        }else{
+                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomName));
+                        }
+                    }
+
+                }
+            }catch (Exception e){
+
             }
 
-            return jsonHtml.toString();
+            for(int i = 0; i<roomPartyInfos.size(); i++){
+                for(int j = 0; j < roomInfos.size(); j++ ) {
+                    if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum()){
+                        roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(), roomInfos.get(j).getDRoomDate(), roomInfos.get(j).getDRoomName(), roomPartyInfos.get(i).getDRoomPartyList()));
+                    }
+                }
+            }
+
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            System.out.println("this is onPost()" + s);
-            try {
-                JSONObject root = new JSONObject(s);
-                JSONArray partyInfoJa = root.getJSONArray("party_info_cur");
-                JSONArray roomInfoJa = root.getJSONArray("room_info_cur");
-                for(int i=0; i<partyInfoJa.length(); i++){
-                    JSONObject jo = partyInfoJa.getJSONObject(i);
+        protected void onPostExecute(Void unused) {
 
-                }
-            }catch(Exception e){
+            recyclerView.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerLayout.getContext());
+            linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
-            }
-            super.onPostExecute(s);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            RoomListAdapter roomListAdapter = new RoomListAdapter(roomListDatas, recyclerLayout.getContext());
+            recyclerView.setAdapter(roomListAdapter);
+
+            super.onPostExecute(null);
         }
 
+        private String getRoomInfoFromDB(String masterPhoneNum, String phpUrl) {
+            StringBuilder sb = new StringBuilder();
 
-    }
+            try {
 
-    private void getRoomInfoFromDB(String masterPhoneNum, String phpUrl){
-        try{
-            String data = URLEncoder.encode("masterId", "UTF-8")+ "=" + URLEncoder.encode(masterId, "UTF-8");
-            URL urlC = new URL(phpUrl);
-            URLConnection conn = urlC.openConnection();
-            conn.setDoOutput(true);
+                String data = URLEncoder.encode("masterId", "UTF-8") + "=" + URLEncoder.encode("lce6292", "UTF-8");
 
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data);
-            wr.flush();
+                URL urlC = new URL("http://jjunest.cafe24.com/DB/getRoomInfo.php");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                URLConnection conn = urlC.openConnection();
 
-            String line = null;
+                conn.setDoOutput(true);
 
-            while ((line = reader.readLine())!=null){
-                sb.append(line);
-                break;
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write(data);
+                wr.flush();
+
+
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                String line = null;
+
+                while ((line = reader.readLine()) != null) {
+
+                    sb.append(line);
+
+                    break;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            System.out.println("this is response :"+sb);
-
-
-        }catch (Exception e){
-            e.printStackTrace();
+            return sb.toString();
         }
     }
 }

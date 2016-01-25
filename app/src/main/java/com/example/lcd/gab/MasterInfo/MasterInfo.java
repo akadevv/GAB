@@ -7,6 +7,7 @@ public class MasterInfo {
     private String userId;
     private String userPhoneNum;
 
+
     public String getUserId() {
         return userId;
     }

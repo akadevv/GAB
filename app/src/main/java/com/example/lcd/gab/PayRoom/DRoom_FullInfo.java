@@ -8,6 +8,7 @@ import java.util.List;
  * Created by Administrator on 2016-01-15.
  */
 public class DRoom_FullInfo implements Serializable {
+    int DRoomRcdNum;
     String MasterID;
     String MasterPhoneNum;
     String DRoomName;
@@ -16,6 +17,27 @@ public class DRoom_FullInfo implements Serializable {
     List<DRoomItemInfo> DRoomItemList = new ArrayList<DRoomItemInfo>();
     int totalPrice;
     List<DRoomPartyInfo> DRoomPartyList = new ArrayList<DRoomPartyInfo>();
+
+    public DRoom_FullInfo(){ }
+
+    public DRoom_FullInfo(int rcdNum, int roomDate, String roomName){
+        DRoomRcdNum = rcdNum;
+        DRoomDate = roomDate;
+        DRoomName = roomName;
+    }
+
+    public DRoom_FullInfo(int rcdNum, List<DRoomPartyInfo> roomMemberDatas){
+        DRoomRcdNum = rcdNum;
+        DRoomPartyList = roomMemberDatas;
+    }
+
+    public DRoom_FullInfo(int rcdNum, int roomDate, String roomName, List<DRoomPartyInfo> roomMemberDatas){
+        DRoomRcdNum = rcdNum;
+        DRoomDate = roomDate;
+        DRoomName = roomName;
+        DRoomPartyList = roomMemberDatas;
+
+    }
 
     public DRoom_FullInfo(String masterID, String masterPhoneNum, String DRoomName, int DRoomDate, List<DRoomItemInfo> DRoomItemList, int totalPrice, List<DRoomPartyInfo> DRoomPartyList) {
         MasterID = masterID;
@@ -26,6 +48,8 @@ public class DRoom_FullInfo implements Serializable {
         this.totalPrice = totalPrice;
         this.DRoomPartyList = DRoomPartyList;
     }
+
+
 
     public String getMasterID() {
         return MasterID;
@@ -81,5 +105,13 @@ public class DRoom_FullInfo implements Serializable {
 
     public void setDRoomPartyList(List<DRoomPartyInfo> DRoomPartyList) {
         this.DRoomPartyList = DRoomPartyList;
+    }
+
+    public int getDRoomRcdNum() {
+        return DRoomRcdNum;
+    }
+
+    public void setDRoomRcdNum(int DRoomRcdNum) {
+        this.DRoomRcdNum = DRoomRcdNum;
     }
 }
