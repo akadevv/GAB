@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.lcd.gab.ACCESS_TO_DB.Insert_DRoom_FullInfo_DB;
+import com.example.lcd.gab.FriendData_ForSelect.FriendData_ForSelect;
 import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
 import com.example.lcd.gab.Friend_list.FriendData;
 import com.example.lcd.gab.R;
@@ -55,7 +57,7 @@ public class PayRoomMain extends Activity {
     TextView date_textview;
     //java.util.Map.Entry<String,Integer> pair1=new java.util.AbstractMap.SimpleEntry<>("Not Unique key1",1);
     //java.util.List<java.util.Map.Entry<String,Integer>> partyList = new java.util.ArrayList<>(); //(party phonenum, partymoney , party_finished)
-    List<DRoomPartyInfo> DRoom_partyLists = new ArrayList<DRoomPartyInfo>();
+    ArrayList<DRoomPartyInfo> DRoom_partyLists = new ArrayList<DRoomPartyInfo>();
     DRoom_FullInfo DRoom_fullinfo;
     DRoomItemInfo newDroomItem;
     int partyphonenum;
@@ -73,7 +75,7 @@ public class PayRoomMain extends Activity {
     Insert_DRoom_FullInfo_DB InsertRoomInfo;
     //for friends list 부를때 코드
     public static final int FriendListREQUEST_CODE = 2001;
-    List<FriendData> selectedFriendList = new ArrayList<FriendData>();
+    List<FriendData_ForSelect> selectedFriendList = new ArrayList<FriendData_ForSelect>();
     EditText Itemin;
     LinearLayout itemContainer;
     String newitemName_String;
@@ -133,7 +135,7 @@ public class PayRoomMain extends Activity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        //(미완성) textView 에 클릭시, item row 하나씩 추가
+        //item container : 아이템을 하나씩 추가하면, itemcontainer에 item목록이 추가됨
         itemContainer = (LinearLayout)findViewById(R.id.dutchPayItemContainer);
         Itemin = (EditText) findViewById(R.id.newItemName);
         Button ItemAddBT = (Button)findViewById(R.id.newItemAddBT);
@@ -167,6 +169,8 @@ public class PayRoomMain extends Activity {
 
 
         // 더치페이 친구 List 버튼 눌렀을 시에! FriendListMain_ForSelect Activity 를 불러온다
+        // 이 순간, 현재까지 friend container 에 선택된 모든 친구 목록들을 검색해서 FriendListmain_ForSelect 에 넘겨준다
+        // 그래야 선택했던 party 친구들을 선택할 수있게 된다.
         Button FriendListShowBT = (Button)findViewById(R.id.showFriendListBT);
         FriendListShowBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +178,12 @@ public class PayRoomMain extends Activity {
                 //친구 목록 보여주는 Recycler View 로 넘어가고 데이터 받아오기
                 Log.d(log, "Friends List Button clicked");
                 Intent friendList = new Intent(getApplicationContext(), FriendListMain_ForSelect.class);
+                Bundle bundle = new Bundle();
+                //지금까지 선택된 partyList들을 Droom_PartyLists에 넣어주고, 그것을 보낸다.
+                final_DRoom_PartyLists();
+                bundle.putSerializable("selectedParty", DRoom_partyLists);
+
+                friendList.putExtras(bundle);
                 startActivityForResult(friendList, FriendListREQUEST_CODE);
 
 
@@ -263,15 +273,6 @@ public class PayRoomMain extends Activity {
                 }
                 Log.d(log, "this is total price" + totalRoomPrice);
 
-                Log.d(log, "selectedFriendList : size() = " + selectedFriendList.size());
-                for(int i=0; i<selectedFriendList.size();i++){
-                            FriendData selectedFriend = (FriendData)selectedFriendList.get(i);
-                            String friendName = selectedFriend.getName();
-                            String friendPhone = selectedFriend.getPhoneNum();
-                            Log.d(log, "friendName : " +friendName);
-                            Log.d(log,"friendPhone : "+ friendPhone);
-                }
-
                 //최종 선택된 Party Name , 각자 Money 저장; SelectedPartyContainer 뒤져서, 모든 Party 정보, DRoom_PartyLists에 넣어서 만들어준다.
                 final_DRoom_PartyLists();
 
@@ -295,19 +296,19 @@ public class PayRoomMain extends Activity {
                 Log.d(log,"DRoom_itemLists size : "+DRoom_itemLists.size());
                 for(int i=0; i<DRoom_itemLists.size();i++){
                     String DroomITEMname = DRoom_itemLists.get(i).getDRoomitem_name();
-                    Log.d(log,"DRoomItemName" + DroomITEMname);
+                    Log.d(log,"DRoomItemName :" + DroomITEMname);
                     int DroomITEMprice = DRoom_itemLists.get(i).getDRoomitem_price();
-                    Log.d(log,"DRoomItemName" + DroomITEMprice);
+                    Log.d(log,"DRoomItemPrice : " + DroomITEMprice);
                 }
                 Log.d(log,"totalRoomPrice : "+totalRoomPrice);
                 Log.d(log,"DRoom_partyLists size : "+DRoom_partyLists.size());
                 for(int i=0; i<DRoom_partyLists.size();i++){
                     String PartyName = DRoom_partyLists.get(i).getParty_name();
-                    Log.d(log,"PartyName" + PartyName);
+                    Log.d(log,"PartyName : " + PartyName);
                     String PartyPhone = DRoom_partyLists.get(i).getPartyPhonenum();
-                    Log.d(log,"PartyPhone" + PartyPhone);
-                    String PartyPhoneNum = DRoom_partyLists.get(i).getPartyPhonenum();
-                    Log.d(log,"PartyPhoneNum" + PartyPhoneNum);
+                    Log.d(log,"PartyPhone : " + PartyPhone);
+                    int PartyPhoneNum = DRoom_partyLists.get(i).getPartyMoney();
+                    Log.d(log,"PartyMoney : " + PartyPhoneNum);
                 }
 
                 //잠시 전송중단 (임시 주석처리) //
@@ -323,7 +324,7 @@ public class PayRoomMain extends Activity {
 
     }
 
-    //미완성 friend LIST 선택 화면에서 올시에 데이터 처리 과정
+    //friend LIST 선택 화면에서 올시에 데이터 처리 과정
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -334,15 +335,13 @@ public class PayRoomMain extends Activity {
 
                 selectedFriendList.clear();
                 Log.d(log, " When Friend Selection is DONE ! On ActivityResult() called " +logclass);
-                //미완성 인텐트 받아와서,  받은 데이터들을 List<DRoomPartyInfo> DRoom_partyLists = new ArrayList<DRoomPartyInfo>();에 넣어주기
-
                 //FrinedList이니 Bundle로 받아온다.
                 Bundle bundle = data.getExtras();
                 if(bundle!=null){
                     Log.d(log, "bundle exist: "+bundle);
                 }
                 //선택된 친구 List를 selectedFriendList으로 저장
-                selectedFriendList = (List<FriendData>)bundle.getSerializable("SelectedList");
+                selectedFriendList = (List<FriendData_ForSelect>)bundle.getSerializable("SelectedList");
                 for(int i = 0 ; i<selectedFriendList.size();i++){
                     Log.d(log,"selectedFriendlist's name : "+ selectedFriendList.get(i).getName()+logclass);
                     Log.d(log,"selectedFriendlist's phoenum : "+ selectedFriendList.get(i).getPhoneNum()+logclass);
@@ -368,21 +367,27 @@ public class PayRoomMain extends Activity {
                 }
             };
 
-    //(미완성) selectedFriendList를 기준으로 새롭게 PartyContainer에 알맞은 수 만큼 넣어준다.
+    //selectedFriendList를 기준으로 새롭게 PartyContainer에 알맞은 수 만큼 넣어준다.
     private void updatePartyContainer_withOnlyNameAndPhone(){
+        //기존에 있던 Party Container 에 있는 모든 child View 삭제
+        PartyListContainer = (LinearLayout) findViewById(R.id.SelectedPartyContainer);
+        clearImageView(PartyListContainer);
+
         for(int i=0; i<selectedFriendList.size(); i++) {
             final String FriendName = selectedFriendList.get(i).getName();
             final String FriendPhoneNum = selectedFriendList.get(i).getPhoneNum();
+            int FriendMoney = selectedFriendList.get(i).getMoney();
+            String FriendMoney_String = String.valueOf(FriendMoney);
             Log.d(log,"Friend Selected Name"+FriendName +logclass);
             Log.d(log,"Friend Selected Phonenum"+FriendPhoneNum+logclass);
-            PartyListContainer = (LinearLayout) findViewById(R.id.SelectedPartyContainer);
             LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final View addPartyView = layoutInflater.inflate(R.layout.partyrow, null);
             TextView partyName = (TextView)addPartyView.findViewById(R.id.partyNameTextView);
             partyName.setText(FriendName);
             TextView partyPhone = (TextView)addPartyView.findViewById(R.id.partyPhoneNumTextView);
             partyPhone.setText(FriendPhoneNum);
-
+            EditText partyMoney = (EditText)addPartyView.findViewById(R.id.partyMoneyEditView);
+            partyMoney.setText(FriendMoney_String);
             Button removePartyBT = (Button)addPartyView.findViewById(R.id.partyRemoved);
             removePartyBT.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -480,6 +485,7 @@ public class PayRoomMain extends Activity {
     //최종 선택된 Party Name , 각자 Money 저장; SelectedPartyContainer 뒤져서, 모든 Party 정보, DRoom_PartyLists에 넣어서 만들어준다.
     public void final_DRoom_PartyLists(){
         //모든 D_RoomPartyList 를 클리어 시키고 시작한다.
+
         DRoom_partyLists.clear();
 
         PartyListContainer = (LinearLayout) findViewById(R.id.SelectedPartyContainer);
@@ -492,6 +498,10 @@ public class PayRoomMain extends Activity {
             String partyPhoneString = PartyPhoneView.getText().toString();
             EditText PartyMoneyView = (EditText)partyRelativeLayout.findViewById(R.id.partyMoneyEditView);
             String partyMoneyString = PartyMoneyView.getText().toString();
+            //숫자 입력칸 null 방지,
+            if(partyMoneyString.equals("")){
+                partyMoneyString = "0";
+            }
             int partyMoneyInt = Integer.parseInt(partyMoneyString);
             newDroomPartyInfo = new DRoomPartyInfo(partyNameString,partyPhoneString,partyMoneyInt,0);
             DRoom_partyLists.add(newDroomPartyInfo);
@@ -499,5 +509,28 @@ public class PayRoomMain extends Activity {
         }
 
     }
+
+    //모든 child View 를 삭제하는 함수
+    private void clearImageView(ViewGroup v) {
+        boolean doBreak = false;
+        while (!doBreak) {
+            int childCount = v.getChildCount();
+            int i;
+            for(i=0; i<childCount; i++) {
+                View currentChild = v.getChildAt(i);
+                // Change ImageView with your desired type view
+                if (currentChild instanceof RelativeLayout) {
+                    v.removeView(currentChild);
+                    break;
+                }
+            }
+
+            if (i == childCount) {
+                doBreak = true;
+            }
+        }
+    }
+
+
 
 }

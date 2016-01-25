@@ -28,7 +28,8 @@
         <activity android:name=".MainPage.MainPager" />
         <activity android:name=".jjunest.registerMain" />
         <activity android:name=".jjunest.test_getmyphonenumber" />
-        <activity android:name =".PayRoom.PayRoomMain"/>
+        <activity android:name =".PayRoom.PayRoomMain"
+            android:exported="true"/>   <!--android:exported="true"/>-->
         <activity android:name =".TransferRoom.TransferRoomMain"/>
         <activity android:name=".PayRoom.inviteParty"/>
         <activity android:name=".FriendData_ForSelect.FriendListMain_ForSelect"/>
