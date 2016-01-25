@@ -1,12 +1,13 @@
 package com.example.lcd.gab.PayRoom;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016-01-15.
  */
-public class DRoomPartyInfo {
-    String party_name;
+public class DRoomPartyInfo implements Serializable{
+    String party_name; //파티원 이름
     String partyPhonenum; //파티원 폰번호
     int partyMoney; //갚아야할 금액
     int party_finished;//0이면 미정산, 1이면 정산완료

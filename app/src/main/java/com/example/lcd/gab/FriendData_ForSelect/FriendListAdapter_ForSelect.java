@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class FriendListAdapter_ForSelect extends RecyclerView.Adapter<FriendListAdapter_ForSelect.ListViewHolder> {
     public static String log = "jjunest";
     private Context mContext;
-    private ArrayList<FriendData> mFriendDataList;
-    private static ArrayList<FriendData> filteredDataList = new ArrayList<>();
+    private static ArrayList<FriendData_ForSelect> mFriendDataList;
+   // private static ArrayList<FriendData_ForSelect> filteredDataList = new ArrayList<>();
 
-    public FriendListAdapter_ForSelect(Context mContext, ArrayList<FriendData> mFriendDataList) {
+    public FriendListAdapter_ForSelect(Context mContext, ArrayList<FriendData_ForSelect> mFriendDataList) {
         this.mContext = mContext;
         this.mFriendDataList = mFriendDataList;
     }
@@ -50,34 +50,33 @@ public class FriendListAdapter_ForSelect extends RecyclerView.Adapter<FriendList
             super(v);
             vName = (TextView) v.findViewById(R.id.name);
             vPhone = (TextView) v.findViewById(R.id.phone_number);
-            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.FriendSearchLayout);
+            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.FriendSearchLayout_ForSelect);
             friendSelected = (CheckBox)v.findViewById(R.id.FriendCheckBOX);
         }
     }
 
     @Override
-    public void onBindViewHolder(FriendListAdapter_ForSelect.ListViewHolder listViewHolder, int position) {
-        final FriendData friendData = mFriendDataList.get(position);
+    public void onBindViewHolder(FriendListAdapter_ForSelect.ListViewHolder listViewHolder, final int position) {
+        //어뎁터에서 넘어온 데이터를 바탕으로, recycler View에 알맞게 넣어준다.
+        final FriendData_ForSelect friendData = mFriendDataList.get(position);
         listViewHolder.vName.setText(friendData.getName());
         listViewHolder.vPhone.setText(friendData.getPhoneNum());
+        listViewHolder.friendSelected.setChecked(friendData.getSelected());
+
         listViewHolder.friendSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                if(cb.isChecked()) {
-                    Log.d(log, "this is checkbox clicked");
-                    filteredDataList.add(friendData);
-                }else{
-                    Log.d(log, "this is not checkbox clicked");
-                    filteredDataList.remove(friendData);
-                }
 
+                CheckBox cb = (CheckBox) v;
+                mFriendDataList.get(position).setSelected(cb.isChecked());
+                Log.d(log, "checkbox clicked name :" + mFriendDataList.get(position).getName());
+                Log.d(log, "checkbox clicked state :" + mFriendDataList.get(position).getSelected());
             }
         });
 
     }
 
-    public static ArrayList<FriendData> getFilteredDataList(){
-        return filteredDataList;
+    public static ArrayList<FriendData_ForSelect> getFilteredDataList(){
+        return mFriendDataList;
     }
 }

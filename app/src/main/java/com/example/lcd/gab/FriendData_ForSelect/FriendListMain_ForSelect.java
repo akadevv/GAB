@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.Friend_list.FriendData;
+import com.example.lcd.gab.Friend_list.FriendListAdapter;
 import com.example.lcd.gab.Friend_list.InitialSoundSearcher_ForFriendList;
+import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -24,16 +26,19 @@ import java.util.ArrayList;
  * Created by Administrator on 2016-01-17.
  */
 public class FriendListMain_ForSelect extends Activity{
+    private String logclass = " |in FriendListMain_ForSelect.java| ";
     public static String log = "jjunest";
-    private ArrayList<FriendData> friendDataList;
-    private ArrayList<FriendData> list = new ArrayList<>();
-    private FriendData friendData;
+    private ArrayList<FriendData_ForSelect> friendDataList;
+    private ArrayList<FriendData_ForSelect> list = new ArrayList<FriendData_ForSelect>();
+    private FriendData_ForSelect friendData;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private FriendListAdapter_ForSelect friendListAdapterForSelect;
     private android.widget.SearchView searchView;
     private RelativeLayout recyclerLayout;
-    private ArrayList<FriendData> filteredDataList = new ArrayList<FriendData>();
+    private ArrayList<FriendData_ForSelect> filteredDataList = new ArrayList<FriendData_ForSelect>();
+    private ArrayList<FriendData_ForSelect> selectedDataAllList = new ArrayList<FriendData_ForSelect>();
+    private ArrayList<DRoomPartyInfo> fromPayRoomPartyList = new ArrayList<>();
     Context ListContext;
 
     @Override
@@ -41,11 +46,12 @@ public class FriendListMain_ForSelect extends Activity{
         super.onCreate(savedInstanceState);
         Log.d(log, "Friendist For Select Oncreate()1 in FriendListMain_ForSelect.java");
         //시작할때 filteredDataList 클리어해준다.
-        filteredDataList.clear();
+        Log.d(log, "filteredDataList size = " + filteredDataList.size() + logclass);
+        Log.d(log, "filteredDataList size after = " + filteredDataList.size()+logclass);
 
         setContentView(R.layout.friend_list_main_for_select);
-        recyclerLayout = (RelativeLayout)findViewById(R.id.FriendSearchLayout);
-        recyclerView = (RecyclerView)findViewById(R.id.friend_recycler_view);
+        recyclerLayout = (RelativeLayout)findViewById(R.id.FriendSearchLayout_ForSelect);
+        recyclerView = (RecyclerView)findViewById(R.id.friend_recycler_view_ForSelect);
         searchView = (android.widget.SearchView) findViewById(R.id.friend_search_view);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -58,12 +64,28 @@ public class FriendListMain_ForSelect extends Activity{
 
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
+        //처음 만들 떄는 모든 PhonenumList를 friendDataList에 집어 넣는다.
         getPhoneNumList();
-        Log.d(log,"friendDataList size :" +friendDataList.size());
-//        for(int i =0; i<friendDataList.size();i++){
-//            Log.d(log,"this is friendname :"+ friendDataList.get(i).getName());
-//            Log.d(log,"this is phonenm :"+ friendDataList.get(i).getPhoneNum());
-//        }
+
+
+        //(미완성) Intent 로 온 미리 선택된 party List를 검색해서, 내가 가지고 있는 friendDataList의 phoneNum Num과 같으면,
+        // 그 부분을 selected로 바꾸어준다.
+        Intent intent = getIntent();
+        if(intent!=null) {
+            Bundle bundle = intent.getExtras();
+            fromPayRoomPartyList = (ArrayList<DRoomPartyInfo>) bundle.getSerializable("selectedParty");
+            for (int i = 0; i < fromPayRoomPartyList.size(); i++) {
+                for (int j = 0; j < friendDataList.size(); j++) {
+                    //만약 fromPayRoomList에서 온 phoneNum 과 friendData 에 있는 phoneNu을 검색해서, 매칭하는 것은 selected를 true로 바꾼다.
+                    if (fromPayRoomPartyList.get(i).getPartyPhonenum().equals(friendDataList.get(j).getPhoneNum())) {
+                        friendDataList.get(j).setMoney(fromPayRoomPartyList.get(i).getPartyMoney());
+                        friendDataList.get(j).setSelected(true);
+                    }
+
+                }
+
+            }
+        }
 
         friendListAdapterForSelect = new FriendListAdapter_ForSelect(getApplicationContext(),friendDataList);
         recyclerView.setAdapter(friendListAdapterForSelect);
@@ -76,10 +98,25 @@ public class FriendListMain_ForSelect extends Activity{
         FriendListSelectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //클릭 시 인텐트에 데이터 넣어주고 끝내기
-                filteredDataList = FriendListAdapter_ForSelect.getFilteredDataList();
+                // 모든 친구목록을 recycler view에 넣어준 후, recyclerView 에서 선택된 친구들을 검색한다.
+                friendListAdapterForSelect = new FriendListAdapter_ForSelect(getApplicationContext(),friendDataList);
+                recyclerView.setAdapter(friendListAdapterForSelect);
+
+
+                    //인텐트에 넣어서 PayRoomMain에 보내주기
                 Intent PartySelectResultIntent = new Intent();
                 Bundle bundle = new Bundle();
+                selectedDataAllList = ((FriendListAdapter_ForSelect)friendListAdapterForSelect).getFilteredDataList();
+                    //selected 된 friendData 만을 검색해서 다른 activity에 보내준다.
+                int filterCounter = selectedDataAllList.size();
+                for (int i=0; i<filterCounter;i++){
+                    if(selectedDataAllList.get(i).getSelected()){
+                        Log.d(log,"this is selectedDataAllList : name in FriendListSelectionButtonClicked : "+ selectedDataAllList.get(i).getName());
+                        filteredDataList.add(selectedDataAllList.get(i));
+                    };
+
+                }
+
                 bundle.putSerializable("SelectedList", filteredDataList);
                 PartySelectResultIntent.putExtras(bundle);
                 setResult(RESULT_OK,PartySelectResultIntent); //응답 보내주기 (to PayRoomMain Activity)
@@ -98,15 +135,26 @@ public class FriendListMain_ForSelect extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(log,"this is onResume() in FriendListMain_ForSelect in FriendListMain_ForSelect.java");
+        Log.d(log,"filteredDataList size = "+filteredDataList.size()+logclass);
+
     }
 
     android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
         @Override
         public boolean onQueryTextChange(String query){
+            selectedDataAllList = ((FriendListAdapter_ForSelect)friendListAdapterForSelect).getFilteredDataList();
+            Log.d(log,"This is onQueryText changed");
+            int filterCounter = selectedDataAllList.size();
+            for (int i=0; i<filterCounter;i++){
+                if(selectedDataAllList.get(i).getSelected()){
+                    Log.d(log,"this is selectedDataAllList : name : "+ selectedDataAllList.get(i).getName());
+                };
+
+            }
+
             Log.d(log, "Search Text Changed 1in FriendListMain_ForSelect.java");
             query = query.toLowerCase();
-            final ArrayList<FriendData> filteredList = new ArrayList<>();
+            final ArrayList<FriendData_ForSelect> filteredList = new ArrayList<>();
             Log.d(log, "Search Text Changed 2");
             for(int i=0; i< friendDataList.size(); i++){
                 final String name = friendDataList.get(i).getName().toLowerCase();
@@ -123,16 +171,13 @@ public class FriendListMain_ForSelect extends Activity{
             }
             Log.d(log, "Search Text Changed 3 in FriendListMain_ForSelect.java");
             mLayoutManager = new LinearLayoutManager(ListContext);
-            Log.d(log, "Friendist For Select Oncreate()2.2 in FriendListMain_ForSelect.java");
             recyclerView.setLayoutManager(mLayoutManager);
-            Log.d(log, "Friendist For Select Oncreate()2.3 in FriendListMain_ForSelect.java");
             mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-            Log.d(log, "Friendist For Select Oncreate()2.4 in FriendListMain_ForSelect.java");
+            //여기서 Adapter Select의 getFilteredDaaList가 달라진다.//선택완룔ㄹ 할 시에, 모든
             friendListAdapterForSelect = new FriendListAdapter_ForSelect(ListContext,filteredList);
             recyclerView.setAdapter(friendListAdapterForSelect);
+
             friendListAdapterForSelect.notifyDataSetChanged();
-
-
 
 
             return true;
@@ -154,13 +199,13 @@ public class FriendListMain_ForSelect extends Activity{
 
                 if (cursor.getString(1) != null) {
                     if (list.size()==0) {
-                        friendData = new FriendData();
+                        friendData = new FriendData_ForSelect();
                         friendData.setName(cursor.getString(0));
                         friendData.setPhoneNum(cursor.getString(1));
                         list.add(friendData);
                     } else {
                         if (!list.get(list.size() - 1).getPhoneNum().equals(cursor.getString(1))) {
-                            friendData = new FriendData();
+                            friendData = new FriendData_ForSelect();
                             friendData.setName(cursor.getString(0));
                             friendData.setPhoneNum(cursor.getString(1));
                             list.add(friendData);
@@ -173,7 +218,7 @@ public class FriendListMain_ForSelect extends Activity{
         cursor = null;
     }
 
-    public ArrayList<FriendData> getFriendDataList(){
+    public ArrayList<FriendData_ForSelect> getFriendDataList(){
         return friendDataList;
     }
 

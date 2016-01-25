@@ -1,12 +1,14 @@
 package com.example.lcd.gab.PayRoom;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016-01-15.
  */
 
 //item for _ (party phonenum, partymoney , party_finished)
 
-public class DRoomItemInfo {
+public class DRoomItemInfo implements Serializable{
     String DRoomitem_name;
     int DRoomitem_price;
 
