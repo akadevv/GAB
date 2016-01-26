@@ -12,7 +12,7 @@
         android:text="ROOM NAME"
         android:textSize="16dp"
         android:textColor="#000"
-        android:padding="7dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/room_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -26,7 +26,7 @@
         android:text="날짜"
         android:textSize="16dp"
         android:textColor="#000"
-        android:padding="7dp"
+        android:layout_margin="10dp"
         android:id="@+id/room_date"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -39,9 +39,21 @@
         android:textColor="#000"
         android:textSize="16dp"
         android:id="@+id/room_member"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/phone_number"
-        android:layout_toEndOf="@+id/phone_number" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="임시 수정"
+        android:id="@+id/button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp" />
 
 
 </RelativeLayout>

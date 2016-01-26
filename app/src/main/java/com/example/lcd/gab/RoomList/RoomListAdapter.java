@@ -1,13 +1,16 @@
 package com.example.lcd.gab.RoomList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
+import com.example.lcd.gab.PayRoom.PayRoomMainPage;
 import com.example.lcd.gab.R;
 
 import java.util.List;
@@ -41,8 +44,15 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
                 memberName = memberName + roomListData.getDRoomPartyList().get(i).getParty_name() +",";
             else
                 memberName = memberName + roomListData.getDRoomPartyList().get(i).getParty_name();
-
         listViewHolder.vRoomMember.setText(memberName);
+
+        listViewHolder.vRoomListItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PayRoomMainPage.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,12 +66,14 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
         protected TextView vRoomName;
         protected TextView vRoomDate;
         protected TextView vRoomMember;
+        protected RelativeLayout vRoomListItem;
 
         public ListViewHolder(View v){
             super(v);
             vRoomName = (TextView)v.findViewById(R.id.room_name);
             vRoomDate = (TextView)v.findViewById(R.id.room_date);
             vRoomMember = (TextView)v.findViewById(R.id.room_member);
+            vRoomListItem = (RelativeLayout) v.findViewById(R.id.room_recyclerview_item);
         }
 
     }

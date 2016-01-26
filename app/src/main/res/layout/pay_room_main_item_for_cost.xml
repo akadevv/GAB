@@ -13,20 +13,28 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:text="Item"
+            android:layout_weight="3"
+            android:text="Member"
             android:gravity="center"
-            android:textColor="#000000"
+            android:textColor="#000"
             />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:text="price"
-            android:gravity="end|center"
-            android:layout_marginRight="10dp"
-            android:textColor="#000000"
+            android:layout_weight="4"
+            android:text="Cost"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="Finished or not"
+            android:gravity="center"
+            android:textColor="#000"
             />
 
     </LinearLayout>
