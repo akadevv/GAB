@@ -94,6 +94,25 @@
         android:layout_gravity="center_horizontal">
 
     </Button>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/MasterContainer">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/MasterNameTextView"
+            android:text = "내 이름 "/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/MasterMoneyEditText"
+                android:hint = "내가 내는 금액"/>
+
+
+        </LinearLayout>
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

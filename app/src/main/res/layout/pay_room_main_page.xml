@@ -85,7 +85,7 @@
         android:layout_height="0dp"
         android:layout_weight="40"
         android:orientation="vertical"
-        android:weightSum="10dp">
+        android:weightSum="10">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
