@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price List"
+                android:text="Member and Cost List"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -103,10 +103,48 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="Member"
+                android:gravity="center"
+                android:textColor="#ffff"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="Cost"
+                android:gravity="center"
+                android:textColor="#ffff"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="Finished or not"
+                android:gravity="center"
+                android:textColor="#ffff"
+                />
+
+
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"
+            android:layout_weight="8"
             />
 
     </LinearLayout>
@@ -120,8 +158,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
+            android:text="History"
+            android:id="@+id/history_button"
             android:layout_marginLeft="50dp"
             android:layout_marginStart="50dp"
             android:layout_alignParentBottom="true"
@@ -132,8 +170,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button4"
+            android:text="Modify"
+            android:id="@+id/modify_button"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"

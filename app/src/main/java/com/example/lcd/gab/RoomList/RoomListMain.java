@@ -36,7 +36,7 @@ public class RoomListMain extends Fragment{
     private String masterId = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
-    private ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
+    private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
     private android.widget.SearchView searchView;
 
     @Override
@@ -125,7 +125,6 @@ public class RoomListMain extends Fragment{
 
                 JSONObject partyInfoJo = new JSONObject(resultsJa.getString(0));
                 JSONArray partyInfoJa = partyInfoJo.getJSONArray("party_info_cur");
-
 
                 for (int i = 0; i < partyInfoJa.length(); i++) {
                     JSONArray ja = partyInfoJa.getJSONArray(i);
@@ -273,5 +272,9 @@ public class RoomListMain extends Fragment{
             }
             return sb.toString();
         }
+    }
+
+    public static ArrayList<DRoom_FullInfo> getRoomListDatas(){
+        return roomListDatas;
     }
 }
