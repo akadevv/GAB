@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.lcd.gab.PayRoom.PayRoomMain;
+import com.example.lcd.gab.PayRoom.PayRoomMakingPage;
 import com.example.lcd.gab.R;
 import com.example.lcd.gab.TransferRoom.TransferRoomMain;
 import com.viewpagerindicator.UnderlinePageIndicator;
@@ -97,7 +97,7 @@ public class MainPager extends FragmentActivity {
                     payRoomText.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), PayRoomMain.class);
+                            Intent intent = new Intent(getApplicationContext(), PayRoomMakingPage.class);
                             startActivity(intent);
 
                         }

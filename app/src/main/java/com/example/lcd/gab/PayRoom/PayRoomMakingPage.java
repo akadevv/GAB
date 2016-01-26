@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.example.lcd.gab.ACCESS_TO_DB.Insert_DRoom_FullInfo_DB;
 import com.example.lcd.gab.FriendData_ForSelect.FriendData_ForSelect;
 import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
-import com.example.lcd.gab.Friend_list.FriendData;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -31,8 +30,8 @@ import java.util.List;
 /**
  * Created by LCD on 2016-01-11.
  */
-public class PayRoomMain extends Activity {
-    String logclass= "| in PayRoomMain.java |";
+public class PayRoomMakingPage extends Activity {
+    String logclass= "| in PayRoomMain |";
     Context PayRoomContext;
     Activity PayRoomActivity;
     Dialog calendarDialog;
@@ -85,7 +84,7 @@ public class PayRoomMain extends Activity {
 
     @Override //다시 불러졌을때, 모든 정보들 삭제
     protected void onResume() {
-        Log.d(log, "this is onResume() called in PayRoomMain.java");
+        Log.d(log, "this is onResume() called in PayRoomMain");
         super.onResume();
         selectedFriendList.clear();
         DRoom_partyLists.clear();
@@ -118,7 +117,7 @@ public class PayRoomMain extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pay_room);
+        setContentView(R.layout.pay_room_making_page);
 
         //기존에 선택되있던 친구 목록들 삭제
         selectedFriendList.clear();

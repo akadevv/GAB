@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.lcd.gab.PayRoom.PayRoomMain;
+import com.example.lcd.gab.PayRoom.PayRoomMakingPage;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         payRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, PayRoomMain.class);
+                Intent intent = new Intent(mContext, PayRoomMakingPage.class);
                 mContext.startActivity(intent);
             }
         });
