@@ -12,7 +12,7 @@ public class DRoom_FullInfo implements Serializable {
     String MasterID;
     String MasterPhoneNum;
     String DRoomName;
-
+    int DRoomFinished=0;
     int DRoomDate;
     List<DRoomItemInfo> DRoomItemList = new ArrayList<DRoomItemInfo>();
     int totalPrice;
@@ -50,6 +50,26 @@ public class DRoom_FullInfo implements Serializable {
     }
 
 
+    public DRoom_FullInfo(int DRoomRcdNum, String masterID, String masterPhoneNum, String DRoomName, int DRoomFinished, int DRoomDate, List<DRoomItemInfo> DRoomItemList, int totalPrice, List<DRoomPartyInfo> DRoomPartyList) {
+        this.DRoomRcdNum = DRoomRcdNum;
+        MasterID = masterID;
+        MasterPhoneNum = masterPhoneNum;
+        this.DRoomName = DRoomName;
+        this.DRoomFinished = DRoomFinished;
+        this.DRoomDate = DRoomDate;
+        this.DRoomItemList = DRoomItemList;
+        this.totalPrice = totalPrice;
+        this.DRoomPartyList = DRoomPartyList;
+    }
+
+
+    public int getDRoomFinished() {
+        return DRoomFinished;
+    }
+
+    public void setDRoomFinished(int DRoomFinished) {
+        this.DRoomFinished = DRoomFinished;
+    }
 
     public String getMasterID() {
         return MasterID;
