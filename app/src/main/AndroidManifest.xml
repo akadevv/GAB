@@ -30,6 +30,7 @@
         <activity android:name=".jjunest.test_getmyphonenumber" />
         <activity android:name =".PayRoom.PayRoomMakingPage"
             android:exported="true"/>   <!--android:exported="true"/>-->
+        <activity android:name =".PayRoom.PayRoomMainPage"/>
         <activity android:name =".TransferRoom.TransferRoomMain"/>
         <activity android:name=".PayRoom.inviteParty"/>
         <activity android:name=".FriendData_ForSelect.FriendListMain_ForSelect"/>

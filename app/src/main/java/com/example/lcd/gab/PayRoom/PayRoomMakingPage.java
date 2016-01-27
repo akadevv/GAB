@@ -80,6 +80,9 @@ public class PayRoomMakingPage extends Activity {
     String newitemName_String;
     String newitemPrice_String;
     int newitemPrice_Int;
+    TextView MasterNameText;
+    EditText MasterMoneyEdit;
+    int MasterMoney;
     LinearLayout PartyListContainer;
 
     @Override //다시 불러졌을때, 모든 정보들 삭제
@@ -118,6 +121,12 @@ public class PayRoomMakingPage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_room_making_page);
+
+        //MasterContainer 의 정보를 수정
+        MasterNameText = (TextView)findViewById(R.id.MasterNameTextView);
+        MasterNameText.setText("김준혁"); //해당 부분은 본인의 이름
+        MasterMoneyEdit = (EditText)findViewById(R.id.MasterMoneyEditText);
+
 
         //기존에 선택되있던 친구 목록들 삭제
         selectedFriendList.clear();
@@ -240,7 +249,7 @@ public class PayRoomMakingPage extends Activity {
                 //아이템 추가된 것 찾고, 아이템 이름 및 아이템 가격 넣기
                 itemContainer = (LinearLayout)findViewById(R.id.dutchPayItemContainer);
                 int itemCounter = itemContainer.getChildCount();
-                Log.d(log,"this is itemCounter : " + itemCounter);
+                Log.d(log, "this is itemCounter : " + itemCounter);
                 for(int i =0; i<itemCounter; i++){
 
                     String getTag = (String)itemContainer.getChildAt(i).getTag();
@@ -275,12 +284,14 @@ public class PayRoomMakingPage extends Activity {
                 //최종 선택된 Party Name , 각자 Money 저장; SelectedPartyContainer 뒤져서, 모든 Party 정보, DRoom_PartyLists에 넣어서 만들어준다.
                 final_DRoom_PartyLists();
 
+                //마지막에 방 주인의 정보를 넣어준다. DRoom_partLists에도 추가해준다. .
+                masterID = MasterNameText.getText().toString();
+                masterPhoneNum = "01072729771"; //이미 master폰번호
+                MasterMoney = Integer.valueOf(MasterMoneyEdit.getText().toString());
+                newDroomPartyInfo = new DRoomPartyInfo(masterID,masterPhoneNum,MasterMoney,1);
+                DRoom_partyLists.add(newDroomPartyInfo);
 
 
-
-                //임의로 정한 masterID & Phonenum
-                masterID="jjunest";
-                masterPhoneNum = "01072729771";
 
                 //전송할 Droom_full_info 생성
                 DRoom_fullinfo = new DRoom_FullInfo(masterID,masterPhoneNum,roomname,roomdate_int,DRoom_itemLists,totalRoomPrice,DRoom_partyLists);
@@ -310,9 +321,12 @@ public class PayRoomMakingPage extends Activity {
                     Log.d(log,"PartyMoney : " + PartyPhoneNum);
                 }
 
-                //잠시 전송중단 (임시 주석처리) //
-//                new InsertDRoomFullToDB().execute(DRoom_fullinfo);
-                Log.d(log,"방만들기 버튼 클릭 완료 후 ");
+               // DB에 전송 후 mainPage로 이동 & 끝내기
+                new InsertDRoomFullToDB().execute(DRoom_fullinfo);
+                Log.d(log, "방만들기 버튼 클릭 완료 후 ");
+                Intent To_PayRoomMain_intent =   new Intent(getApplicationContext(), PayRoomMainPage.class);
+                startActivity(To_PayRoomMain_intent);
+                finish();
 
             }
         });
