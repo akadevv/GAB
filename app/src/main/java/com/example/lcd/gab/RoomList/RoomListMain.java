@@ -115,43 +115,57 @@ public class RoomListMain extends Fragment{
 
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
-
+            ArrayList<DRoom_FullInfo> roomItemInfos = new ArrayList<>();
+            Log.d(log, "zzzzzzzzzzzzzzzzz");
             try {
-
-
                 JSONObject root = new JSONObject(content);
-
+                Log.d(log, "zzzzzzzzzzzzzzzzz");
                 JSONArray resultsJa = root.getJSONArray("results");
+
+                /*------------------------------------------------------------------------------------*/
+                //dutch_partyinfo_cur json type parsing
 
                 JSONObject partyInfoJo = new JSONObject(resultsJa.getString(0));
                 JSONArray partyInfoJa = partyInfoJo.getJSONArray("party_info_cur");
 
                 for (int i = 0; i < partyInfoJa.length(); i++) {
                     JSONArray ja = partyInfoJa.getJSONArray(i);
+                    int totalCost=0;
                     ArrayList<DRoomPartyInfo> memberInfoList = new ArrayList<>();
 
-
                     for (int j = 0; j < ja.length(); j++) {
-
+                        Log.d(log, "1");
                         JSONObject jo = ja.getJSONObject(j);
 
                         DRoomPartyInfo memberInfo = new DRoomPartyInfo();
-
-
+                        Log.d(log, "2");
                         String rcdNum = jo.getString("room_rcdnum");
+                        Log.d(log, "3");
                         String memberName = jo.getString("member_name");
+                        Log.d(log, "4");
                         String memberPhoneNum = jo.getString("member_phonenum");
+                        Log.d(log, "5");
+                        String costS = jo.getString("cost");
+                        Log.d(log, "6");
+                        String finishS = jo.getString("finished or not");
+                        Log.d(log, "7");
 
                         int roomRcdNum = Integer.parseInt(rcdNum);
+                        int cost = Integer.parseInt(costS);
+                        int finish = Integer.parseInt(finishS);
 
-                        memberInfo.setRoomRcdNum(roomRcdNum);
-                        memberInfo.setParty_name(memberName);
-                        memberInfo.setPartyPhonenum(memberPhoneNum);
+                        totalCost += cost;
 
-                        memberInfoList.add(memberInfo);
+//                      memberInfo.setRoomRcdNum(roomRcdNum);
+//                      memberInfo.setParty_name(memberName);
+//                      memberInfo.setPartyPhonenum(memberPhoneNum);
+//                      memberInfo.setPartyMoney(cost);
+//                      memberInfo.setParty_finished(finish);
+
+//                        memberInfoList.add(memberInfo);
                     }
 
-                    if (!roomPartyInfos.isEmpty()) {
+       /*             if (!roomPartyInfos.isEmpty()) {
                         for (int k = 0; k < roomPartyInfos.size(); k++) {
 
                             if (roomPartyInfos.get(k).getDRoomRcdNum() == memberInfoList.get(0).getRoomRcdNum()) {
@@ -160,20 +174,24 @@ public class RoomListMain extends Fragment{
                                 break;
                             }
                         }
-                        DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), memberInfoList);
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), totalCost, memberInfoList);
                         roomPartyInfos.add(tempData);
                     } else {
-                        DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), memberInfoList);
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), totalCost, memberInfoList);
                         roomPartyInfos.add(tempData);
-                    }
+                    }*/
                 }
 
-                JSONObject roomInfoJo = new JSONObject(resultsJa.getString(1));
+                /*-----------------------------------------------------------------------------------------*/
+                //dutch_roominfo_cur json type parsing
+
+          /*      JSONObject roomInfoJo = new JSONObject(resultsJa.getString(1));
 
                 JSONArray roomInfoJa = roomInfoJo.getJSONArray("room_info_cur");
 
                 for (int i = 0; i < roomInfoJa.length(); i++) {
                     JSONArray ja = roomInfoJa.getJSONArray(i);
+
 
                     for (int j = 0; j < ja.length(); j++) {
                         JSONObject jo = ja.getJSONObject(j);
@@ -181,6 +199,9 @@ public class RoomListMain extends Fragment{
                         String rcdNum = jo.getString("rcdno");
                         String roomName = jo.getString("room_name");
                         String makingDate = jo.getString("making_date");
+                        String finishS = jo.getString("room_finished");
+                        String masterName = jo.getString("master_name");
+                        String masterPhoneNum = jo.getString("master_phone");
 
                         String tempDate = makingDate.substring(0, 4);
                         tempDate += makingDate.substring(5, 7);
@@ -188,6 +209,7 @@ public class RoomListMain extends Fragment{
 
                         int roomRcdNum = Integer.parseInt(rcdNum);
                         int roomDate = Integer.parseInt(tempDate);
+                        int roomFinish = Integer.parseInt(finishS);
 
 
                         if (!roomInfos.isEmpty()) {
@@ -197,27 +219,78 @@ public class RoomListMain extends Fragment{
                                     roomInfos.get(k).setDRoomRcdNum(roomRcdNum);
                                     roomInfos.get(k).setDRoomName(roomName);
                                     roomInfos.get(k).setDRoomDate(roomDate);
+                                    roomInfos.get(k).setMasterID(masterName);
+                                    roomInfos.get(k).setDRoomFinished(roomFinish);
+                                    roomInfos.get(k).setMasterPhoneNum(masterPhoneNum);
                                     break;
                                 }
                             }
-                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomName));
+                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomFinish,masterName, masterPhoneNum, roomName));
                         }else{
-                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomName));
+                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomFinish,masterName, masterPhoneNum, roomName));
                         }
                     }
 
-                }
+                }*/
+
+                /*----------------------------------------------------------------------------------------*/
+                //dutch_iteminfo_cur json type parsing
+
+       /*         JSONObject itemInfoJo = new JSONObject(resultsJa.getString(2));
+
+                JSONArray itemInfoJa = itemInfoJo.getJSONArray("item_info_cur");
+
+                for (int i = 0; i < itemInfoJa.length(); i++) {
+                    JSONArray ja = itemInfoJa.getJSONArray(i);
+                    int totalPrice=0;
+                    ArrayList<DRoomItemInfo> itemInfoList = new ArrayList<>();
+
+                    for (int j = 0; j < ja.length(); j++) {
+                        JSONObject jo = ja.getJSONObject(j);
+
+                        DRoomItemInfo itemInfo = new DRoomItemInfo();
+
+                        String rcdNum = jo.getString("room_rcdnum");
+                        String item = jo.getString("item");
+                        String priceS = jo.getString("price");
+
+                        int roomRcdNum = Integer.parseInt(rcdNum);
+                        int price = Integer.parseInt(priceS);
+                        totalPrice += price;
+
+                        itemInfo.setDRoomitem_name(item);
+                        itemInfo.setDRoomitem_price(price);
+                        itemInfo.setDRoomitem_roomRcdNum(roomRcdNum);
+
+                        itemInfoList.add(itemInfo);
+
+
+                    }
+
+                    if (!roomItemInfos.isEmpty()) {
+                        for (int k = 0; k < roomItemInfos.size(); k++) {
+                            if (roomItemInfos.get(k).getDRoomRcdNum() == itemInfoList.get(0).getDRoomitem_roomRcdNum()) {
+                                roomItemInfos.get(k).setDRoomRcdNum(itemInfoList.get(0).getDRoomitem_roomRcdNum());
+                                roomItemInfos.get(k).setDRoomItemList(itemInfoList);
+                                break;
+                            }
+                        }
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(itemInfoList.get(0).getDRoomitem_roomRcdNum(),totalPrice, itemInfoList);
+                        roomItemInfos.add(tempData);
+                    }else{
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(itemInfoList.get(0).getDRoomitem_roomRcdNum(), totalPrice, itemInfoList);
+                        roomItemInfos.add(tempData);
+                    }
+                }*/
             }catch (Exception e){
 
             }
 
-            for(int i = 0; i<roomPartyInfos.size(); i++){
-                for(int j = 0; j < roomInfos.size(); j++ ) {
-                    if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum()){
-                        roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(), roomInfos.get(j).getDRoomDate(), roomInfos.get(j).getDRoomName(), roomPartyInfos.get(i).getDRoomPartyList()));
-                    }
-                }
-            }
+            for(int i = 0; i<roomPartyInfos.size(); i++)
+                for(int j = 0; j < roomInfos.size(); j++ )
+                    for(int k = 0; k < roomItemInfos.size(); k++)
+                        if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum() || roomPartyInfos.get(i).getDRoomRcdNum() == roomItemInfos.get(k).getDRoomRcdNum())
+                            roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(),roomInfos.get(j).getMasterID(),roomInfos.get(j).getMasterPhoneNum(),roomInfos.get(j).getDRoomName(), roomInfos.get(j).getDRoomDate(), roomItemInfos.get(k).getDRoomItemList(),roomItemInfos.get(k).getTotalPrice(), roomPartyInfos.get(i).getDRoomPartyList()));
 
             return null;
         }
@@ -240,7 +313,6 @@ public class RoomListMain extends Fragment{
             StringBuilder sb = new StringBuilder();
 
             try {
-
                 String data = URLEncoder.encode("masterId", "UTF-8") + "=" + URLEncoder.encode("lce6292", "UTF-8");
 
                 URL urlC = new URL("http://jjunest.cafe24.com/DB/getRoomInfo.php");
@@ -253,8 +325,6 @@ public class RoomListMain extends Fragment{
 
                 wr.write(data);
                 wr.flush();
-
-
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -277,4 +347,6 @@ public class RoomListMain extends Fragment{
     public static ArrayList<DRoom_FullInfo> getRoomListDatas(){
         return roomListDatas;
     }
+
+
 }

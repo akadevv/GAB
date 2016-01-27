@@ -9,6 +9,7 @@ import java.io.Serializable;
 //item for _ (party phonenum, partymoney , party_finished)
 
 public class DRoomItemInfo implements Serializable{
+    int DRoomitem_roomRcdNum;
     String DRoomitem_name;
     int DRoomitem_price;
 
@@ -17,6 +18,14 @@ public class DRoomItemInfo implements Serializable{
     public DRoomItemInfo(String DRoomitem_name, int DRoomitem_price) {
         this.DRoomitem_name = DRoomitem_name;
         this.DRoomitem_price = DRoomitem_price;
+    }
+
+    public void setDRoomitem_roomRcdNum(int DRoomitem_roomRcdNum) {
+        this.DRoomitem_roomRcdNum = DRoomitem_roomRcdNum;
+    }
+
+    public int getDRoomitem_roomRcdNum() {
+        return DRoomitem_roomRcdNum;
     }
 
     public String getDRoomitem_name() {
