@@ -2,6 +2,7 @@ package com.example.lcd.gab.RoomList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
     @Override
     public void onBindViewHolder(final ListViewHolder listViewHolder, final int position){
         final DRoom_FullInfo roomListData = mRoomListDatas.get(position);
+
         String memberName = "";
 
         listViewHolder.vRoomName.setText(roomListData.getDRoomName());
@@ -50,6 +52,10 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PayRoomMainPage.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("roomListData", roomListData);
+                intent.putExtras(bundle);
+
                 mContext.startActivity(intent);
             }
         });
@@ -60,7 +66,6 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
         View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.room_list_item,parent,false);
         return new ListViewHolder(viewItem);
     }
-
 
     public static class ListViewHolder extends RecyclerView.ViewHolder{
         protected TextView vRoomName;

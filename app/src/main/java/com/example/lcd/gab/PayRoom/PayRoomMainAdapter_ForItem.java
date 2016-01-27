@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lcd.gab.R;
-import com.example.lcd.gab.RoomList.RoomListMain;
 
 import java.util.List;
 
@@ -18,20 +17,23 @@ import java.util.List;
 public class PayRoomMainAdapter_ForItem extends RecyclerView.Adapter<PayRoomMainAdapter_ForItem.ListViewHolder>{
 
     private Context mContext;
-    private List<DRoom_FullInfo> mRoomListDatas = RoomListMain.getRoomListDatas();
+    private List<DRoomItemInfo> mRoomItemInfos;
 
-    public PayRoomMainAdapter_ForItem(List<DRoom_FullInfo> roomListDatas, Context context){
+    public PayRoomMainAdapter_ForItem(List<DRoomItemInfo> roomItemInfos, Context context){
         mContext = context;
-        mRoomListDatas = roomListDatas;
+        mRoomItemInfos = roomItemInfos;
     }
 
     @Override
-    public int getItemCount(){return mRoomListDatas.size();}
+    public int getItemCount(){return mRoomItemInfos.size();}
 
     @Override
     public void onBindViewHolder(ListViewHolder listViewHolder, int position){
-        DRoom_FullInfo roomListData = mRoomListDatas.get(position);
-        
+        DRoomItemInfo roomItemInfo = mRoomItemInfos.get(position);
+        int price = roomItemInfo.getDRoomitem_price();
+
+        listViewHolder.vPrice.setText(Integer.toString(price));
+        listViewHolder.vItem.setText(roomItemInfo.getDRoomitem_name());
 
     }
 

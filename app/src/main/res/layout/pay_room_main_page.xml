@@ -5,19 +5,56 @@
     android:layout_height="match_parent"
     android:weightSum="100">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10">
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:weightSum="10">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:id="@+id/textView4"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="20dp"
+                android:id="@+id/pay_room_title"
+                android:textColor="#ffff"
+                android:gravity="center"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="bottom|end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="다섯글자요"
+                android:textSize="15dp"
+                android:id="@+id/master_name"
+                android:textColor="#ffff"
+                android:paddingRight="5dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +62,7 @@
         android:layout_weight="40"
         android:orientation="vertical"
         android:weightSum="10"
+        android:id="@+id/item_linear_layout"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,24 +88,38 @@
             android:weightSum="10"
             >
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text="Item"
-                android:gravity="center"
-                android:textColor="#ffff"
-                />
+                android:gravity="center">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Item"
+                    android:gravity="center"
+                    android:textColor="#ffff"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                android:text="price"
-                android:gravity="center"
-                android:layout_marginRight="10dp"
-                android:textColor="#ffff"
-                />
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="price"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffff"
+                    />
+
+            </RelativeLayout>
 
 
         </LinearLayout>
@@ -76,6 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
+            android:id="@+id/item_recycler_view"
             />
 
     </LinearLayout>
@@ -85,7 +138,9 @@
         android:layout_height="0dp"
         android:layout_weight="40"
         android:orientation="vertical"
-        android:weightSum="10">
+        android:weightSum="10"
+        android:id="@+id/cost_linear_layout">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -111,74 +166,165 @@
             android:weightSum="10"
             >
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:text="Member"
-                android:gravity="center"
-                android:textColor="#ffff"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Member"
+                    android:gravity="center"
+                    android:textColor="#ffff"
                 />
 
-            <TextView
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text="Cost"
-                android:gravity="center"
-                android:textColor="#ffff"
-                />
+                android:gravity="center">
 
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Cost"
+                    android:gravity="center"
+                    android:textColor="#ffff"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:text="Finished or not"
-                android:gravity="center"
-                android:textColor="#ffff"
-                />
+                android:gravity="center">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Finished or not"
+                    android:gravity="center"
+                    android:textColor="#ffff"
+                    />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
+            android:id="@+id/cost_recycler_view"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="10">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Result"
+                    android:textColor="#ffff"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="totalCost"
+                    android:textColor="#ffff"
+                    android:id="@+id/pay_room_total_cost"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/finished"
+                    android:id="@+id/pay_room_result_finished"
+                    android:gravity="center"/>
+
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/not_finished"
+                    android:id="@+id/pay_room_result_not_finished"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10">
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
 
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="History"
-            android:id="@+id/history_button"
-            android:layout_marginLeft="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Modify"
-            android:id="@+id/modify_button"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="50dp"
-            android:layout_marginEnd="50dp"
-            />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:id="@+id/history_button"
+                android:gravity="center"
+                />
 
     </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modify"
+                android:id="@+id/modify_button"
+                android:gravity="center"
+            />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

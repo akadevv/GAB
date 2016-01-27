@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.MainActivity;
+import com.example.lcd.gab.PayRoom.DRoomItemInfo;
 import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
 import com.example.lcd.gab.R;
@@ -50,6 +51,7 @@ public class RoomListMain extends Fragment{
         recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.room_list_recycler_view);
         searchView = (android.widget.SearchView) recyclerLayout.findViewById(R.id.room_list_search_view);
 
+        roomListDatas.clear();
         SendPost sendPost = new SendPost();
         sendPost.execute();
 
@@ -116,14 +118,14 @@ public class RoomListMain extends Fragment{
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomItemInfos = new ArrayList<>();
-            Log.d(log, "zzzzzzzzzzzzzzzzz");
+
             try {
                 JSONObject root = new JSONObject(content);
-                Log.d(log, "zzzzzzzzzzzzzzzzz");
+
                 JSONArray resultsJa = root.getJSONArray("results");
 
                 /*------------------------------------------------------------------------------------*/
-                //dutch_partyinfo_cur json type parsing
+//                dutch_partyinfo_cur json type parsing
 
                 JSONObject partyInfoJo = new JSONObject(resultsJa.getString(0));
                 JSONArray partyInfoJa = partyInfoJo.getJSONArray("party_info_cur");
@@ -135,20 +137,15 @@ public class RoomListMain extends Fragment{
 
                     for (int j = 0; j < ja.length(); j++) {
                         Log.d(log, "1");
+
                         JSONObject jo = ja.getJSONObject(j);
 
                         DRoomPartyInfo memberInfo = new DRoomPartyInfo();
-                        Log.d(log, "2");
                         String rcdNum = jo.getString("room_rcdnum");
-                        Log.d(log, "3");
                         String memberName = jo.getString("member_name");
-                        Log.d(log, "4");
                         String memberPhoneNum = jo.getString("member_phonenum");
-                        Log.d(log, "5");
                         String costS = jo.getString("cost");
-                        Log.d(log, "6");
                         String finishS = jo.getString("finished or not");
-                        Log.d(log, "7");
 
                         int roomRcdNum = Integer.parseInt(rcdNum);
                         int cost = Integer.parseInt(costS);
@@ -156,16 +153,16 @@ public class RoomListMain extends Fragment{
 
                         totalCost += cost;
 
-//                      memberInfo.setRoomRcdNum(roomRcdNum);
-//                      memberInfo.setParty_name(memberName);
-//                      memberInfo.setPartyPhonenum(memberPhoneNum);
-//                      memberInfo.setPartyMoney(cost);
-//                      memberInfo.setParty_finished(finish);
+                        memberInfo.setRoomRcdNum(roomRcdNum);
+                        memberInfo.setParty_name(memberName);
+                        memberInfo.setPartyPhonenum(memberPhoneNum);
+                        memberInfo.setPartyMoney(cost);
+                        memberInfo.setParty_finished(finish);
 
-//                        memberInfoList.add(memberInfo);
-                    }
+                          memberInfoList.add(memberInfo);
+                      }
 
-       /*             if (!roomPartyInfos.isEmpty()) {
+                      if (!roomPartyInfos.isEmpty()) {
                         for (int k = 0; k < roomPartyInfos.size(); k++) {
 
                             if (roomPartyInfos.get(k).getDRoomRcdNum() == memberInfoList.get(0).getRoomRcdNum()) {
@@ -179,13 +176,13 @@ public class RoomListMain extends Fragment{
                     } else {
                         DRoom_FullInfo tempData = new DRoom_FullInfo(memberInfoList.get(0).getRoomRcdNum(), totalCost, memberInfoList);
                         roomPartyInfos.add(tempData);
-                    }*/
+                    }
                 }
 
                 /*-----------------------------------------------------------------------------------------*/
                 //dutch_roominfo_cur json type parsing
 
-          /*      JSONObject roomInfoJo = new JSONObject(resultsJa.getString(1));
+                JSONObject roomInfoJo = new JSONObject(resultsJa.getString(1));
 
                 JSONArray roomInfoJa = roomInfoJo.getJSONArray("room_info_cur");
 
@@ -231,12 +228,12 @@ public class RoomListMain extends Fragment{
                         }
                     }
 
-                }*/
+                }
 
                 /*----------------------------------------------------------------------------------------*/
                 //dutch_iteminfo_cur json type parsing
 
-       /*         JSONObject itemInfoJo = new JSONObject(resultsJa.getString(2));
+                JSONObject itemInfoJo = new JSONObject(resultsJa.getString(2));
 
                 JSONArray itemInfoJa = itemInfoJo.getJSONArray("item_info_cur");
 
@@ -281,16 +278,18 @@ public class RoomListMain extends Fragment{
                         DRoom_FullInfo tempData = new DRoom_FullInfo(itemInfoList.get(0).getDRoomitem_roomRcdNum(), totalPrice, itemInfoList);
                         roomItemInfos.add(tempData);
                     }
-                }*/
-            }catch (Exception e){
+                }
+            }catch(Exception e){
 
             }
 
             for(int i = 0; i<roomPartyInfos.size(); i++)
                 for(int j = 0; j < roomInfos.size(); j++ )
                     for(int k = 0; k < roomItemInfos.size(); k++)
-                        if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum() || roomPartyInfos.get(i).getDRoomRcdNum() == roomItemInfos.get(k).getDRoomRcdNum())
-                            roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(),roomInfos.get(j).getMasterID(),roomInfos.get(j).getMasterPhoneNum(),roomInfos.get(j).getDRoomName(), roomInfos.get(j).getDRoomDate(), roomItemInfos.get(k).getDRoomItemList(),roomItemInfos.get(k).getTotalPrice(), roomPartyInfos.get(i).getDRoomPartyList()));
+                        if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum() && roomPartyInfos.get(i).getDRoomRcdNum() == roomItemInfos.get(k).getDRoomRcdNum()) {
+                            roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(), roomInfos.get(j).getMasterID(), roomInfos.get(j).getMasterPhoneNum(), roomInfos.get(j).getDRoomName(), roomInfos.get(j).getDRoomDate(), roomItemInfos.get(k).getDRoomItemList(), roomItemInfos.get(k).getTotalPrice(), roomPartyInfos.get(i).getDRoomPartyList()));
+                            break;
+                        }
 
             return null;
         }
@@ -347,6 +346,4 @@ public class RoomListMain extends Fragment{
     public static ArrayList<DRoom_FullInfo> getRoomListDatas(){
         return roomListDatas;
     }
-
-
 }

@@ -10,32 +10,52 @@
         android:orientation="horizontal"
         android:weightSum="10">
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center">
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:gravity="center"
+            android:id="@+id/member_name"
             android:text="Member"
-            android:gravity="center"
             android:textColor="#000"
             />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:gravity="center">
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:gravity="center"
+            android:id="@+id/member_cost"
             android:text="Cost"
-            android:gravity="center"
             android:textColor="#000"
             />
+    </RelativeLayout>
 
-        <TextView
-            android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="Finished or not"
-            android:gravity="center"
-            android:textColor="#000"
-            />
+            android:id="@+id/not_finished"
+            android:background="@drawable/not_finished"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:id="@+id/finished"
+            android:background="@drawable/finished"/>
+    </RelativeLayout>
 
     </LinearLayout>
 
