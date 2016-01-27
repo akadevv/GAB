@@ -53,12 +53,14 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PayRoomMainPage.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("roomListData", roomListData);
+                bundle.putSerializable("selectedDRoomInfo",roomListData);
                 intent.putExtras(bundle);
 
                 mContext.startActivity(intent);
+
             }
         });
+
     }
 
     @Override
@@ -79,6 +81,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
             vRoomDate = (TextView)v.findViewById(R.id.room_date);
             vRoomMember = (TextView)v.findViewById(R.id.room_member);
             vRoomListItem = (RelativeLayout) v.findViewById(R.id.room_recyclerview_item);
+
+
         }
 
     }

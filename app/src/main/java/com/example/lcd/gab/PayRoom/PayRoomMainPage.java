@@ -32,7 +32,7 @@ public class PayRoomMainPage extends Activity {
         ImageView finished = (ImageView)findViewById(R.id.pay_room_result_finished);
         ImageView notFinished = (ImageView)findViewById(R.id.pay_room_result_not_finished);
 
-        DRoom_FullInfo roomListData = (DRoom_FullInfo)getIntent().getSerializableExtra("roomListData");
+        DRoom_FullInfo roomListData = (DRoom_FullInfo)getIntent().getSerializableExtra("selectedDRoomInfo");
 
         RecyclerView itemRecyclerView;
         RecyclerView memberRecyclerView;

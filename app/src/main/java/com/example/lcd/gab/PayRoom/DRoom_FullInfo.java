@@ -12,7 +12,7 @@ public class DRoom_FullInfo implements Serializable {
     String MasterID;
     String MasterPhoneNum;
     String DRoomName;
-    int DRoomFinished;
+    int DRoomFinished=0;
 
     int DRoomDate;
     List<DRoomItemInfo> DRoomItemList = new ArrayList<DRoomItemInfo>();

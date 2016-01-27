@@ -124,7 +124,7 @@ public class PayRoomMakingPage extends Activity {
 
         //MasterContainer 의 정보를 수정
         MasterNameText = (TextView)findViewById(R.id.MasterNameTextView);
-        MasterNameText.setText("김준혁"); //해당 부분은 본인의 이름
+        MasterNameText.setText("박방장"); //해당 부분은 본인의 이름
         MasterMoneyEdit = (EditText)findViewById(R.id.MasterMoneyEditText);
 
 
@@ -286,7 +286,7 @@ public class PayRoomMakingPage extends Activity {
 
                 //마지막에 방 주인의 정보를 넣어준다. DRoom_partLists에도 추가해준다. .
                 masterID = MasterNameText.getText().toString();
-                masterPhoneNum = "01072729771"; //이미 master폰번호
+                masterPhoneNum = "010-9999-9999"; //이미 master폰번호
                 MasterMoney = Integer.valueOf(MasterMoneyEdit.getText().toString());
                 newDroomPartyInfo = new DRoomPartyInfo(masterID,masterPhoneNum,MasterMoney,1);
                 DRoom_partyLists.add(newDroomPartyInfo);
