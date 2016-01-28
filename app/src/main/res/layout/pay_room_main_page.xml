@@ -5,56 +5,39 @@
     android:layout_height="match_parent"
     android:weightSum="100">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="10"
-        android:weightSum="10">
+        android:layout_weight="5"
+        android:gravity="end|center">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="master"
+            android:id="@+id/pay_room_master_name"
+            android:textColor="#ffff"
+            android:gravity="center"
+            android:paddingRight="10dp"/>
 
+    </RelativeLayout>
 
-        </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="8"
+       android:gravity="center">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:gravity="center">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Title"
+           android:textSize="20dp"
+           android:id="@+id/pay_room_title"
+           android:textColor="#ffff"
+           android:gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="20dp"
-                android:id="@+id/pay_room_title"
-                android:textColor="#ffff"
-                android:gravity="center"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="bottom|end">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="다섯글자요"
-                android:textSize="15dp"
-                android:id="@+id/master_name"
-                android:textColor="#ffff"
-                android:paddingRight="5dp"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
+   </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,7 +45,7 @@
         android:layout_weight="40"
         android:orientation="vertical"
         android:weightSum="10"
-        android:id="@+id/item_linear_layout"
+        android:id="@+id/pay_room_item_linear"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -127,9 +110,50 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
             android:id="@+id/item_recycler_view"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="10">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Result"
+                    android:textColor="#ffff"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="totalPrice"
+                    android:textColor="#ffff"
+                    android:id="@+id/pay_room_total_price"
+                    android:gravity="center" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -139,7 +163,7 @@
         android:layout_weight="40"
         android:orientation="vertical"
         android:weightSum="10"
-        android:id="@+id/cost_linear_layout">
+        android:id="@+id/pay_room_cost_linear">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -288,7 +312,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="7"
         android:orientation="horizontal"
         android:weightSum="2"
         >
@@ -305,7 +329,7 @@
                 android:text="History"
                 android:id="@+id/history_button"
                 android:gravity="center"
-                />
+                android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 

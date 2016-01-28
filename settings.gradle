@@ -1,7 +1,5 @@
 include ':app'
 
-include ':ViewPagerIndicator'
-
 //subprojects {
 //    repositories {
 //        mavenCentral()
@@ -9,3 +7,4 @@ include ':ViewPagerIndicator'
 //    }
 //}
  //643f1a209bd928128d66c567a952d81154e48845
+include ':ViewPagerIndicator'

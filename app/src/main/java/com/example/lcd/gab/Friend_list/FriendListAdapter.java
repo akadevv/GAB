@@ -38,8 +38,6 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
     public void onBindViewHolder(final ListViewHolder listViewHolder, final int position){
         final FriendData friendData = mFriendDataList.get(position);
 
-
-
         listViewHolder.vName.setText(friendData.getName());
         listViewHolder.vPhone.setText(friendData.getPhoneNum());
         listViewHolder.vRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -47,9 +45,10 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             public void onClick(View v) {
                 popup = createDialog(friendData.getName(), friendData.getPhoneNum());
                 popup.show();
-
+                popup.setCanceledOnTouchOutside(true);
             }
         });
+
     }
 
     @Override

@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 masterInfo.setUserId("lce6292");
+                masterInfo.setUserPhoneNum("010-3754-6292");
                 Intent intent = new Intent(getApplicationContext(), MainPager.class);
                 startActivity(intent);
 

@@ -91,8 +91,10 @@ public class MainPager extends FragmentActivity {
                 if (!menuOnOff) {
                     shadowLayout.bringToFront();
                     menuButton.bringToFront();
-
+                    menuRotate.setInterpolator(getApplicationContext(), android.R.anim.overshoot_interpolator);
+                    menuRotate.setDuration(500);
                     menuButton.setAnimation(menuRotate);
+
 
                     payRoomText.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -115,6 +117,10 @@ public class MainPager extends FragmentActivity {
                         public void onClick(View v) {
                             originalLayout.bringToFront();
                             menuButton.bringToFront();
+                            menuOrigin.setInterpolator(getApplicationContext(), android.R.anim.overshoot_interpolator);
+                            menuOrigin.setDuration(500);
+                            menuButton.setAnimation(menuOrigin);
+
                             menuOnOff = false;
                         }
                     });
@@ -123,6 +129,8 @@ public class MainPager extends FragmentActivity {
                 } else {
                     originalLayout.bringToFront();
                     menuButton.bringToFront();
+                    menuOrigin.setInterpolator(getApplicationContext(), android.R.anim.overshoot_interpolator);
+                    menuOrigin.setDuration(500);
                     menuButton.setAnimation(menuOrigin);
 
                     menuOnOff = false;

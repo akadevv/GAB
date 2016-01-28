@@ -3,6 +3,7 @@ package com.example.lcd.gab.MainPage;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.lcd.gab.Friend_list.FriendListMain;
+import com.example.lcd.gab.ReceivableList.ReceivableListMain;
 import com.example.lcd.gab.RoomList.RoomListMain;
 
 /**
@@ -31,7 +32,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 cur_fragement = new RoomListMain();
                 break;
             case 2:
-                cur_fragement= new page_03();
+                cur_fragement= new ReceivableListMain();
                 break;
             case 3:
                 cur_fragement = new page_04();

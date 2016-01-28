@@ -24,21 +24,23 @@ public class PayRoomMainPage extends Activity {
         setContentView(R.layout.pay_room_main_page);
 
         int totalCost = 0;
+        int totalPrice = 0;
 
         TextView title = (TextView)findViewById(R.id.pay_room_title);
-        TextView masterName = (TextView)findViewById(R.id.master_name);
+        TextView masterName = (TextView)findViewById(R.id.pay_room_master_name);
 
         TextView totalCostText = (TextView)findViewById(R.id.pay_room_total_cost);
         ImageView finished = (ImageView)findViewById(R.id.pay_room_result_finished);
         ImageView notFinished = (ImageView)findViewById(R.id.pay_room_result_not_finished);
+        TextView totalPriceText = (TextView)findViewById(R.id.pay_room_total_price);
 
         DRoom_FullInfo roomListData = (DRoom_FullInfo)getIntent().getSerializableExtra("selectedDRoomInfo");
 
         RecyclerView itemRecyclerView;
         RecyclerView memberRecyclerView;
 
-        LinearLayout itemLinearLayout = (LinearLayout) findViewById(R.id.item_linear_layout);
-        LinearLayout costLinearLayout = (LinearLayout) findViewById(R.id.cost_linear_layout);
+        LinearLayout itemLinearLayout = (LinearLayout) findViewById(R.id.pay_room_item_linear);
+        LinearLayout costLinearLayout = (LinearLayout) findViewById(R.id.pay_room_cost_linear);
 
         LinearLayoutManager itemLayoutManager = new LinearLayoutManager(itemLinearLayout.getContext());
         itemLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -65,8 +67,11 @@ public class PayRoomMainPage extends Activity {
 
         for(int i = 0; i < roomListData.getDRoomPartyList().size(); i++)
             totalCost += roomListData.getDRoomPartyList().get(i).getPartyMoney();
+        for(int i = 0; i < roomListData.getDRoomItemList().size(); i++)
+            totalPrice += roomListData.getDRoomItemList().get(i).getDRoomitem_price();
 
         totalCostText.setText(Integer.toString(totalCost));
+        totalPriceText.setText(Integer.toString(totalPrice));
 
         if(roomListData.getDRoomFinished()==0){
             finished.setVisibility(View.GONE);
