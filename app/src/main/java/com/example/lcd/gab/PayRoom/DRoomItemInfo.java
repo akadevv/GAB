@@ -8,20 +8,36 @@ import java.io.Serializable;
 
 //item for _ (party phonenum, partymoney , party_finished)
 
-public class DRoomItemInfo implements Serializable{
+public class DRoomItemInfo implements Serializable {
     int DRoomitem_roomRcdNum;
     String DRoomitem_name;
     int DRoomitem_price;
+    int DRoomitem_number;
 
-    public DRoomItemInfo(){ }
+    public DRoomItemInfo() {
+    }
 
     public DRoomItemInfo(String DRoomitem_name, int DRoomitem_price) {
         this.DRoomitem_name = DRoomitem_name;
         this.DRoomitem_price = DRoomitem_price;
     }
 
+    public DRoomItemInfo(String DRoomitem_name, int DRoomitem_price, int DRoomitem_number) {
+        this.DRoomitem_name = DRoomitem_name;
+        this.DRoomitem_price = DRoomitem_price;
+        this.DRoomitem_number = DRoomitem_number;
+    }
+
     public void setDRoomitem_roomRcdNum(int DRoomitem_roomRcdNum) {
         this.DRoomitem_roomRcdNum = DRoomitem_roomRcdNum;
+    }
+
+    public int getDRoomitem_number() {
+        return DRoomitem_number;
+    }
+
+    public void setDRoomitem_number(int DRoomitem_number) {
+        this.DRoomitem_number = DRoomitem_number;
     }
 
     public int getDRoomitem_roomRcdNum() {
@@ -43,7 +59,6 @@ public class DRoomItemInfo implements Serializable{
     public void setDRoomitem_price(int DRoomitem_price) {
         this.DRoomitem_price = DRoomitem_price;
     }
-
 
 
 }

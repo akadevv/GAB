@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name = "GAB_PlainTextView">
+        <item name = "android:layout_margin">5dp</item>
+        <item name = "android:textSize">20dp</item>
+        <item name ="android:gravity">center</item>
+        <item name = "android:layout_gravity">center</item>
+    </style>
 </resources>

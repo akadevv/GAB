@@ -19,18 +19,18 @@ public class Revise_DRoom_FullInfo_DB {
     String log = "jjunest";
     private final String USER_AGENT = "Mozilla/5.0";
 
-    public void revise_DRoom_FullInfo_DB(DRoom_FullInfo newDroominfo, String phpurl){
+    public void revise_DRoom_FullInfo_DB(DRoom_FullInfo revisedDroominfo, String phpurl){
 
         //making newDroominfo OBJECT TO JSON TYPE;
-        Log.d(log, "newDroominfo is : " + newDroominfo);
+        Log.d(log, "revisedRoomData is : " + revisedDroominfo);
         Gson gson = new Gson();
-        String jsonTransfered = gson.toJson(newDroominfo);
+        String jsonTransfered = gson.toJson(revisedDroominfo);
         System.out.println("this is transerfed String :  " + jsonTransfered);
 
         //url 을 통해 send해준다
         try {
             Log.d(log, "testing3 started-----");
-            String data = URLEncoder.encode("newRoomInfo", "UTF-8") + "=" + URLEncoder.encode(jsonTransfered, "UTF-8");
+            String data = URLEncoder.encode("revisedRoomInfo", "UTF-8") + "=" + URLEncoder.encode(jsonTransfered, "UTF-8");
             URL urlc = new URL(phpurl);
             URLConnection conn = urlc.openConnection();
             conn.setDoOutput(true);

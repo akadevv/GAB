@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class RoomListMain extends Fragment{
 
     String log = "이창대";
-    private String masterId = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
+    private String masterName = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
@@ -113,7 +113,7 @@ public class RoomListMain extends Fragment{
     private class SendPost extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... unused) {
-            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+            String content = getRoomInfoFromDB(masterName, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
 
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
@@ -216,7 +216,7 @@ public class RoomListMain extends Fragment{
                                     roomInfos.get(k).setDRoomRcdNum(roomRcdNum);
                                     roomInfos.get(k).setDRoomName(roomName);
                                     roomInfos.get(k).setDRoomDate(roomDate);
-                                    roomInfos.get(k).setMasterID(masterName);
+                                    roomInfos.get(k).setmasterName(masterName);
                                     roomInfos.get(k).setDRoomFinished(roomFinish);
                                     roomInfos.get(k).setMasterPhoneNum(masterPhoneNum);
                                     break;
@@ -287,7 +287,7 @@ public class RoomListMain extends Fragment{
                 for(int j = 0; j < roomInfos.size(); j++ )
                     for(int k = 0; k < roomItemInfos.size(); k++)
                         if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum() && roomPartyInfos.get(i).getDRoomRcdNum() == roomItemInfos.get(k).getDRoomRcdNum()) {
-                            roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(), roomInfos.get(j).getMasterID(), roomInfos.get(j).getMasterPhoneNum(), roomInfos.get(j).getDRoomName(), roomInfos.get(j).getDRoomDate(), roomItemInfos.get(k).getDRoomItemList(), roomItemInfos.get(k).getTotalPrice(), roomPartyInfos.get(i).getDRoomPartyList()));
+                            roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(), roomInfos.get(j).getmasterName(), roomInfos.get(j).getMasterPhoneNum(), roomInfos.get(j).getDRoomName(), roomInfos.get(j).getDRoomDate(), roomItemInfos.get(k).getDRoomItemList(), roomItemInfos.get(k).getTotalPrice(), roomPartyInfos.get(i).getDRoomPartyList()));
                             break;
                         }
 
@@ -312,7 +312,7 @@ public class RoomListMain extends Fragment{
             StringBuilder sb = new StringBuilder();
 
             try {
-                String data = URLEncoder.encode("masterId", "UTF-8") + "=" + URLEncoder.encode("lce6292", "UTF-8");
+                String data = URLEncoder.encode("masterName", "UTF-8") + "=" + URLEncoder.encode("lce6292", "UTF-8");
 
                 URL urlC = new URL("http://jjunest.cafe24.com/DB/getRoomInfo.php");
 

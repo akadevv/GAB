@@ -32,7 +32,7 @@ public class Insert_DRoom_FullInfo_DB {
         Gson gson = new Gson();
         String jsonTransfered = gson.toJson(newDroominfo);
         System.out.println("this is transerfed String :  " + jsonTransfered);
-
+        Log.d(log,"new MasterName :"+ newDroominfo.getmasterName());
         //url 을 통해 send해준다
         try {
             Log.d(log, "testing3 started-----");

@@ -11,6 +11,7 @@ public class DRoomPartyInfo implements Serializable {
     String partyPhonenum; //파티원 폰번호
     int partyMoney; //갚아야할 금액
     int party_finished;//0이면 미정산, 1이면 정산완료
+    int party_Room_Deleted; // 0이면 삭제 안함, 1이면 방목록에서 삭제
 
     public DRoomPartyInfo(){ }
 

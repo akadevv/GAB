@@ -1,134 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView01"
+    android:id="@+id/DPayRoomMakingScrollView01"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:id="@+id/PayRoomMakingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:weightSum="100">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pay Room"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pay Room name"
-        android:id="@+id/roomname_text"
-        android:layout_gravity="center_horizontal" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/roomname_edit"
-        android:layout_gravity="center_horizontal"
-        android:hint= "방 이름"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pay Room DATE"
-        android:id="@+id/roomdate_text"
-        android:layout_gravity="center_horizontal" />
-
-        <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/room_date_selector"
-        android:layout_gravity="center_horizontal"
-        android:text= "날짜 선택 버튼"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint = "새로추가할 아이템명"
-            android:id="@+id/newItemName"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text ="아이템 추가"
-            android:id="@+id/newItemAddBT"/>
-
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id= "@+id/dutchPayItemContainer"
-    android:orientation="vertical">
-
-</LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="총 비용"
-        android:id="@+id/roomprice_text"
-        android:layout_gravity="center_horizontal"
-     />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/roomprice_edit"
-        android:layout_gravity="center_horizontal"
-        android:hint= "총 비용"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="참가자 추가"
-        android:id="@+id/party_text"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/showFriendListBT"
-        android:text = "친구 추가"
-        android:layout_gravity="center_horizontal">
-
-    </Button>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="10"
+            android:background="@color/GABcolor"
+            android:gravity="center"
+            android:text="방만들기"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textViewBigSize"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
             android:orientation="horizontal"
-            android:id="@+id/MasterContainer">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id = "@+id/MasterNameTextView"
-            android:text = "내 이름 "/>
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/MasterMoneyEditText"
-                android:hint = "내가 내는 금액"/>
+            android:weightSum="10">
 
+            <TextView
+                android:id="@+id/roomname_text"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="더치페이방 이름" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="|"
+                android:textSize="@dimen/textViewBigSize" />
+
+            <EditText
+                android:id="@+id/roomname_edit"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:hint="원하는 방이름" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/roomdate_text"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="더치페이방 날짜" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="|"
+                android:textSize="@dimen/textViewBigSize" />
+
+
+            <Button
+                android:id="@+id/room_date_selector"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="날짜 선택 버튼" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id = "@+id/itemOptionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:weightSum="100"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="20"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text = "항목"
+                android:gravity="center"
+                style="@style/GAB_PlainTextView"
+                />
+            <ImageView
+                android:id="@+id/pizza_img"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src = "@drawable/pizza"/>
+
+            <ImageView
+                android:id="@+id/hambuger_img"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src = "@drawable/hambuger"/>
+            <ImageView
+                android:id="@+id/etc_img"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src = "@drawable/etc"/>
+            <ImageButton
+                android:layout_weight="10"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right"
+                android:background="@drawable/float_button"/>
 
         </LinearLayout>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/SelectedPartyContainer">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/DPayRoomMakingScrollView02"
+            android:layout_width="match_parent"
+            android:background="#ffffab"
+            android:layout_height="wrap_content"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:id="@+id/dutchPayItemContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_margin"
+                android:background="#ffffab"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/roomprice_text"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="4"
+                android:text="항목 총합" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="|"
+                android:textSize="@dimen/textViewBigSize" />
+
+            <TextView
+                android:id="@+id/itemPriceTotal"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="5"
+                android:text="0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
 
 
-</LinearLayout>
+            <Button
+                android:id="@+id/DutchCalculateBT"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="5"
+                android:text="1/n로 분배하기"></Button>
+
+            <Button
+                android:id="@+id/showFriendListBT"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="5"
+                android:text="친구 추가"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/MasterContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/layout_margin"
+            android:layout_marginBottom="@dimen/layout_margin"
+            android:layout_weight="10"
+            android:background="#acacac"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/MasterNameTextView"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="내 이름 " />
+
+            <EditText
+                android:id="@+id/MasterMoneyEditText"
+                android:inputType="number"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:hint="내가 내는 금액" />
+
+        </LinearLayout>
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/DPayRoomMakingScrollView03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight= "10">
+
+            <LinearLayout
+                android:id="@+id/SelectedPartyContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_margin"
+                android:background="#d3d3d3"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/TotalPartyMoney_text"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="4"
+                android:text="분배 총합" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="|"
+                android:textSize="@dimen/textViewBigSize" />
+
+            <TextView
+                android:id="@+id/partyMoneyTotal"
+                style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="5"
+                android:text="0" />
+
+        </LinearLayout>
 
         <Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/DRoom_makingbutton"
-    android:text = "방만들기"/>
+            android:id="@+id/DRoom_makingbutton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:text="방만들기" />
 
 
-
-</LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>

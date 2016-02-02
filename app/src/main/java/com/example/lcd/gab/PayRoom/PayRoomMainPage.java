@@ -63,7 +63,7 @@ public class PayRoomMainPage extends Activity {
         memberRecyclerView.setAdapter(costAdapter);
 
         title.setText(roomListData.getDRoomName());
-        masterName.setText(roomListData.getMasterID());
+        masterName.setText(roomListData.getmasterName());
 
         for(int i = 0; i < roomListData.getDRoomPartyList().size(); i++)
             totalCost += roomListData.getDRoomPartyList().get(i).getPartyMoney();
