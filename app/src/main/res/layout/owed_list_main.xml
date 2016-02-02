@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff"
-    android:id="@+id/receivable_list_layout"
+    android:id="@+id/owed_list_layout"
     android:weightSum="100">
 
 
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/receivable_list_search_view"
+        android:id="@+id/owed_list_search_view"
         android:layout_gravity="center_vertical"
         android:queryHint="방 이름, 참여자, 날짜 검색"
         android:layout_weight="8.5"/>
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="금액"
-                    android:id="@+id/receivable_list_total_cost"
+                    android:id="@+id/owed_list_total_cost"
                     android:textColor="#000"
                     android:gravity="center"/>
 
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="사람 수"
-                    android:id="@+id/receivable_list_number_of_unfinished_people"
+                    android:id="@+id/owed_list_number_of_unfinished_people"
                     android:textColor="#000"
                     android:gravity="center"/>
 
@@ -103,12 +103,20 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:id="@+id/owed_list_show_filter"
+            android:background="@drawable/show_filter"
+            />
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/receivable_list_recycler_view"
+        android:id="@+id/owed_list_recycler_view"
         android:layout_weight="84.5"
         />
 

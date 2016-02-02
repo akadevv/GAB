@@ -57,7 +57,6 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
                 intent.putExtras(bundle);
 
                 mContext.startActivity(intent);
-
             }
         });
 
@@ -81,8 +80,6 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.ListVi
             vRoomDate = (TextView)v.findViewById(R.id.room_date);
             vRoomMember = (TextView)v.findViewById(R.id.room_member);
             vRoomListItem = (RelativeLayout) v.findViewById(R.id.room_recyclerview_item);
-
-
         }
 
     }

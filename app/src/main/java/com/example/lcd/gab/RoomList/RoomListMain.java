@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class RoomListMain extends Fragment{
 
     String log = "이창대";
-    private String masterName = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
+    private String masterId = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
@@ -113,7 +113,7 @@ public class RoomListMain extends Fragment{
     private class SendPost extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... unused) {
-            String content = getRoomInfoFromDB(masterName, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
 
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
@@ -250,11 +250,14 @@ public class RoomListMain extends Fragment{
                         String rcdNum = jo.getString("room_rcdnum");
                         String item = jo.getString("item");
                         String priceS = jo.getString("price");
+                        String numberS = jo.getString("the number of item");
 
+                        int number = Integer.parseInt(numberS);
                         int roomRcdNum = Integer.parseInt(rcdNum);
                         int price = Integer.parseInt(priceS);
                         totalPrice += price;
 
+                        itemInfo.setDRoomitem_number(number);
                         itemInfo.setDRoomitem_name(item);
                         itemInfo.setDRoomitem_price(price);
                         itemInfo.setDRoomitem_roomRcdNum(roomRcdNum);
@@ -308,13 +311,13 @@ public class RoomListMain extends Fragment{
             super.onPostExecute(null);
         }
 
-        private String getRoomInfoFromDB(String masterPhoneNum, String phpUrl) {
+        private String getRoomInfoFromDB(String masterId, String phpUrl) {
             StringBuilder sb = new StringBuilder();
 
             try {
-                String data = URLEncoder.encode("masterName", "UTF-8") + "=" + URLEncoder.encode("lce6292", "UTF-8");
+                String data = URLEncoder.encode("masterId", "UTF-8") + "=" + URLEncoder.encode(masterId, "UTF-8");
 
-                URL urlC = new URL("http://jjunest.cafe24.com/DB/getRoomInfo.php");
+                URL urlC = new URL(phpUrl);
 
                 URLConnection conn = urlC.openConnection();
 

@@ -1,5 +1,4 @@
-package com.example.lcd.gab.ReceivableList;
-
+package com.example.lcd.gab.OwedList;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by LCD on 2016-01-28.
+ * Created by LCD on 2016-02-02.
  */
-public class ReceivableListMain extends android.support.v4.app.Fragment{
+public class OwedListMain extends android.support.v4.app.Fragment{
 
     private LinearLayout recyclerLayout;
     private RecyclerView recyclerView;
@@ -36,14 +35,13 @@ public class ReceivableListMain extends android.support.v4.app.Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        recyclerLayout = (LinearLayout) inflater.inflate(R.layout.receivable_list_main, container, false);
-        recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.receivable_list_recycler_view);
-        searchView = (SearchView) recyclerLayout.findViewById(R.id.receivable_list_search_view);
+        recyclerLayout = (LinearLayout) inflater.inflate(R.layout.owed_list_main, container, false);
+        recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.owed_list_recycler_view);
+        searchView = (SearchView) recyclerLayout.findViewById(R.id.owed_list_search_view);
 
-        TextView totalText = (TextView) recyclerLayout.findViewById(R.id.receivable_list_total_cost);
-        TextView unFinishedText = (TextView) recyclerLayout.findViewById(R.id.receivable_list_number_of_unfinished_people);
+        TextView totalText = (TextView) recyclerLayout.findViewById(R.id.owed_list_total_cost);
+        TextView unFinishedText = (TextView) recyclerLayout.findViewById(R.id.owed_list_number_of_unfinished_people);
         roomPartyInfos = new ArrayList<>();
-
 
         int total = 0;
         int unFinishedCount = 0;
@@ -56,10 +54,10 @@ public class ReceivableListMain extends android.support.v4.app.Fragment{
 
             String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-            if(MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
+            if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
+
                 for(int j = 0; j < partyInfos.size(); j++){
                     if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
-
                         partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
                         partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
                         partyInfo.setParty_name(partyInfos.get(i).getParty_name());
@@ -84,8 +82,8 @@ public class ReceivableListMain extends android.support.v4.app.Fragment{
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        ReceivableListAdapter receivableListAdapter = new ReceivableListAdapter(roomPartyInfos, roomListDatas, recyclerLayout.getContext());
-        recyclerView.setAdapter(receivableListAdapter);
+        OwedListAdapter owedListAdapter = new OwedListAdapter(roomListDatas, recyclerLayout.getContext());
+        recyclerView.setAdapter(owedListAdapter);
 
         return recyclerLayout;
     }
