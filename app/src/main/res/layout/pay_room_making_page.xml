@@ -116,20 +116,23 @@
                 android:layout_weight="15"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src = "@drawable/pizza"/>
+                android:src = "@drawable/pizza"
+                android:clickable="true"/>
 
             <ImageView
                 android:id="@+id/hambuger_img"
                 android:layout_weight="15"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src = "@drawable/hambuger"/>
+                android:src = "@drawable/hambuger"
+                android:clickable="true"/>
             <ImageView
                 android:id="@+id/etc_img"
                 android:layout_weight="15"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src = "@drawable/etc"/>
+                android:src = "@drawable/etc"
+                android:clickable="true"/>
             <ImageButton
                 android:layout_weight="10"
                 android:layout_width="0dp"

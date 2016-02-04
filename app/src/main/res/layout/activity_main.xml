@@ -22,4 +22,10 @@
         android:text="getmyphonenum"
         android:id="@+id/button3" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "로그아웃 버튼"
+        android:id="@+id/logout_button"/>
+
 </LinearLayout>

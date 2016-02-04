@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.lcd.gab.KakaoLogIn.LogInPage;
 import com.example.lcd.gab.MainPage.MainPager;
 import com.example.lcd.gab.MasterInfo.MasterInfo;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 /**
  * Created by LCD on 2016-01-07.
  */
 public class MainActivity extends Activity {
 
-    private static MasterInfo masterInfo = new MasterInfo();
+    private static MasterInfo masterInfo=MasterInfo.getMasterInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -26,8 +30,7 @@ public class MainActivity extends Activity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                masterInfo.setUserId("lce6292");
-                masterInfo.setUserPhoneNum("010-3754-6292");
+
                 Intent intent = new Intent(getApplicationContext(), MainPager.class);
                 startActivity(intent);
 
@@ -51,9 +54,34 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        Button logoutBT = (Button)findViewById(R.id.logout_button);
+        logoutBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserManagement.requestLogout(new LogoutResponseCallback() {
+                    @Override
+                    public void onCompleteLogout() {
+                        redirectLoginActivity();
+                    }
+                });
+
+            }
+        });
+
     }
 
     public static MasterInfo getMasterInfo(){
         return masterInfo;
     }
+
+    protected void redirectLoginActivity() {
+        final Intent intent = new Intent(this, LogInPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        finish();
+    }
+
+
+
 }

@@ -50,7 +50,7 @@ public class ReceivableListMain extends android.support.v4.app.Fragment{
             List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
 
             for(int j = 0; j < partyInfos.size(); j++){
-                if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
                     Log.d("이창대", "zzzzzzzzz" + partyInfos.get(j).getParty_name());
                     Log.d("이창대", "zzzzzzzzz" + Integer.toString(partyInfos.get(j).getPartyMoney()));
                     total = total + partyInfos.get(j).getPartyMoney();

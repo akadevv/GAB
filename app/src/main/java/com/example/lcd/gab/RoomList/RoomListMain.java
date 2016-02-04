@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class RoomListMain extends Fragment{
 
     String log = "이창대";
-    private String masterName = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
+    private String masterName = MainActivity.getMasterInfo().getMasterID(); // 마스터 핸드폰 번호 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();

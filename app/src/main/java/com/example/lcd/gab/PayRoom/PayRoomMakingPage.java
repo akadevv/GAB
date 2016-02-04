@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.lcd.gab.ACCESS_TO_DB.Insert_DRoom_FullInfo_DB;
 import com.example.lcd.gab.ACCESS_TO_DB.Revise_DRoom_FullInfo_DB;
+import com.example.lcd.gab.CommonListener.ImageViewTouchListener;
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Edit;
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
 import com.example.lcd.gab.FriendData_ForSelect.FriendData_ForSelect;
@@ -173,6 +174,8 @@ public class PayRoomMakingPage extends Activity {
         pizzaImg = (ImageView) findViewById(R.id.pizza_img);
         pizzaImg.setTag("피자");
         pizzaImg.setOnLongClickListener(new DragLongClickListener());
+        pizzaImg.setOnTouchListener(new ImageViewTouchListener());
+        pizzaImg.setOnClickListener(new ItemClickAddListener(pizzaImg));
 
         hambugerImg = (ImageView) findViewById(R.id.hambuger_img);
         hambugerImg.setTag("햄버거");
@@ -629,6 +632,70 @@ public class PayRoomMakingPage extends Activity {
         }
     }
 
+    //아이템 클릭시에 추가하는 Listener
+    class ItemClickAddListener implements View.OnClickListener{
+        ImageView clickedImageView;
+
+        public ItemClickAddListener(ImageView clickedImageView) {
+            this.clickedImageView = clickedImageView;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            Drawable clickedImageViewDrawable = clickedImageView.getDrawable();
+            Log.d(log, "ImageView = " + clickedImageView);
+            Log.d(log, "ImageViewDrawable = " + clickedImageViewDrawable);
+
+
+            // drop 시에 inflater를 이용해서 itemrow를 넣는다.
+            LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View addView = layoutInflater.inflate(R.layout.itemrow, null);
+            ImageView itemRowImage = (ImageView) addView.findViewById(R.id.ItemImageView);
+
+            itemRowImage.setBackground(clickedImageViewDrawable);  //setBackground 작동함 (API버전 문제임)
+            TextView textOut = (TextView) addView.findViewById(R.id.itemNameText);
+            EditText itemprice = (EditText) addView.findViewById(R.id.itemPriceEdit);
+            itemprice.addTextChangedListener(new MoneyUnitListener_Edit(itemprice)); //3자리씩 끊어서 보여주는 listener
+            itemprice.addTextChangedListener(new itemTotalPriceTextWatcher());       //totalPrice를 변경해주는 listener
+            textOut.setText(clickedImageView.getTag().toString());
+            NumberPicker numPicker = (NumberPicker) addView.findViewById(R.id.numberPicker);
+            numPicker.setMinValue(1);
+            numPicker.setMaxValue(100);
+            numPicker.setValue(1);
+            numPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                    int totalItemPrice = 0;
+                    totalItemPrice = calculateItemTotalPrice();
+                    Log.d(log, "totalPrice :" + totalItemPrice);
+                    itemPriceTotalTextView.setText(String.valueOf(totalItemPrice));
+
+                }
+            });
+            Button buttonRemove = (Button) addView.findViewById(R.id.remove);
+            //추가된 layout/itemrow.xml 에 remove 버튼 눌럿을 시에, 해당 addView를 사라지게 만든다.
+            buttonRemove.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    ((LinearLayout) addView.getParent()).removeView(addView);
+                    //버튼 누를시마다 itemPriceTotal 을 바꾸어서 계산해준다.
+                    int totalItemPrice = 0;
+                    totalItemPrice = calculateItemTotalPrice();
+                    Log.d(log, "totalPrice :" + totalItemPrice);
+                    itemPriceTotalTextView.setText(String.valueOf(totalItemPrice));
+
+
+                }
+            });
+
+            itemContainer.addView(addView);
+
+
+        }
+    }
+
     //아이템의 Drag & Drop On Drag Listener, Container에 설정을 한다. onDrag에서는 true로 설정해주어야 한다.
     class DragListener implements View.OnDragListener {
 
@@ -711,6 +778,7 @@ public class PayRoomMakingPage extends Activity {
 
                 case DragEvent.ACTION_DRAG_ENDED:
                     Log.d("DragClickListener", "ACTION_DRAG_ENDED");
+
                     break;
                 default:
                     break;

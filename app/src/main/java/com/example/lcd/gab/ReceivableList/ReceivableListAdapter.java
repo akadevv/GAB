@@ -43,7 +43,7 @@ public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAd
         DRoomPartyInfo partyInfo = new DRoomPartyInfo();
 
         for(int i = 0 ; i < partyInfos.size(); i++){
-            if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
+            if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
                 partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
                 partyInfo.setParty_name(partyInfos.get(i).getParty_name());
                 partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
