@@ -43,10 +43,10 @@ public class OwedListAdapter extends RecyclerView.Adapter<OwedListAdapter.ListVi
         DRoomPartyInfo partyInfo = new DRoomPartyInfo();
         String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-        if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
+        if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
 
             for(int i = 0 ; i < partyInfos.size(); i++){
-                if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
+                if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
                     partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
                     partyInfo.setParty_name(partyInfos.get(i).getParty_name());
                     partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());

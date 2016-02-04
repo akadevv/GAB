@@ -34,11 +34,7 @@ import java.util.ArrayList;
 public class RoomListMain extends Fragment{
 
     String log = "이창대";
-<<<<<<< HEAD
     private String masterName = MainActivity.getMasterInfo().getMasterID(); // 마스터 핸드폰 번호 받기
-=======
-    private String masterId = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
->>>>>>> 355593e0ac5feb82a691b84d1b037c772647b6af
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
@@ -117,7 +113,7 @@ public class RoomListMain extends Fragment{
     private class SendPost extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... unused) {
-            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+            String content = getRoomInfoFromDB(masterName, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
 
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();

@@ -54,10 +54,10 @@ public class OwedListMain extends android.support.v4.app.Fragment{
 
             String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-            if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
+            if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
 
                 for(int j = 0; j < partyInfos.size(); j++){
-                    if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                    if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
                         partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
                         partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
                         partyInfo.setParty_name(partyInfos.get(i).getParty_name());
