@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:id="@+id/owed_list_search_view"
         android:layout_gravity="center_vertical"
-        android:queryHint="방 이름, 참여자, 날짜 검색"
+        android:queryHint="이름(초성), 전화번호 검색"
         android:layout_weight="8.5"/>
 
     <LinearLayout

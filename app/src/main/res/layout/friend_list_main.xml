@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/friend_search_view"
         android:layout_gravity="center_vertical"
-        android:queryHint="이름, 전화번호 검색"/>
+        android:queryHint="이름(초성), 전화번호 검색"/>
 
 
     <android.support.v7.widget.RecyclerView
@@ -20,6 +20,6 @@
         android:layout_height="match_parent"
         android:id="@+id/friend_recycler_view"
         android:layout_below="@+id/friend_search_view"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

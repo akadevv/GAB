@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.example.lcd.gab.InitialSoundSearcher;
 import com.example.lcd.gab.MainActivity;
 import com.example.lcd.gab.PayRoom.DRoomItemInfo;
 import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
@@ -27,6 +27,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by LCD on 2016-01-18.
@@ -34,11 +35,7 @@ import java.util.ArrayList;
 public class RoomListMain extends Fragment{
 
     String log = "이창대";
-<<<<<<< HEAD
     private String masterName = MainActivity.getMasterInfo().getMasterID(); // 마스터 핸드폰 번호 받기
-=======
-    private String masterId = MainActivity.getMasterInfo().getUserId(); // 마스터 핸드폰 번호 받기
->>>>>>> 355593e0ac5feb82a691b84d1b037c772647b6af
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
@@ -64,6 +61,7 @@ public class RoomListMain extends Fragment{
         return recyclerLayout;
     }
 
+    //방목록 검색 리스너
     android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
         @Override
         public boolean onQueryTextChange(String query){
@@ -75,29 +73,30 @@ public class RoomListMain extends Fragment{
 
                 final String name = tempRoomInfos.getDRoomName().toLowerCase();
                 final String date = Integer.toString(tempRoomInfos.getDRoomDate());
-                Log.d(log, Integer.toString(tempRoomInfos.getDRoomPartyList().size()));
 
                 String [] phoneNum = new String[tempRoomInfos.getDRoomPartyList().size()];
+                String [] memberName = new String[tempRoomInfos.getDRoomPartyList().size()];
 
                 for(int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++){
-                    phoneNum[j] = tempRoomInfos.getDRoomPartyList().get(j).getPartyPhonenum();
+                    phoneNum[j] = tempRoomInfos.getDRoomPartyList().get(j).getPartyPhonenum().replaceAll("-", "");
+                    memberName[j] = tempRoomInfos.getDRoomPartyList().get(j).getParty_name();
                 }
-
                 if(name.contains(query)){
                     filteredList.add(roomListDatas.get(i));
                 }
                 else if(date.contains(query)){
                     filteredList.add(roomListDatas.get(i));
                 }
-                else if(InitialSoundSearcher_ForRoomList.patternMatching(name, query)){
-                    filteredList.add(roomListDatas.get(i));
-                }
-                else if(InitialSoundSearcher_ForRoomList.patternMatching(phoneNum, query)){
+                else if(InitialSoundSearcher.patternMatching(name, query)){
                     filteredList.add(roomListDatas.get(i));
                 }
                 else{
                     for(int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++){
                         if(phoneNum[j].contains(query))
+                            filteredList.add(roomListDatas.get(i));
+                        else if(memberName[j].contains(query))
+                            filteredList.add(roomListDatas.get(i));
+                        else if(InitialSoundSearcher.patternMatching(memberName[j], query))
                             filteredList.add(roomListDatas.get(i));
                     }
                 }
@@ -113,12 +112,12 @@ public class RoomListMain extends Fragment{
         }
     };
 
-
+    //파싱 AsyncTask
     private class SendPost extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... unused) {
-            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
-
+            String content = getRoomInfoFromDB(masterName, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+            //마스터 아이디 보내고 DB로 부터 정보 가져오는 함수
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomItemInfos = new ArrayList<>();
@@ -140,7 +139,6 @@ public class RoomListMain extends Fragment{
                     ArrayList<DRoomPartyInfo> memberInfoList = new ArrayList<>();
 
                     for (int j = 0; j < ja.length(); j++) {
-                        Log.d(log, "1");
 
                         JSONObject jo = ja.getJSONObject(j);
 
@@ -301,6 +299,7 @@ public class RoomListMain extends Fragment{
             return null;
         }
 
+        //리사이클러 뷰 붙이기
         @Override
         protected void onPostExecute(Void unused) {
 
@@ -352,5 +351,60 @@ public class RoomListMain extends Fragment{
 
     public static ArrayList<DRoom_FullInfo> getRoomListDatas(){
         return roomListDatas;
+    }
+
+    public static ArrayList<DRoomPartyInfo> getOwedListDatas(){
+        ArrayList<DRoomPartyInfo> roomPartyInfos = new ArrayList<>();
+
+        for(int i = 0; i < roomListDatas.size(); i++){
+            DRoom_FullInfo roomListData = roomListDatas.get(i);
+            List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
+            DRoomPartyInfo partyInfo = new DRoomPartyInfo();
+
+            String roomMasterPhone = roomListData.getMasterPhoneNum();
+
+            if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+
+                for(int j = 0; j < partyInfos.size(); j++){
+                    if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
+                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
+                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
+                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
+                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
+
+                        roomPartyInfos.add(partyInfo);
+                    }
+                }
+            }
+        }
+        return roomPartyInfos;
+    }
+
+    public static ArrayList<DRoomPartyInfo> getReceivableListDatas(){
+        ArrayList<DRoomPartyInfo> roomPartyInfos = new ArrayList<>();
+
+        for(int i = 0; i < roomListDatas.size(); i++){
+            DRoom_FullInfo roomListData = roomListDatas.get(i);
+            List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
+            DRoomPartyInfo partyInfo = new DRoomPartyInfo();
+
+            String roomMasterPhone = roomListData.getMasterPhoneNum();
+
+            if(MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+                for(int j = 0; j < partyInfos.size(); j++){
+                    if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
+                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
+                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
+                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
+                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
+
+                        roomPartyInfos.add(partyInfo);
+                    }
+                }
+            }
+        }
+        return roomPartyInfos;
     }
 }

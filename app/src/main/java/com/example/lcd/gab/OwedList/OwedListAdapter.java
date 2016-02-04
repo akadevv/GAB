@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
-import com.example.lcd.gab.MainActivity;
 import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
 import com.example.lcd.gab.PayRoom.PayRoomMainPage;
@@ -27,55 +26,50 @@ public class OwedListAdapter extends RecyclerView.Adapter<OwedListAdapter.ListVi
     private boolean room = false;
     private Context mContext;
     private List<DRoom_FullInfo> mRoomListDatas;
+    private List<DRoomPartyInfo> mRoomPartyInfos;
 
-    public OwedListAdapter(List<DRoom_FullInfo> roomListDatas, Context context){
+    public OwedListAdapter(List<DRoomPartyInfo> roomPartyInfos, List<DRoom_FullInfo> roomListDatas, Context context){
         mContext = context;
+        mRoomPartyInfos = roomPartyInfos;
         mRoomListDatas = roomListDatas;
     }
 
     @Override
-    public int getItemCount(){return mRoomListDatas.size();}
+    public int getItemCount(){return mRoomPartyInfos.size();}
 
     @Override
     public void onBindViewHolder(ListViewHolder listViewHolder, int position){
-        final DRoom_FullInfo roomListData = mRoomListDatas.get(position);
-        List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
-        DRoomPartyInfo partyInfo = new DRoomPartyInfo();
-        String roomMasterPhone = roomListData.getMasterPhoneNum();
+        DRoomPartyInfo roomPartyInfo = mRoomPartyInfos.get(position);
+        DRoom_FullInfo roomListData = new DRoom_FullInfo();
 
-        if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
+        listViewHolder.vName.setText(roomPartyInfo.getParty_name());
+        listViewHolder.vCost.addTextChangedListener(new MoneyUnitListener_Text(listViewHolder.vCost));
+        listViewHolder.vCost.setText(Integer.toString(roomPartyInfo.getPartyMoney()));
 
-            for(int i = 0 ; i < partyInfos.size(); i++){
-                if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
-                    partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                    partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                    partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                    partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
-                    room = true;
-                }else if(partyInfo.getRoomRcdNum()==0)
-                    room = false;
+        for(int i = 0; i < mRoomListDatas.size(); i++){
+            if(roomPartyInfo.getRoomRcdNum()==mRoomListDatas.get(i).getDRoomRcdNum()){
+                roomListData = mRoomListDatas.get(i);
+                room = true;
             }
+            else
+                room = false;
+        }
 
-            listViewHolder.vName.setText(partyInfo.getParty_name());
-            listViewHolder.vCost.addTextChangedListener(new MoneyUnitListener_Text(listViewHolder.vCost));
-            listViewHolder.vCost.setText(Integer.toString(partyInfo.getPartyMoney()));
+        final DRoom_FullInfo temp = roomListData;
 
-            listViewHolder.vRelativeLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(room){
-                        Intent intent = new Intent(mContext, PayRoomMainPage.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("selectedDRoomInfo", roomListData);
-                        intent.putExtras(bundle);
+        listViewHolder.vRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(room){
+                    Intent intent = new Intent(mContext, PayRoomMainPage.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("selectedDRoomInfo", temp);
+                    intent.putExtras(bundle);
 
-                        mContext.startActivity(intent);
-                    }
-
+                    mContext.startActivity(intent);
                 }
-            });
-        }else
-            listViewHolder.vRelativeLayout.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -96,4 +90,6 @@ public class OwedListAdapter extends RecyclerView.Adapter<OwedListAdapter.ListVi
             vRelativeLayout = (RelativeLayout) v.findViewById(R.id.owed_list_item_layout);
         }
     }
+
+
 }
