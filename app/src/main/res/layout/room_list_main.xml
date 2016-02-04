@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/room_list_search_view"
         android:layout_gravity="center_vertical"
-        android:queryHint="방 이름, 참여자, 날짜 검색" />
+        android:queryHint="방 이름, 참여자, 전화번호, 날짜 검색" />
 
 
     <android.support.v7.widget.RecyclerView

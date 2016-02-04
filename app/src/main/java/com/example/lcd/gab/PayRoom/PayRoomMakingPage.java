@@ -24,7 +24,6 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lcd.gab.ACCESS_TO_DB.Insert_DRoom_FullInfo_DB;
 import com.example.lcd.gab.ACCESS_TO_DB.Revise_DRoom_FullInfo_DB;
@@ -34,7 +33,6 @@ import com.example.lcd.gab.FriendData_ForSelect.FriendData_ForSelect;
 import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
 import com.example.lcd.gab.R;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

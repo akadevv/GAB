@@ -16,8 +16,8 @@ public class MasterInfo {
         return userPhoneNum;
     }
 
-    public void setUserId(String userid) {
-        this.userId = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setUserPhoneNum(String userPhoneNum) {

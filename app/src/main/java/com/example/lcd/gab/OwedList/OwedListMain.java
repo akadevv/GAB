@@ -11,7 +11,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
-import com.example.lcd.gab.MainActivity;
+import com.example.lcd.gab.InitialSoundSearcher;
 import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
 import com.example.lcd.gab.R;
@@ -28,7 +28,9 @@ public class OwedListMain extends android.support.v4.app.Fragment{
     private LinearLayout recyclerLayout;
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private ArrayList<DRoomPartyInfo> roomPartyInfos;
+    private List<DRoomPartyInfo> roomPartyInfos = RoomListMain.getOwedListDatas();
+    private List<DRoom_FullInfo> roomListDatas = RoomListMain.getRoomListDatas();
+    private OwedListAdapter owedListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
@@ -41,36 +43,13 @@ public class OwedListMain extends android.support.v4.app.Fragment{
 
         TextView totalText = (TextView) recyclerLayout.findViewById(R.id.owed_list_total_cost);
         TextView unFinishedText = (TextView) recyclerLayout.findViewById(R.id.owed_list_number_of_unfinished_people);
-        roomPartyInfos = new ArrayList<>();
 
         int total = 0;
         int unFinishedCount = 0;
-        List<DRoom_FullInfo> roomListDatas = RoomListMain.getRoomListDatas();
 
-        for(int i = 0; i < roomListDatas.size(); i++){
-            DRoom_FullInfo roomListData = roomListDatas.get(i);
-            List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
-            DRoomPartyInfo partyInfo = new DRoomPartyInfo();
-
-            String roomMasterPhone = roomListData.getMasterPhoneNum();
-
-            if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
-
-                for(int j = 0; j < partyInfos.size(); j++){
-                    if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
-                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
-                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
-
-                        roomPartyInfos.add(partyInfo);
-
-                        total = total + partyInfos.get(j).getPartyMoney();
-                        unFinishedCount++;
-                    }
-                }
-            }
+        for(int i = 0 ; i < roomPartyInfos.size(); i++){
+            total = total + roomPartyInfos.get(i).getPartyMoney();
+            unFinishedCount++;
         }
 
         totalText.addTextChangedListener(new MoneyUnitListener_Text(totalText));
@@ -82,9 +61,42 @@ public class OwedListMain extends android.support.v4.app.Fragment{
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        OwedListAdapter owedListAdapter = new OwedListAdapter(roomListDatas, recyclerLayout.getContext());
+        owedListAdapter = new OwedListAdapter(roomPartyInfos, roomListDatas, recyclerLayout.getContext());
         recyclerView.setAdapter(owedListAdapter);
+
+        searchView.setOnQueryTextListener(listener);
 
         return recyclerLayout;
     }
+
+    android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
+        @Override
+        public boolean onQueryTextChange(String query){
+            query = query.toLowerCase();
+            final ArrayList<DRoomPartyInfo> filteredList = new ArrayList<>();
+
+            for(int i=0; i < roomPartyInfos.size(); i++){
+                final String name = roomPartyInfos.get(i).getParty_name().toLowerCase();
+                final String phoneNum = roomPartyInfos.get(i).getPartyPhonenum().replaceAll("-","");
+
+                if(name.contains(query)){
+                    filteredList.add(roomPartyInfos.get(i));
+                }
+                else if(phoneNum.contains(query)){
+                    filteredList.add(roomPartyInfos.get(i));
+                }
+                else if(InitialSoundSearcher.patternMatching(name, query)){
+                    filteredList.add(roomPartyInfos.get(i));
+                }
+            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerLayout.getContext()));
+            owedListAdapter = new OwedListAdapter(filteredList, roomListDatas, recyclerLayout.getContext());
+            recyclerView.setAdapter(owedListAdapter);
+            owedListAdapter.notifyDataSetChanged();
+            return true;
+        }
+        public boolean onQueryTextSubmit(String query){
+            return false;
+        }
+    };
 }

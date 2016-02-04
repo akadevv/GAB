@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.example.lcd.gab.FriendListDBManager;
+import com.example.lcd.gab.InitialSoundSearcher;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -19,13 +21,8 @@ import java.util.ArrayList;
  * Created by LCD on 2016-01-12.
  */
 public class FriendListMain extends android.support.v4.app.Fragment{
-    private ArrayList<FriendData> friendDataList;
-    private ArrayList<FriendData> list = new ArrayList<>();
-    private FriendData friendData;
-    private RecyclerView recyclerView;
-    private FriendListAdapter friendListAdapter;
-    private android.widget.SearchView searchView;
-    private RelativeLayout recyclerLayout;
+
+    private static FriendListDBManager db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +31,11 @@ public class FriendListMain extends android.support.v4.app.Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        final ArrayList<FriendData> friendDataList;
+        final RecyclerView recyclerView;
+        android.widget.SearchView searchView;
+        final RelativeLayout recyclerLayout;
+
         recyclerLayout = (RelativeLayout) inflater.inflate(R.layout.friend_list_main, container, false);
 
         recyclerView = (RecyclerView)recyclerLayout.findViewById(R.id.friend_recycler_view);
@@ -44,47 +46,54 @@ public class FriendListMain extends android.support.v4.app.Fragment{
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        getPhoneNumList();
+        friendDataList = getPhoneNumList(recyclerLayout);
 
-        friendListAdapter = new FriendListAdapter(friendDataList, recyclerLayout.getContext());
+        db = new FriendListDBManager(recyclerLayout.getContext());
+        for(int i = 0; i < friendDataList.size(); i++){
+            db.addFriendData(friendDataList.get(i));
+        }
+
+        FriendListAdapter friendListAdapter = new FriendListAdapter(friendDataList, recyclerLayout.getContext());
         recyclerView.setAdapter(friendListAdapter);
 
-        searchView.setOnQueryTextListener(listener);
+
+        searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String query) {
+                query = query.toLowerCase();
+                final ArrayList<FriendData> filteredList = new ArrayList<>();
+
+                for (int i = 0; i < friendDataList.size(); i++) {
+                    final String name = friendDataList.get(i).getName().toLowerCase();
+                    final String phoneNum = friendDataList.get(i).getPhoneNum();
+                    if (name.contains(query)) {
+                        filteredList.add(friendDataList.get(i));
+                    } else if (phoneNum.contains(query)) {
+                        filteredList.add(friendDataList.get(i));
+                    } else if (InitialSoundSearcher.patternMatching(name, query)) {
+                        filteredList.add(friendDataList.get(i));
+                    }
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerLayout.getContext()));
+                FriendListAdapter friendListAdapter = new FriendListAdapter(filteredList, recyclerLayout.getContext());
+                recyclerView.setAdapter(friendListAdapter);
+                friendListAdapter.notifyDataSetChanged();
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+        });
 
         return recyclerLayout;
     }
 
-    android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
-        @Override
-        public boolean onQueryTextChange(String query){
-            query = query.toLowerCase();
-            final ArrayList<FriendData> filteredList = new ArrayList<>();
 
-            for(int i=0; i< friendDataList.size(); i++){
-                final String name = friendDataList.get(i).getName().toLowerCase();
-                final String phoneNum = friendDataList.get(i).getPhoneNum();
-                if(name.contains(query)){
-                    filteredList.add(friendDataList.get(i));
-                }
-                else if(phoneNum.contains(query)){
-                    filteredList.add(friendDataList.get(i));
-                }
-                else if(InitialSoundSearcher_ForFriendList.patternMatching(name, query)){
-                    filteredList.add(friendDataList.get(i));
-                }
-            }
-            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerLayout.getContext()));
-            friendListAdapter = new FriendListAdapter(filteredList, recyclerLayout.getContext());
-            recyclerView.setAdapter(friendListAdapter);
-            friendListAdapter.notifyDataSetChanged();
-            return true;
-        }
-        public boolean onQueryTextSubmit(String query){
-            return false;
-        }
-    };
+    public ArrayList<FriendData> getPhoneNumList(RelativeLayout recyclerLayout) {
+        ArrayList<FriendData> list = new ArrayList<>();
+        FriendData friendData;
 
-    public void getPhoneNumList() {
         Cursor cursor = null;
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         String phoneName = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
@@ -98,25 +107,26 @@ public class FriendListMain extends android.support.v4.app.Fragment{
                     if (list.size()==0) {
                         friendData = new FriendData();
                         friendData.setName(cursor.getString(0));
-                        friendData.setPhoneNum(cursor.getString(1));
+                        friendData.setPhoneNum(cursor.getString(1).replaceAll("-", ""));
                         list.add(friendData);
                     } else {
                         if (!list.get(list.size() - 1).getPhoneNum().equals(cursor.getString(1))) {
                             friendData = new FriendData();
                             friendData.setName(cursor.getString(0));
-                            friendData.setPhoneNum(cursor.getString(1));
+                            friendData.setPhoneNum(cursor.getString(1).replaceAll("-", ""));
                             list.add(friendData);
                         }
                     }
                 }
-            }friendDataList = list;
+            }
         }
         cursor.close();
         cursor = null;
+
+        return list;
     }
 
-    public ArrayList<FriendData> getFriendDataList(){
-        return friendDataList;
+    public static FriendListDBManager getFriendListDB(){
+        return db;
     }
-
 }
