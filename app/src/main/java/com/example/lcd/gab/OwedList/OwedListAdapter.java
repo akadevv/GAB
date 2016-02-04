@@ -1,4 +1,4 @@
-package com.example.lcd.gab.ReceivableList;
+package com.example.lcd.gab.OwedList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,24 +20,17 @@ import com.example.lcd.gab.R;
 import java.util.List;
 
 /**
- * Created by LCD on 2016-01-28.
+ * Created by LCD on 2016-02-02.
  */
-public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAdapter.ListViewHolder>{
+public class OwedListAdapter extends RecyclerView.Adapter<OwedListAdapter.ListViewHolder> {
 
     private boolean room = false;
     private Context mContext;
     private List<DRoom_FullInfo> mRoomListDatas;
-    private List<DRoomPartyInfo> mRoomPartyInfos;
 
-    public ReceivableListAdapter(List<DRoomPartyInfo> roomPartyInfos, Context context){
-        mContext = context;
-        mRoomPartyInfos = roomPartyInfos;
-    }
-
-    public ReceivableListAdapter(List<DRoomPartyInfo> roomPartyInfos, List<DRoom_FullInfo> roomListDatas, Context context){
+    public OwedListAdapter(List<DRoom_FullInfo> roomListDatas, Context context){
         mContext = context;
         mRoomListDatas = roomListDatas;
-        mRoomPartyInfos = roomPartyInfos;
     }
 
     @Override
@@ -50,9 +43,10 @@ public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAd
         DRoomPartyInfo partyInfo = new DRoomPartyInfo();
         String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-        if(MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+        if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(roomMasterPhone)){
+
             for(int i = 0 ; i < partyInfos.size(); i++){
-                if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
+                if(!MainActivity.getMasterInfo().getUserPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
                     partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
                     partyInfo.setParty_name(partyInfos.get(i).getParty_name());
                     partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
@@ -62,23 +56,9 @@ public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAd
                     room = false;
             }
 
-
-        for(int i = 0 ; i < partyInfos.size(); i++){
-            if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(i).getPartyPhonenum())) {
-                partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
-                room = true;
-            }else if(partyInfo.getRoomRcdNum()==0)
-                room = false;
-        }
-
-
             listViewHolder.vName.setText(partyInfo.getParty_name());
             listViewHolder.vCost.addTextChangedListener(new MoneyUnitListener_Text(listViewHolder.vCost));
             listViewHolder.vCost.setText(Integer.toString(partyInfo.getPartyMoney()));
-
 
             listViewHolder.vRelativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -96,12 +76,11 @@ public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAd
             });
         }else
             listViewHolder.vRelativeLayout.setVisibility(View.GONE);
-
     }
 
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent, int position){
-        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.receivable_list_item,parent,false);
+        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.owed_list_item,parent,false);
         return new ListViewHolder(viewItem);
     }
 
@@ -112,9 +91,9 @@ public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAd
 
         public ListViewHolder(View v){
             super(v);
-            vName = (TextView) v.findViewById(R.id.receivable_list_item_name);
-            vCost = (TextView) v.findViewById(R.id.receivable_list_item_cost);
-            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.receivable_list_item_layout);
+            vName = (TextView) v.findViewById(R.id.owed_list_item_name);
+            vCost = (TextView) v.findViewById(R.id.owed_list_item_cost);
+            vRelativeLayout = (RelativeLayout) v.findViewById(R.id.owed_list_item_layout);
         }
     }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
 import com.example.lcd.gab.R;
 
 import java.util.List;
@@ -36,7 +37,9 @@ public class PayRoomMainAdapter_ForCost extends RecyclerView.Adapter<PayRoomMain
         totalCost += roomPartyInfo.getPartyMoney();
 
         listViewHolder.vMember.setText(roomPartyInfo.getParty_name());
+        listViewHolder.vCost.addTextChangedListener(new MoneyUnitListener_Text(listViewHolder.vCost));
         listViewHolder.vCost.setText(Integer.toString(roomPartyInfo.getPartyMoney()));
+
         if(roomPartyInfo.getParty_finished()==0) {
             listViewHolder.vNotFinished.setVisibility(View.VISIBLE);
             listViewHolder.vFinished.setVisibility(View.GONE);

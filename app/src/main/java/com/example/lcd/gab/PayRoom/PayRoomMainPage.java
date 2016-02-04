@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
 import com.example.lcd.gab.R;
 
 /**
@@ -70,7 +71,9 @@ public class PayRoomMainPage extends Activity {
         for(int i = 0; i < roomListData.getDRoomItemList().size(); i++)
             totalPrice += roomListData.getDRoomItemList().get(i).getDRoomitem_price();
 
+        totalCostText.addTextChangedListener(new MoneyUnitListener_Text(totalCostText));
         totalCostText.setText(Integer.toString(totalCost));
+        totalPriceText.addTextChangedListener(new MoneyUnitListener_Text(totalPriceText));
         totalPriceText.setText(Integer.toString(totalPrice));
 
         if(roomListData.getDRoomFinished()==0){
