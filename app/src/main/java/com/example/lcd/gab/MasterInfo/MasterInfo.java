@@ -60,6 +60,7 @@ public class MasterInfo {
         this.masterBankName = masterBankName;
     }
 
+
     public String getMasterBankNum() {
         return masterBankNum;
     }

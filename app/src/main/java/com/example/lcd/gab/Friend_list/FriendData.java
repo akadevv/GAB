@@ -7,16 +7,27 @@ import java.io.Serializable;
  */
 public class FriendData implements Serializable {
 
+    private int id;
     private String name;
     private String phoneNum;
+    private int bookMark = 0;
 
     public FriendData(String name, String phoneNum){
         this.name = name;
         this.phoneNum = phoneNum;
     }
+
     public FriendData(){
         name="";
         phoneNum="";
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setName(String name){
@@ -33,5 +44,13 @@ public class FriendData implements Serializable {
 
     public String getPhoneNum(){
         return phoneNum;
+    }
+
+    public void setBookMark(int bookMark){
+        this.bookMark = bookMark;
+    }
+
+    public int getBookMark(){
+        return bookMark;
     }
 }
