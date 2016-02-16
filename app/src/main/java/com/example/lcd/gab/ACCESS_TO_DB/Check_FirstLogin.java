@@ -13,30 +13,20 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 /**
- * Created by Administrator on 2016-01-15.
+ * Created by Administrator on 2016-02-15.
  */
-public class Insert_DRoom_FullInfo_DB {
-    // String DRoomName;
-    // int DRoomDate;
-    // List<DRoomItemInfo> DRoomItemList = new ArrayList<DRoomItemInfo>();
-    // int totalPrice;
-    // List<DRoomPartyInfo> DRoomPartyList = new ArrayList<DRoomPartyInfo>();
+public class Check_FirstLogin {
+
     String log = "jjunest";
     private final String USER_AGENT = "Mozilla/5.0";
 
     //DBRoom_FullInfo 객체와 phpURL을 넘겨주면, DB의 history table 에 넘겨준다.
-    public void insertIntoDB_DroomFullInfo(DRoom_FullInfo newDroominfo, String phpurl) {
+    public boolean check_FirstLogin(String userId, String phpurl) {
+        boolean firstLogin;
+        firstLogin = false;
 
-        //making newDroominfo OBJECT TO JSON TYPE;
-        Log.d(log, "newDroominfo is : " + newDroominfo);
-        Gson gson = new Gson();
-        String jsonTransfered = gson.toJson(newDroominfo);
-        System.out.println("this is transerfed String :  " + jsonTransfered);
-        Log.d(log,"new MasterName :"+ newDroominfo.getmasterName());
-        //url 을 통해 send해준다
         try {
-            Log.d(log, "testing3 started-----");
-            String data = URLEncoder.encode("newRoomInfo", "UTF-8") + "=" + URLEncoder.encode(jsonTransfered, "UTF-8");
+            String data = URLEncoder.encode("userId", "UTF-8") + "=" + URLEncoder.encode(userId, "UTF-8");
             URL urlc = new URL(phpurl);
             URLConnection conn = urlc.openConnection();
             conn.setDoOutput(true);
@@ -56,12 +46,20 @@ public class Insert_DRoom_FullInfo_DB {
                 break;
 
             }
-            System.out.println("this is response : " + sb);
-            Log.d(log, "testing3 ended-----");
+            System.out.println("this is response in Check_FirstLogin.java: " + sb);
+
+            if(sb.substring(0,1).equals("0")){ //처음 로그인일 경우 //registerDB에서 row값이 0으로 넘어옴
+                firstLogin = true;
+                Log.d(log,"firstLogIn is true");
+            }else{
+                firstLogin = false;
+                Log.d(log,"firstLogIn is NOT true");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        return firstLogin;
     }
 
 }

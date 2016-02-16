@@ -13,30 +13,19 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 /**
- * Created by Administrator on 2016-01-15.
+ * Created by Administrator on 2016-02-16.
  */
-public class Insert_DRoom_FullInfo_DB {
-    // String DRoomName;
-    // int DRoomDate;
-    // List<DRoomItemInfo> DRoomItemList = new ArrayList<DRoomItemInfo>();
-    // int totalPrice;
-    // List<DRoomPartyInfo> DRoomPartyList = new ArrayList<DRoomPartyInfo>();
+public class Get_UserInfo_RegisterDB {
+
     String log = "jjunest";
     private final String USER_AGENT = "Mozilla/5.0";
 
-    //DBRoom_FullInfo 객체와 phpURL을 넘겨주면, DB의 history table 에 넘겨준다.
-    public void insertIntoDB_DroomFullInfo(DRoom_FullInfo newDroominfo, String phpurl) {
-
-        //making newDroominfo OBJECT TO JSON TYPE;
-        Log.d(log, "newDroominfo is : " + newDroominfo);
-        Gson gson = new Gson();
-        String jsonTransfered = gson.toJson(newDroominfo);
-        System.out.println("this is transerfed String :  " + jsonTransfered);
-        Log.d(log,"new MasterName :"+ newDroominfo.getmasterName());
+    public String getUserInfoFromRegisterDB(String UserId, String phpurl) {
+            String response = null;
         //url 을 통해 send해준다
         try {
             Log.d(log, "testing3 started-----");
-            String data = URLEncoder.encode("newRoomInfo", "UTF-8") + "=" + URLEncoder.encode(jsonTransfered, "UTF-8");
+            String data = URLEncoder.encode("UserId", "UTF-8") + "=" + URLEncoder.encode(UserId, "UTF-8");
             URL urlc = new URL(phpurl);
             URLConnection conn = urlc.openConnection();
             conn.setDoOutput(true);
@@ -57,11 +46,12 @@ public class Insert_DRoom_FullInfo_DB {
 
             }
             System.out.println("this is response : " + sb);
-            Log.d(log, "testing3 ended-----");
+            response =  sb.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //정보 받아오기 실패시에는 null 을 return 한다
+            return response;
     }
-
 }

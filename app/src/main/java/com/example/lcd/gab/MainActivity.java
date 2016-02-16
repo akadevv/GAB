@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        //로그아웃 버튼 클릭시, 카카오톡 로그아웃
         Button logoutBT = (Button)findViewById(R.id.logout_button);
         logoutBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,8 @@ public class MainActivity extends Activity {
             }
         });
 
+        System.out.println("this is in MainActivity masterInfo. userid : " + masterInfo.getMasterID());
+        System.out.println("this is in MainActivity masterInfo. userName : "+masterInfo.getMasterName());
     }
 
     public static MasterInfo getMasterInfo(){
