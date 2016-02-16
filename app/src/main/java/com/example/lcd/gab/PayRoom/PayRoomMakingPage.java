@@ -32,6 +32,7 @@ import com.example.lcd.gab.CommonListener.MoneyUnitListener_Edit;
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
 import com.example.lcd.gab.FriendData_ForSelect.FriendData_ForSelect;
 import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
+import com.example.lcd.gab.MasterInfo.MasterInfo;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ import java.util.List;
  * Created by LCD on 2016-01-11.
  */
 public class PayRoomMakingPage extends Activity {
+    private static MasterInfo masterInfo=MasterInfo.getMasterInfo();
     String logclass = "| in PayRoomMain |";
     Context PayRoomContext;
     Activity PayRoomActivity;
@@ -144,7 +146,7 @@ public class PayRoomMakingPage extends Activity {
 
         //MasterContainer 의 정보를 넣는다 //로그인 시의 로그인 한 사람의 정보
         MasterNameText = (TextView) findViewById(R.id.MasterNameTextView);
-        MasterNameText.setText("박방장"); //해당 부분은 본인의 이름 //로그인 시에 자동으로 설정
+        MasterNameText.setText(masterInfo.getMasterName()); //해당 부분은 본인의 이름 //로그인 시에 자동으로 설정
         MasterMoneyEdit = (EditText) findViewById(R.id.MasterMoneyEditText);
         //MasterMoneyEdit에 TotalMoneyListener 추가
         MasterMoneyEdit.addTextChangedListener(new PartyTotalPriceTextWatcher());
@@ -334,7 +336,7 @@ public class PayRoomMakingPage extends Activity {
 
                 //마지막에 방 주인의 정보를 넣어준다. DRoom_partLists에도 추가해준다. .
                 masterName = MasterNameText.getText().toString();
-                masterPhoneNum = "010-1234-5678"; //이미 master폰번호
+                masterPhoneNum = masterInfo.getMasterPhoneNum(); //이미 master폰번호
                 MasterMoney = Integer.valueOf(MasterMoneyEdit.getText().toString().replaceAll(",", ""));
                 newDroomPartyInfo = new DRoomPartyInfo(masterName, masterPhoneNum, MasterMoney, 1);
                 DRoom_partyLists.add(newDroomPartyInfo);
@@ -590,7 +592,7 @@ public class PayRoomMakingPage extends Activity {
             TextView PartyTextView = (TextView) partyRelativeLayout.findViewById(R.id.partyNameTextView);
             String partyNameString = PartyTextView.getText().toString();
             TextView PartyPhoneView = (TextView) partyRelativeLayout.findViewById(R.id.partyPhoneNumTextView);
-            String partyPhoneString = PartyPhoneView.getText().toString();
+            String partyPhoneString = PartyPhoneView.getText().toString().replaceAll("-","");
             EditText PartyMoneyView = (EditText) partyRelativeLayout.findViewById(R.id.partyMoneyEditView);
             //partyMoney 에 있는 모든 콤마를 없애준다.
             String partyMoneyString = PartyMoneyView.getText().toString().replaceAll(",", "");

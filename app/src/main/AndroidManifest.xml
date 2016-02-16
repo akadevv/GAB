@@ -36,6 +36,7 @@
         <activity android:name=".FriendData_ForSelect.FriendListMain_ForSelect"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".KakaoLogIn.SignUpActivity"/>
+        <activity android:name=".KakaoLogIn.FirstLoginPage"/>
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
