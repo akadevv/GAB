@@ -43,19 +43,14 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         listViewHolder.vRecyclerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup = createDialog(friendData.getName(), friendData.getPhoneNum(), friendData);
+                popup = createDialog(friendData);
                 popup.show();
                 popup.setCanceledOnTouchOutside(true);
 
             }
         });
 
-        if(friendData.getBookMark()==0)
-            listViewHolder.vFriendTap.setVisibility(View.GONE);
-        else
-            listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
 
-        //mDB.updateFriendData(friendData);
     }
 
     @Override
@@ -79,7 +74,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         }
     }
 
-    private AlertDialog createDialog(String name, final String phoneNum, final FriendData friendData){
+    private AlertDialog createDialog(final FriendData friendData){
         LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.friend_list_popup_item, null);
 
@@ -93,7 +88,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         TextView setBookMark = (TextView) view.findViewById(R.id.friend_list_popup_set_bookmark);
         TextView resetBookMark = (TextView) view.findViewById(R.id.friend_list_popup_reset_bookmark);
 
-        userName.setText(name);
+        userName.setText(friendData.getName());
 
         payRoom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +103,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             public void onClick(View v) {
 
                 try {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + friendData.getPhoneNum()));
                     mContext.startActivity(intent);
                 }catch (SecurityException e){
 
@@ -123,6 +118,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
                 @Override
                 public void onClick(View v) {
                     friendData.setBookMark(0);
+                    FriendListMain.getFriendListDB().updateFriendData(friendData);
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에서 제거되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -136,36 +132,14 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
                 @Override
                 public void onClick(View v) {
                     friendData.setBookMark(1);
+                    FriendListMain.getFriendListDB().updateFriendData(friendData);
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             });
         }
-
         return  pop.create();
-    }
-
-    private ArrayList<FriendData> bookMark(ArrayList<FriendData> friendDataList){
-        ArrayList<FriendData> bookMarkList = new ArrayList<>();
-        ArrayList<FriendData> normalList = new ArrayList<>();
-        ArrayList<FriendData> friendList = new ArrayList<>();
-
-        for(int i = 0; i < friendDataList.size(); i++){
-                if(friendDataList.get(i).getBookMark()==1){
-                    bookMarkList.add(friendDataList.get(i));
-                }
-                else{
-                    normalList.add(friendDataList.get(i));
-                }
-        }
-
-        for(int i = 0; i < bookMarkList.size(); i++)
-            friendList.add(bookMarkList.get(i));
-        for(int i = 0; i < normalList.size(); i++)
-            friendList.add(normalList.get(i));
-
-        return friendList;
     }
 
 }
