@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class FriendListDBManager extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "DBManager";
-    private static final String TABLE_NAME = "Friend_List";
+    private static final String DATABASE_NAME = "GAB";
+    private static final String TABLE_NAME = "Friend_List_Main";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_PH_NO = "phone_number";
@@ -30,7 +30,7 @@ public class FriendListDBManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                + KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
+                + KEY_ID +" INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_PH_NO + " TEXT," + KEY_BOOK_MARK + " INTEGER" + ");";
         db.execSQL(CREATE_TABLE);
     }
@@ -44,7 +44,7 @@ public class FriendListDBManager extends SQLiteOpenHelper {
     }
 
     public void addFriendData(FriendData friendData){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, friendData.getName());
@@ -57,9 +57,9 @@ public class FriendListDBManager extends SQLiteOpenHelper {
 
     public ArrayList<FriendData> getAllFriendData(){
         ArrayList<FriendData> friendDataList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + KEY_NAME + " ASC" + ";";
 
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()){
@@ -72,17 +72,33 @@ public class FriendListDBManager extends SQLiteOpenHelper {
                 friendDataList.add(friendData);
             }while (cursor.moveToNext());
         }
+        db.close();
         return friendDataList;
     }
 
     public void updateFriendData(FriendData friendData){
-        SQLiteDatabase db = getWritableDatabase();
+
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, friendData.getName());
         values.put(KEY_PH_NO, friendData.getPhoneNum());
         values.put(KEY_BOOK_MARK, friendData.getBookMark());
 
-        db.update(TABLE_NAME, values, KEY_ID + "= ?", new String[]{Integer.toString(friendData.getId())});
+        db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[]{Integer.toString(friendData.getId())});
+        db.close();
+    }
+
+    public void deleteAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null);
+        db.close();
+    }
+
+    public void deleteTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DROP TABLE " + TABLE_NAME + ";";
+        db.execSQL(query);
+        db.close();
     }
 }

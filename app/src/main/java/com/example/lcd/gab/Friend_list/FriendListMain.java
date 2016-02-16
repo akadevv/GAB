@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.example.lcd.gab.InitialSoundSearcher;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by LCD on 2016-01-12.
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 public class FriendListMain extends android.support.v4.app.Fragment{
 
     private static FriendListDBManager db;
+    private boolean tempTable = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,18 +46,61 @@ public class FriendListMain extends android.support.v4.app.Fragment{
         searchView = (android.widget.SearchView) recyclerLayout.findViewById(R.id.friend_search_view);
 
         recyclerView.setHasFixedSize(true);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(recyclerLayout.getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
         friendDataList = getPhoneNumList(recyclerLayout);
 
+        //recyclerLayout.getContext().deleteDatabase("GAB");
+
         db = new FriendListDBManager(recyclerLayout.getContext());
-        for(int i = 0; i < friendDataList.size(); i++){
-            db.addFriendData(friendDataList.get(i));
+
+        ArrayList<FriendData> DBDataList = db.getAllFriendData();
+        ArrayList<FriendData> tempList = new ArrayList<>();
+
+        if (db.getAllFriendData().size() == 0)
+            for (int i = 0; i < friendDataList.size(); i++) {
+                db.addFriendData(friendDataList.get(i));
+                Log.d("cdd","gab deleted");
+            }
+        else{
+            if(friendDataList.size() > DBDataList.size()) {
+
+                    for(int i = 0; i < friendDataList.size(); i++) {
+                        for (int j = 0; j < DBDataList.size(); j++) {
+                            if (friendDataList.get(i).getPhoneNum().equals(DBDataList.get(j).getPhoneNum())) {
+                                tempList.add(DBDataList.get(j));
+                                break;
+                            }
+                        }
+                        tempList.add(friendDataList.get(i));
+                    }
+
+                    //DBDataList = null;
+                    //tempList = null;
+                    Log.d("cdd", "테스트 완료111111");
+
+            }else if(friendDataList.size() < db.getAllFriendData().size()){
+
+            }
         }
 
-        FriendListAdapter friendListAdapter = new FriendListAdapter(friendDataList, recyclerLayout.getContext());
+        Collections.sort(tempList, new Comparator<FriendData>() {
+            @Override
+            public int compare(FriendData lhs, FriendData rhs) {
+                return (lhs.getName().compareToIgnoreCase(rhs.getName()));
+            }
+        });
+
+        Log.d("cdd", Integer.toString(db.getAllFriendData().size()));
+
+        db.close();
+
+
+
+        FriendListAdapter friendListAdapter = new FriendListAdapter(tempList, recyclerLayout.getContext());
         recyclerView.setAdapter(friendListAdapter);
 
 
@@ -93,32 +140,37 @@ public class FriendListMain extends android.support.v4.app.Fragment{
     public ArrayList<FriendData> getPhoneNumList(RelativeLayout recyclerLayout) {
         ArrayList<FriendData> list = new ArrayList<>();
         FriendData friendData;
-
         Cursor cursor = null;
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         String phoneName = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
         String[] ad = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER};
         cursor = recyclerLayout.getContext().getContentResolver().query(uri, ad, null, null, phoneName);
+        int id = 1;
 
         if(cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
 
+            do{
                 if (cursor.getString(1) != null) {
                     if (list.size()==0) {
                         friendData = new FriendData();
+                        friendData.setId(id++);
                         friendData.setName(cursor.getString(0));
                         friendData.setPhoneNum(cursor.getString(1).replaceAll("-", ""));
+                        Log.d("cdd", friendData.getName());
                         list.add(friendData);
+                        friendData = null;
                     } else {
                         if (!list.get(list.size() - 1).getPhoneNum().equals(cursor.getString(1))) {
                             friendData = new FriendData();
+                            friendData.setId(id++);
                             friendData.setName(cursor.getString(0));
                             friendData.setPhoneNum(cursor.getString(1).replaceAll("-", ""));
                             list.add(friendData);
+                            friendData = null;
                         }
                     }
                 }
-            }
+            }while(cursor.moveToNext());
         }
         cursor.close();
         cursor = null;

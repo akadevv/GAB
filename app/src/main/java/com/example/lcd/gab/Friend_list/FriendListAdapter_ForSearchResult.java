@@ -20,13 +20,13 @@ import java.util.ArrayList;
 /**
  * Created by LCD on 2016-01-07.
  */
-public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ListViewHolder>{
+public class FriendListAdapter_ForSearchResult extends RecyclerView.Adapter<FriendListAdapter_ForSearchResult.ListViewHolder>{
 
     private Context mContext;
     private AlertDialog popup;
     private ArrayList<FriendData> mFriendDataList;
 
-    public FriendListAdapter(ArrayList<FriendData> friendDataList, Context context){
+    public FriendListAdapter_ForSearchResult(ArrayList<FriendData> friendDataList, Context context){
         this.mFriendDataList = friendDataList;
         this.mContext = context;
     }
@@ -54,8 +54,6 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             listViewHolder.vFriendTap.setVisibility(View.GONE);
         else
             listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
-
-        //mDB.updateFriendData(friendData);
     }
 
     @Override
@@ -139,6 +137,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
+
                 }
             });
         }
