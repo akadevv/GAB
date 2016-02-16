@@ -375,9 +375,9 @@ public class PayRoomMakingPage extends Activity {
 //                new reviseDRoomFullToDB().execute(DRoom_fullinfo);
                 new InsertDRoomFullToDB().execute(DRoom_fullinfo);
                 Log.d(log, "방만들기 버튼 클릭 완료 후 ");
-//                Intent To_PayRoomMain_intent = new Intent(getApplicationContext(), PayRoomMainPage.class);
-//                startActivity(To_PayRoomMain_intent);
-//                finish();
+                Intent To_PayRoomMain_intent = new Intent(getApplicationContext(), PayRoomMainPage.class);
+                startActivity(To_PayRoomMain_intent);
+                finish();
 
             }
         });
