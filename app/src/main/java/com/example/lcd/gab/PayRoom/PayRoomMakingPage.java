@@ -297,8 +297,7 @@ public class PayRoomMakingPage extends Activity {
                         Log.d(log, "getTag is null");
                     } else {
                         if (newItemLayout.getTag().equals("newItemTAG")) {
-                            LinearLayout itemNameContainer = (LinearLayout) newItemLayout.getChildAt(0);
-                            TextView itemNameTextView = (TextView) itemNameContainer.findViewById(R.id.itemNameText);
+                            TextView itemNameTextView = (TextView) newItemLayout.findViewById(R.id.itemNameText);
                             newitemName_String = itemNameTextView.getText().toString();
                             EditText itemPriceView = (EditText) newItemLayout.findViewById(R.id.itemPriceEdit);
                             //price는 3자리마다 ,가 있으니 모든 콤마를 없애준후에 넣어준다.

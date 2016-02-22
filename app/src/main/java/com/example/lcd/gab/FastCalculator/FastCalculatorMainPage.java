@@ -26,15 +26,19 @@ import com.example.lcd.gab.CommonListener.ImageViewTouchListener;
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Edit;
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
 import com.example.lcd.gab.MasterInfo.MasterInfo;
+import com.example.lcd.gab.PayRoom.DRoomItemInfo;
+import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.R;
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
 
 import java.util.Calendar;
 
 /**
  * Created by Administrator on 2016-02-22.
  */
-public class FastCalculatorMainPage extends Activity{
-    private static MasterInfo masterInfo=MasterInfo.getMasterInfo();
+public class FastCalculatorMainPage extends Activity {
+    private static MasterInfo masterInfo = MasterInfo.getMasterInfo();
     private String GAB_Nanum_Bold = "NanumGothicBold.ttf";
     private String GAB_Nanum_Pen = "NanumPen.ttf";
     private String GAB_Nanum_ExtraBold = "NanumGothicExtraBold.ttf";
@@ -45,6 +49,8 @@ public class FastCalculatorMainPage extends Activity{
     String mMonth_String;
     String mDay_String;
     static final int DATE_DIALOG_ID = 0;
+    Context FastCalculator_Context;
+    Activity FastCalculator_Activity;
 
 
     @Override
@@ -53,25 +59,25 @@ public class FastCalculatorMainPage extends Activity{
         setContentView(R.layout.fastcalculator_room_main);
 
         //폰트 설정
-        TextView FastCalculator_textView1 = (TextView)findViewById(R.id.FastCalculator_textView1);
+        TextView FastCalculator_textView1 = (TextView) findViewById(R.id.FastCalculator_textView1);
         FastCalculator_textView1.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_ExtraBold));
 
-        TextView FastCalculator_helpitemmessage =(TextView)findViewById(R.id.FastCalculator_helpitemmessage);
+        TextView FastCalculator_helpitemmessage = (TextView) findViewById(R.id.FastCalculator_helpitemmessage);
         FastCalculator_helpitemmessage.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_Pen));
 
-        Button FastCalculator_Kakao_sendButton = (Button)findViewById(R.id.FastCalculator_Kakao_sendButton);
+        Button FastCalculator_Kakao_sendButton = (Button) findViewById(R.id.FastCalculator_Kakao_sendButton);
         FastCalculator_Kakao_sendButton.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_ExtraBold));
 
         //MasterContainer 의 정보를 넣는다 //로그인 시의 로그인 한 사람의 정보
-       TextView FastCalculator_MasterNameText = (TextView) findViewById(R.id.FastCalculator_MasterNameTextView);
+        TextView FastCalculator_MasterNameText = (TextView) findViewById(R.id.FastCalculator_MasterNameTextView);
         FastCalculator_MasterNameText.setText(masterInfo.getMasterName()); //해당 부분은 본인의 이름 //로그인 시에 자동으로 설정
         EditText FastCalculator_MasterMoneyEdit = (EditText) findViewById(R.id.FastCalculator_MasterMoneyEditText);
         //MasterMoneyEdit에 TotalMoneyListener 추가
         FastCalculator_MasterMoneyEdit.addTextChangedListener(new PartyTotalPriceTextWatcher());
         FastCalculator_MasterMoneyEdit.addTextChangedListener(new MoneyUnitListener_Edit(FastCalculator_MasterMoneyEdit));
 
-        Context FastCalculator_Context = this;
-        Activity FastCalculator_Activity = (Activity)this;
+        FastCalculator_Context = this;
+        FastCalculator_Activity = (Activity) this;
 
         Calendar c = Calendar.getInstance();
 
@@ -81,8 +87,8 @@ public class FastCalculatorMainPage extends Activity{
 
 
         //방제목 자동으로 삽입
-        EditText FastCalculator_roomname_edit = (EditText)findViewById(R.id.FastCalculator_roomname_edit);
-        FastCalculator_roomname_edit.setText(mMonth + 1 + "월 " + mDay + "일 더치페이방");
+        EditText FastCalculator_roomname_edit = (EditText) findViewById(R.id.FastCalculator_roomname_edit);
+        FastCalculator_roomname_edit.setText(mMonth + 1 + "월 " + mDay + "일 모임");
 
         //pizza item image
 
@@ -95,7 +101,6 @@ public class FastCalculatorMainPage extends Activity{
         //itemPriceTotalTextView
         TextView FastCalculator_itemPriceTotal = (TextView) findViewById(R.id.FastCalculator_itemPriceTotal);
         FastCalculator_itemPriceTotal.addTextChangedListener(new MoneyUnitListener_Text(FastCalculator_itemPriceTotal));
-
 
 
         //for date picker 날짜 선택 방
@@ -123,18 +128,18 @@ public class FastCalculatorMainPage extends Activity{
 
 
         //더치페이 방원 number 적을 시에 TextWatcher 설정
-        EditText FastCalculator_totalPartyNum = (EditText)findViewById(R.id.FastCalculator_totalPartyNum);
+        EditText FastCalculator_totalPartyNum = (EditText) findViewById(R.id.FastCalculator_totalPartyNum);
         FastCalculator_totalPartyNum.addTextChangedListener(new FastCalculator_PartyTotalNum_Watcher());
 
 
-        Button FastCalculator_DutchCalculateBT = (Button)findViewById(R.id.FastCalculator_DutchCalculateBT);
+        Button FastCalculator_DutchCalculateBT = (Button) findViewById(R.id.FastCalculator_DutchCalculateBT);
         //버튼 클릭시 나 + party 원들의 수만큼 나누어줌.
         FastCalculator_DutchCalculateBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //itemContainer에 있는 모든 총합을 구한다.
                 int totalItemPrice = calculateItemTotalPrice();
-                LinearLayout FastCalculator_PartyContainer = (LinearLayout)findViewById(R.id.FastCalculator_PartyContainer);
+                LinearLayout FastCalculator_PartyContainer = (LinearLayout) findViewById(R.id.FastCalculator_PartyContainer);
                 int partyCounter = 1 + FastCalculator_PartyContainer.getChildCount(); //1은 master //나머지는 party원
 
                 int DivideMoneyToParty = ((totalItemPrice / partyCounter) + 9) / 10 * 10;
@@ -150,15 +155,114 @@ public class FastCalculatorMainPage extends Activity{
                     }
                 }
                 //방장에게 분배될 금액 표시
-                EditText FastCalculator_MasterMoneyEditText = (EditText)findViewById(R.id.FastCalculator_MasterMoneyEditText);
+                EditText FastCalculator_MasterMoneyEditText = (EditText) findViewById(R.id.FastCalculator_MasterMoneyEditText);
                 FastCalculator_MasterMoneyEditText.setText(String.valueOf(DivideMoneyToMaster));
             }
         });
 
         //partyTotalTextView 3자리씩 끊어서 보여주기
-        TextView FastCalculator_partyMoneyTotal = (TextView)findViewById(R.id.FastCalculator_partyMoneyTotal);
+        TextView FastCalculator_partyMoneyTotal = (TextView) findViewById(R.id.FastCalculator_partyMoneyTotal);
         FastCalculator_partyMoneyTotal.addTextChangedListener(new MoneyUnitListener_Text(FastCalculator_partyMoneyTotal));
 
+        //카카오 버튼 누를 시에 계싼된 정보 메세지로 보내주기
+
+        FastCalculator_Kakao_sendButton = (Button) findViewById(R.id.FastCalculator_Kakao_sendButton);
+        FastCalculator_Kakao_sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    final KakaoLink kakaoLink = KakaoLink.getKakaoLink(FastCalculator_Context);
+                    final KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+
+                    String sendingText = "";
+                    StringBuilder sb = new StringBuilder("◐ GAB 더치페이 방◑\n");
+                    EditText FastCalculator_roomname_edit = (EditText) findViewById(R.id.FastCalculator_roomname_edit);
+                    sb.append("1. 방 이름 \n");
+                    sb.append(FastCalculator_roomname_edit.getText().toString() + "\n\n");
+
+                    Button FastCalculator_room_date_selector = (Button) findViewById(R.id.FastCalculator_room_date_selector);
+                    sb.append("2. 방 날짜\n");
+                    sb.append(FastCalculator_room_date_selector.getText() + "\n\n");
+
+                    LinearLayout FastCalculator_dutchPayItemContainer = (LinearLayout) findViewById(R.id.FastCalculator_dutchPayItemContainer);
+                    sb.append("3. 더치페이 항목\n");
+                    int itemCounter = FastCalculator_dutchPayItemContainer.getChildCount();
+                    for (int i = 0; i < itemCounter; i++) {
+                        LinearLayout newItemLayout = (LinearLayout) FastCalculator_dutchPayItemContainer.getChildAt(i);
+                        if (newItemLayout.getTag() == null) {
+                            Log.d(log, "getTag is null");
+                        } else {
+                            if (newItemLayout.getTag().equals("newItemTAG")) {
+                                TextView itemNameTextView = (TextView) newItemLayout.findViewById(R.id.itemNameText);
+                                String newitemName_String = itemNameTextView.getText().toString();
+                                EditText itemPriceView = (EditText) newItemLayout.findViewById(R.id.itemPriceEdit);
+                                //price는 3자리마다 ,가 있으니 모든 콤마를 없애준후에 넣어준다.
+
+                                String newitemPrice_String = itemPriceView.getText().toString();
+                                NumberPicker itemNumberPicker = (NumberPicker) newItemLayout.findViewById(R.id.numberPicker);
+                                int itemNumber_int = itemNumberPicker.getValue();
+                                Log.d(log, "newitemName_String : " + newitemName_String);
+                                Log.d(log, "newitemPrice_String : " + newitemPrice_String);
+                                Log.d(log, "new itemNumber_int :" + itemNumber_int);
+                                sb.append(newitemName_String + " - ");
+                                sb.append(newitemPrice_String + "원 * " + itemNumber_int + "개\n");
+                            }
+
+                        }
+
+                    }
+
+                    sb.append("\n4. 더치페이 항목 총액\n");
+                    TextView FastCalculator_itemPriceTotal = (TextView) findViewById(R.id.FastCalculator_itemPriceTotal);
+                    sb.append(FastCalculator_itemPriceTotal.getText().toString() + "원\n\n");
+
+                    sb.append("5. 더치페이 총 인원\n");
+                    EditText FastCalculator_totalPartyNum = (EditText) findViewById(R.id.FastCalculator_totalPartyNum);
+                    sb.append(FastCalculator_totalPartyNum.getText().toString() + "명\n\n");
+
+
+                    sb.append("6. 상세 금액\n");
+                    TextView FastCalculator_MasterNameTextView = (TextView) findViewById(R.id.FastCalculator_MasterNameTextView);
+                    EditText FastCalculator_MasterMoneyEditText = (EditText) findViewById(R.id.FastCalculator_MasterMoneyEditText);
+                    sb.append(FastCalculator_MasterNameTextView.getText().toString() + "-" + FastCalculator_MasterMoneyEditText.getText().toString() + "원\n");
+
+
+                    LinearLayout FastCalculator_PartyContainer = (LinearLayout) findViewById(R.id.FastCalculator_PartyContainer);
+                    int partycounter = FastCalculator_PartyContainer.getChildCount();
+                    for (int i = 0; i < partycounter; i++) {
+                        LinearLayout partyRelativeLayout = (LinearLayout) FastCalculator_PartyContainer.getChildAt(i);
+                        TextView PartyTextView = (TextView) partyRelativeLayout.findViewById(R.id.FastCalculator_partyNameTextView);
+                        String partyNameString = PartyTextView.getText().toString();
+
+                        EditText PartyMoneyView = (EditText) partyRelativeLayout.findViewById(R.id.FastCalculator_partyMoneyEditView);
+                        String partyMoneyString = PartyMoneyView.getText().toString();
+                        //숫자 입력칸 null 방지,
+                        if (partyMoneyString.equals("")) {
+                            partyMoneyString = "0";
+                        }
+
+                      sb.append(partyNameString + "-" + partyMoneyString + "원\n");
+                    }
+
+
+                    TextView FastCalculator_partyMoneyTotal = (TextView)findViewById(R.id.FastCalculator_partyMoneyTotal);
+                    sb.append("\n7. 참가원 총 금액\n");
+                    sb.append(FastCalculator_partyMoneyTotal.getText().toString()+"원\n\n");
+
+                    sb.append("8. 입금 은행\n");
+                    sb.append(masterInfo.getMasterBankName()+"\n\n");
+
+                    sb.append("9. 입금 계좌\n");
+                    sb.append(masterInfo.getMasterBankNum()+"\n\n");
+
+                    kakaoTalkLinkMessageBuilder.addText(sb.toString());
+                    kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, FastCalculator_Context);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
@@ -175,7 +279,7 @@ public class FastCalculatorMainPage extends Activity{
             int totalPartyMoney = 0;
             totalPartyMoney = calculatePartyTotalMoney();
             Log.d(log, "totalPartyMoneyPrice :" + totalPartyMoney);
-            TextView FastCalculator_partyMoneyTotal = (TextView)findViewById(R.id.FastCalculator_partyMoneyTotal);
+            TextView FastCalculator_partyMoneyTotal = (TextView) findViewById(R.id.FastCalculator_partyMoneyTotal);
             FastCalculator_partyMoneyTotal.setText(String.valueOf(totalPartyMoney));
         }
 
@@ -213,7 +317,7 @@ public class FastCalculatorMainPage extends Activity{
             }
         }
 
-        EditText FastCalculator_MasterMoneyEditText = (EditText)findViewById(R.id.FastCalculator_MasterMoneyEditText);
+        EditText FastCalculator_MasterMoneyEditText = (EditText) findViewById(R.id.FastCalculator_MasterMoneyEditText);
         if (FastCalculator_MasterMoneyEditText.getText().toString().trim().length() == 0) {
 
         } else {
@@ -225,7 +329,7 @@ public class FastCalculatorMainPage extends Activity{
 
 
     //아이템 클릭시에 추가하는 Listener
-    private class ItemClickAddListener implements View.OnClickListener{
+    private class ItemClickAddListener implements View.OnClickListener {
         ImageView clickedImageView;
 
         public ItemClickAddListener(ImageView clickedImageView) {
@@ -283,7 +387,7 @@ public class FastCalculatorMainPage extends Activity{
 
                 }
             });
-            LinearLayout FastCalculator_dutchPayItemContainer = (LinearLayout)findViewById(R.id.FastCalculator_dutchPayItemContainer);
+            LinearLayout FastCalculator_dutchPayItemContainer = (LinearLayout) findViewById(R.id.FastCalculator_dutchPayItemContainer);
             FastCalculator_dutchPayItemContainer.addView(addView);
 
 
@@ -303,7 +407,7 @@ public class FastCalculatorMainPage extends Activity{
             int totalItemPrice = 0;
             totalItemPrice = calculateItemTotalPrice();
             Log.d(log, "totalPrice :" + totalItemPrice);
-            TextView FastCalculator_itemPriceTotal = (TextView)findViewById(R.id.FastCalculator_itemPriceTotal);
+            TextView FastCalculator_itemPriceTotal = (TextView) findViewById(R.id.FastCalculator_itemPriceTotal);
             FastCalculator_itemPriceTotal.setText(String.valueOf(totalItemPrice));
         }
 
@@ -416,9 +520,10 @@ public class FastCalculatorMainPage extends Activity{
 
     }
 
-   private class FastCalculator_PartyTotalNum_Watcher implements TextWatcher {
-       int partyTotalNum;
-       @Override
+    private class FastCalculator_PartyTotalNum_Watcher implements TextWatcher {
+        int partyTotalNum;
+
+        @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
         }
@@ -429,17 +534,17 @@ public class FastCalculatorMainPage extends Activity{
             LinearLayout FastCalculator_PartyContainer = (LinearLayout) findViewById(R.id.FastCalculator_PartyContainer);
             clearAllChildView(FastCalculator_PartyContainer);
 
-            Log.d(log,"s :"+s);
+            Log.d(log, "s :" + s);
 
-            if(s.toString().equals("")){
+            if (s.toString().equals("")) {
                 partyTotalNum = 0;
-            }else{
+            } else {
                 //partyTotalNum 이 숫자이라면
                 partyTotalNum = Integer.valueOf(s.toString());
             }
 
-            for (int i = 0; i < partyTotalNum-1; i++) {
-                final String FriendName = "참가자"+(i+1);
+            for (int i = 0; i < partyTotalNum - 1; i++) {
+                final String FriendName = "참가자" + (i + 1);
                 LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View addPartyView = layoutInflater.inflate(R.layout.fastcalculator_partyrow, null);
                 TextView partyName = (TextView) addPartyView.findViewById(R.id.FastCalculator_partyNameTextView);
@@ -458,7 +563,7 @@ public class FastCalculatorMainPage extends Activity{
                         int totalPartyMoney = 0;
                         totalPartyMoney = calculatePartyTotalMoney();
                         Log.d(log, "totalPartyMoney :" + totalPartyMoney);
-                        TextView FastCalculator_partyMoneyTotal = (TextView)findViewById(R.id.FastCalculator_partyMoneyTotal);
+                        TextView FastCalculator_partyMoneyTotal = (TextView) findViewById(R.id.FastCalculator_partyMoneyTotal);
                         FastCalculator_partyMoneyTotal.setText(String.valueOf(totalPartyMoney));
                     }
                 });
@@ -470,7 +575,7 @@ public class FastCalculatorMainPage extends Activity{
 
             //itemContainer에 있는 모든 총합을 구한다.
             int totalItemPrice = calculateItemTotalPrice();
-            FastCalculator_PartyContainer = (LinearLayout)findViewById(R.id.FastCalculator_PartyContainer);
+            FastCalculator_PartyContainer = (LinearLayout) findViewById(R.id.FastCalculator_PartyContainer);
             int partyCounter = 1 + FastCalculator_PartyContainer.getChildCount(); //1은 master //나머지는 party원
 
             int DivideMoneyToParty = ((totalItemPrice / partyCounter) + 9) / 10 * 10;
@@ -486,7 +591,7 @@ public class FastCalculatorMainPage extends Activity{
                 }
             }
             //방장에게 분배될 금액 표시
-            EditText FastCalculator_MasterMoneyEditText = (EditText)findViewById(R.id.FastCalculator_MasterMoneyEditText);
+            EditText FastCalculator_MasterMoneyEditText = (EditText) findViewById(R.id.FastCalculator_MasterMoneyEditText);
             FastCalculator_MasterMoneyEditText.setText(String.valueOf(DivideMoneyToMaster));
 
 

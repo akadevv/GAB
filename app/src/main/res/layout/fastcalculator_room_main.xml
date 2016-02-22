@@ -26,7 +26,7 @@
             android:background="@drawable/titletextview_graybackground"
             android:gravity="center"
             android:padding="10dp"
-            android:text="빠른 더치페이 계산기"
+            android:text="더치페이 계산기"
             android:textColor="#DCDCDC"
             android:textSize="@dimen/textViewBigSize"
             android:textStyle="bold" />
@@ -199,7 +199,7 @@
                 android:background="@drawable/normaltextview_graybackground"
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
-                android:layout_weight="30"
+                android:layout_weight="40"
                 android:layout_height="match_parent"
                 android:text = "총 인원"/>
 
@@ -209,12 +209,11 @@
                 style="@style/GAB_PlainTextView"
                 android:inputType="number"
                 android:layout_width="0dp"
-                android:layout_weight="20"
+                android:layout_weight="40"
                 android:layout_height="wrap_content"
                 android:hint = "총 인원"/>
 
             <TextView
-
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -226,11 +225,10 @@
             <Button
                 android:background="@drawable/button_graybackground"
                 android:id="@+id/FastCalculator_DutchCalculateBT"
-                android:layout_width="0dp"
-                android:layout_weight="30"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1/n로 분배하기"></Button>
+                android:layout_gravity="center|right"
+                android:text="1/n로 분배"></Button>
 
 
         </LinearLayout>
@@ -240,7 +238,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_margin"
-            android:layout_marginBottom="@dimen/layout_margin"
+            android:layout_marginBottom="0dp"
             android:background="#787A79"
             android:orientation="horizontal">
 
