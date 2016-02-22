@@ -111,6 +111,7 @@ public class PayRoomMakingPage extends Activity {
     int itemNumber_int;
     private String GAB_Nanum_Bold = "NanumGothicBold.ttf";
     private String GAB_Nanum_Pen = "NanumPen.ttf";
+    private String GAB_Nanum_ExtraBold = "NanumGothicExtraBold.ttf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +121,14 @@ public class PayRoomMakingPage extends Activity {
 
         //폰트 설정
         TextView DRoomMaking_textView1 = (TextView)findViewById(R.id.DRoomMaking_textView1);
-        DRoomMaking_textView1.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_Bold));
+        DRoomMaking_textView1.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_ExtraBold));
 
         TextView DRoomMaking_helpitemmessage =(TextView)findViewById(R.id.DRoomMaking_helpitemmessage);
         DRoomMaking_helpitemmessage.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_Pen));
 
         Button DRoom_makingbutton = (Button)findViewById(R.id.DRoom_makingbutton);
-        DRoom_makingbutton.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_Bold));
+        DRoom_makingbutton.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_ExtraBold));
+
 
 
         //MasterContainer 의 정보를 넣는다 //로그인 시의 로그인 한 사람의 정보
@@ -151,6 +153,13 @@ public class PayRoomMakingPage extends Activity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+
+        //방제목 자동으로 삽입
+        EditText DRoomMaking_roomname_Edit = (EditText)findViewById(R.id.roomname_edit);
+        DRoomMaking_roomname_Edit.setText(mMonth+1+"월 "+mDay+"일 더치페이방");
+
 
 
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -791,8 +800,8 @@ public class PayRoomMakingPage extends Activity {
             } else {
                 if (newItemLayout.getTag().equals("newItemTAG")) {
 
-                    EditText itemprice = (EditText) newItemLayout.getChildAt(1);
-                    NumberPicker item_numPicker = (NumberPicker) newItemLayout.getChildAt(2);
+                    EditText itemprice = (EditText) newItemLayout.findViewById(R.id.itemPriceEdit);
+                    NumberPicker item_numPicker = (NumberPicker) newItemLayout.findViewById(R.id.numberPicker);
                     Log.d(log, "itemprice.getText() :" + itemprice.getText());
                     if (itemprice.getText().toString().trim().length() == 0) {
                         Log.d(log, "itemprice is null");
@@ -855,7 +864,7 @@ public class PayRoomMakingPage extends Activity {
     }
 
     //ITEM 항목의 가격 변동시에 itemPriceTotalTextView 에 Total Price를 바꿔주는  TextWatcher
-    public class itemTotalPriceTextWatcher implements TextWatcher {
+    private class itemTotalPriceTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -877,7 +886,7 @@ public class PayRoomMakingPage extends Activity {
     }
 
     //PARTY MONEY 분배 가격 변동시에 partyMoneyTotal Textview에 Total Price를 바꿔주는  TextWatcher
-    public class PartyTotalPriceTextWatcher implements TextWatcher {
+    private class PartyTotalPriceTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

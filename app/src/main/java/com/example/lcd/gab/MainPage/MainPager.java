@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.lcd.gab.FastCalculator.FastCalculatorMainPage;
 import com.example.lcd.gab.PayRoom.PayRoomMakingPage;
 import com.example.lcd.gab.R;
 import com.example.lcd.gab.TransferRoom.TransferRoomMain;
@@ -34,6 +35,7 @@ public class MainPager extends FragmentActivity {
     private RelativeLayout originalLayout;
     private TextView payRoomText;
     private TextView transferRoomText;
+    private TextView fastCalculatorRoomText;
     private Animation menuRotate;
     private Animation menuOrigin;
 
@@ -51,6 +53,7 @@ public class MainPager extends FragmentActivity {
         originalLayout = (RelativeLayout) findViewById(R.id.original_layout);
         payRoomText = (TextView) findViewById(R.id.pay_room_text);
         transferRoomText = (TextView) findViewById(R.id.transfer_room_text);
+        fastCalculatorRoomText = (TextView)findViewById(R.id.FastCalculator_room_text);
         menuRotate = AnimationUtils.loadAnimation(this, R.anim.menu_rotate);
         menuOrigin = AnimationUtils.loadAnimation(this, R.anim.menu_origin);
 
@@ -110,6 +113,14 @@ public class MainPager extends FragmentActivity {
                         }
                     });
 
+                    fastCalculatorRoomText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), FastCalculatorMainPage.class);
+                            startActivity(intent);
+
+                        }
+                    });
                     shadowLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:tag = "newItemTAG"
+    android:background="@drawable/selectedcontainer_backgroundcolor_gray"
     android:orientation="horizontal"
-    android:weightSum="100"
    >
 
     <LinearLayout
@@ -14,21 +14,26 @@
         android:orientation="vertical"
         android:weightSum="100">
 
-    <ImageView
+    <com.example.lcd.gab.Common.CustomImageViewCircleShape
         android:id="@+id/ItemImageView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="60"
         android:layout_margin="5dp"
         android:layout_gravity="center"
-        android:background="@drawable/etc"
+        android:background="@drawable/imageview_circle"
         />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="40"
+
+        android:background="@drawable/button_graybackground"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/itemNameText"
+        android:textSize = "15dp"
         android:text= "item Name "
+        android:gravity="center"
         android:layout_gravity="center"
         android:tag="ItemNameTAG"/>
 
@@ -47,11 +52,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/numberPicker" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|left"
+        android:text ="개"/>
     <Button
         android:id="@+id/remove"
-        android:layout_width="0dp"
-        android:layout_weight="30"
+        android:background="@drawable/button_graybackground"
+        android:textColor="#DCDCDC"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/GAB_PlainTextView"
         android:text="삭제"/>
