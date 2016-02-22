@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/friend_search_view"
         android:layout_gravity="center_vertical"
+        android:background="#000000"
         android:queryHint="이름(초성), 전화번호 검색"/>
 
 

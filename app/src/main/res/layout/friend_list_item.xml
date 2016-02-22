@@ -9,12 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="21dp"
         android:background="#e3cf3a"
-        android:id="@+id/friend_recycler_view_friend_tap">
+        android:id="@+id/friend_recycler_view_tap">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="친구"
+            android:id="@+id/friend_recycler_view_friend_tap_text"
+            android:text="전체 친구"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/friend_recycler_view_bookmark_tap_text"
+            android:text="즐겨찾기"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/friend_recycler_view_search_result_tap_text"
+            android:text="검색 결과"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
             android:textColor="#000000"/>

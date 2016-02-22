@@ -47,7 +47,7 @@ public class ReceivableListAdapter extends RecyclerView.Adapter<ReceivableListAd
         listViewHolder.vCost.setText(Integer.toString(roomPartyInfo.getPartyMoney()));
 
         for(int i = 0; i < mRoomListDatas.size(); i++){
-            if(roomPartyInfo.getRoomRcdNum()==mRoomListDatas.get(i).getDRoomRcdNum()){
+            if(roomPartyInfo.getRoomRcdNum() == mRoomListDatas.get(i).getDRoomRcdNum()){
                 roomListData = mRoomListDatas.get(i);
                 room = true;
             }

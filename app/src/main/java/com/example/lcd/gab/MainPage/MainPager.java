@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -91,10 +92,7 @@ public class MainPager extends FragmentActivity {
                 if (!menuOnOff) {
                     shadowLayout.bringToFront();
                     menuButton.bringToFront();
-                    menuRotate.setInterpolator(getApplicationContext(), android.R.anim.overshoot_interpolator);
-                    menuRotate.setDuration(500);
-                    menuButton.setAnimation(menuRotate);
-
+                    menuButton.startAnimation(menuRotate);
 
                     payRoomText.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -117,10 +115,7 @@ public class MainPager extends FragmentActivity {
                         public void onClick(View v) {
                             originalLayout.bringToFront();
                             menuButton.bringToFront();
-                            menuOrigin.setInterpolator(getApplicationContext(), android.R.anim.overshoot_interpolator);
-                            menuOrigin.setDuration(500);
-                            menuButton.setAnimation(menuOrigin);
-
+                            menuButton.startAnimation(menuOrigin);
                             menuOnOff = false;
                         }
                     });
@@ -129,13 +124,25 @@ public class MainPager extends FragmentActivity {
                 } else {
                     originalLayout.bringToFront();
                     menuButton.bringToFront();
-                    menuOrigin.setInterpolator(getApplicationContext(), android.R.anim.overshoot_interpolator);
-                    menuOrigin.setDuration(500);
-                    menuButton.setAnimation(menuOrigin);
-
+                    menuButton.startAnimation(menuOrigin);
                     menuOnOff = false;
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                if(menuOnOff){
+                    originalLayout.bringToFront();
+                    menuButton.bringToFront();
+                    menuButton.startAnimation(menuOrigin);
+                    menuOnOff = false;
+                    return true;
+                }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

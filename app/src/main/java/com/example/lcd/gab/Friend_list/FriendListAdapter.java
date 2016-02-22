@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.lcd.gab.PayRoom.PayRoomMakingPage;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by LCD on 2016-01-07.
@@ -25,10 +28,20 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
     private Context mContext;
     private AlertDialog popup;
     private ArrayList<FriendData> mFriendDataList;
+    private RelativeLayout mRecyclerLayout;
+    private boolean mForSearchView;
 
-    public FriendListAdapter(ArrayList<FriendData> friendDataList, Context context){
+    public FriendListAdapter(ArrayList<FriendData> friendDataList, Context context, RelativeLayout recyclerLayout, boolean forSearchView){
         this.mFriendDataList = friendDataList;
         this.mContext = context;
+        this.mRecyclerLayout = recyclerLayout;
+        this.mForSearchView = forSearchView;
+    }
+
+    public FriendListAdapter(ArrayList<FriendData> friendDataList, Context context, boolean forSearchView){
+        this.mFriendDataList = friendDataList;
+        this.mContext = context;
+        this.mForSearchView = forSearchView;
     }
 
     @Override
@@ -43,14 +56,38 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         listViewHolder.vRecyclerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup = createDialog(friendData);
+                popup = createDialog(friendData, mFriendDataList, mRecyclerLayout, mForSearchView);
                 popup.show();
                 popup.setCanceledOnTouchOutside(true);
 
             }
         });
+        if(mForSearchView) {
+            if (position == 0) {
+                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
+                listViewHolder.vSearchResultTapText.setVisibility(View.VISIBLE);
+                listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
+                listViewHolder.vFriendTapText.setVisibility(View.GONE);
+            } else
+                listViewHolder.vFriendTap.setVisibility(View.GONE);
+        } else {
+            listViewHolder.vSearchResultTapText.setVisibility(View.GONE);
 
-
+            if (friendData.getBookMark() == 1 && position == 0) {
+                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
+                listViewHolder.vBookmarkTapText.setVisibility(View.VISIBLE);
+                listViewHolder.vFriendTapText.setVisibility(View.GONE);
+            } else if (friendData.getBookMark() == 0 && position == 0) {
+                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
+                listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
+                listViewHolder.vFriendTapText.setVisibility(View.VISIBLE);
+            } else if (friendData.getBookMark() == 0 && mFriendDataList.get(position - 1).getBookMark() == 1) {
+                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
+                listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
+                listViewHolder.vFriendTapText.setVisibility(View.VISIBLE);
+            } else
+                listViewHolder.vFriendTap.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -62,6 +99,9 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
     public static class ListViewHolder extends RecyclerView.ViewHolder{
         protected TextView vName;
         protected TextView vPhone;
+        protected TextView vFriendTapText;
+        protected TextView vBookmarkTapText;
+        protected TextView vSearchResultTapText;
         protected RelativeLayout vRecyclerItem;
         protected RelativeLayout vFriendTap;
 
@@ -69,16 +109,19 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             super(v);
             vName = (TextView) v.findViewById(R.id.name);
             vPhone = (TextView) v.findViewById(R.id.phone_number);
+            vFriendTapText = (TextView) v.findViewById(R.id.friend_recycler_view_friend_tap_text);
+            vBookmarkTapText = (TextView) v.findViewById(R.id.friend_recycler_view_bookmark_tap_text);
+            vSearchResultTapText = (TextView) v.findViewById(R.id.friend_recycler_view_search_result_tap_text);
             vRecyclerItem = (RelativeLayout) v.findViewById(R.id.friend_recycler_view_item);
-            vFriendTap = (RelativeLayout) v.findViewById(R.id.friend_recycler_view_friend_tap);
+            vFriendTap = (RelativeLayout) v.findViewById(R.id.friend_recycler_view_tap);
         }
     }
 
-    private AlertDialog createDialog(final FriendData friendData){
-        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.friend_list_popup_item, null);
+    private AlertDialog createDialog(final FriendData friendData, final ArrayList<FriendData> friendDataList, final RelativeLayout recyclerLayout, final boolean forSearchView){
+        final LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View view = layoutInflater.inflate(R.layout.friend_list_popup_item, null);
 
-        final AlertDialog.Builder pop = new AlertDialog.Builder(mContext);
+        final AlertDialog.Builder pop = new AlertDialog.Builder(view.getContext());
         pop.setView(view);
 
         TextView userName = (TextView) view.findViewById(R.id.user_name);
@@ -93,8 +136,8 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         payRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, PayRoomMakingPage.class);
-                mContext.startActivity(intent);
+                Intent intent = new Intent(view.getContext(), PayRoomMakingPage.class);
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -104,7 +147,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
 
                 try {
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + friendData.getPhoneNum()));
-                    mContext.startActivity(intent);
+                    view.getContext().startActivity(intent);
                 }catch (SecurityException e){
 
                 }
@@ -117,8 +160,14 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             resetBookMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     friendData.setBookMark(0);
-                    FriendListMain.getFriendListDB().updateFriendData(friendData);
+
+                    if(forSearchView)
+                        bookmarkFunc(friendData);
+                    else
+                        bookmarkAdapter(friendData, friendDataList, recyclerLayout);
+
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에서 제거되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -131,8 +180,14 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
             setBookMark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     friendData.setBookMark(1);
-                    FriendListMain.getFriendListDB().updateFriendData(friendData);
+
+                    if(forSearchView)
+                        bookmarkFunc(friendData);
+                    else
+                        bookmarkAdapter(friendData, friendDataList, recyclerLayout);
+
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -142,4 +197,72 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         return  pop.create();
     }
 
+    private void bookmarkAdapter(FriendData friendData, ArrayList<FriendData> friendDataList, RelativeLayout recyclerLayout){
+
+        RecyclerView bookmarkRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.friend_recycler_view);
+
+        LinearLayoutManager bookmarkLayoutManager = new LinearLayoutManager(recyclerLayout.getContext());
+        bookmarkLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        bookmarkRecyclerView.setLayoutManager(bookmarkLayoutManager);
+
+        FriendListMain.getFriendListDB().updateFriendData(friendData);
+
+        ArrayList<FriendData> tempList = friendDataList;
+        ArrayList<FriendData> bookmarkedList = new ArrayList<>();
+
+        Collections.sort(tempList, new Comparator<FriendData>() {
+            @Override
+            public int compare(FriendData lhs, FriendData rhs) {
+                return (lhs.getName().compareToIgnoreCase(rhs.getName()));
+            }
+        });
+
+        for(int i = 0; i < tempList.size(); i++)
+            if(tempList.get(i).getBookMark() == 1)
+                bookmarkedList.add(tempList.get(i));
+            else if(i == tempList.size() - 1)
+                for(int j = 0; j < tempList.size(); j++)
+                    if(tempList.get(j).getBookMark() == 0)
+                        bookmarkedList.add(tempList.get(j));
+
+        FriendListMain.getFriendListDB().deleteAll();
+
+        for(int i = 0; i < bookmarkedList.size(); i++)
+            FriendListMain.getFriendListDB().addFriendData(bookmarkedList.get(i));
+
+        FriendListAdapter friendListAdapter = new FriendListAdapter(bookmarkedList, recyclerLayout.getContext(), recyclerLayout, false);
+        bookmarkRecyclerView.setAdapter(friendListAdapter);
+        friendListAdapter.notifyDataSetChanged();
+        FriendListMain.getFriendListDB().close();
+    }
+
+    private void bookmarkFunc(FriendData friendData){
+
+        FriendListMain.getFriendListDB().updateFriendData(friendData);
+
+        ArrayList<FriendData> tempList = FriendListMain.getFriendListDB().getAllFriendData();
+        ArrayList<FriendData> bookmarkedList = new ArrayList<>();
+
+        Collections.sort(tempList, new Comparator<FriendData>() {
+            @Override
+            public int compare(FriendData lhs, FriendData rhs) {
+                return (lhs.getName().compareToIgnoreCase(rhs.getName()));
+            }
+        });
+
+        for(int i = 0; i < tempList.size(); i++)
+            if(tempList.get(i).getBookMark() == 1)
+                bookmarkedList.add(tempList.get(i));
+            else if(i == tempList.size() - 1)
+                for(int j = 0; j < tempList.size(); j++)
+                    if(tempList.get(j).getBookMark() == 0)
+                        bookmarkedList.add(tempList.get(j));
+
+        FriendListMain.getFriendListDB().deleteAll();
+
+        for(int i = 0; i < bookmarkedList.size(); i++)
+            FriendListMain.getFriendListDB().addFriendData(bookmarkedList.get(i));
+
+        FriendListMain.getFriendListDB().close();
+    }
 }
