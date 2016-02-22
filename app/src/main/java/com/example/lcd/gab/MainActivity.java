@@ -17,7 +17,7 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
  */
 public class MainActivity extends Activity {
 
-    private static MasterInfo masterInfo=MasterInfo.getMasterInfo();
+    private static MasterInfo masterInfo = MasterInfo.getMasterInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

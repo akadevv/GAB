@@ -9,7 +9,7 @@
         android:id="@+id/PayRoomMakingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+
         android:orientation="vertical"
         android:weightSum="100">
 
@@ -145,7 +145,7 @@
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/DPayRoomMakingScrollView02"
             android:layout_width="match_parent"
-            android:background="#ffffab"
+
             android:layout_height="wrap_content"
             android:layout_weight="10">
 

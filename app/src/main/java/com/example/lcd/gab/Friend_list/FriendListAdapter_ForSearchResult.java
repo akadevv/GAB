@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,25 +22,15 @@ import java.util.Comparator;
 /**
  * Created by LCD on 2016-01-07.
  */
-public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.ListViewHolder>{
+public class FriendListAdapter_ForSearchResult extends RecyclerView.Adapter<FriendListAdapter_ForSearchResult.ListViewHolder>{
 
     private Context mContext;
     private AlertDialog popup;
     private ArrayList<FriendData> mFriendDataList;
-    private RelativeLayout mRecyclerLayout;
-    private boolean mForSearchView;
 
-    public FriendListAdapter(ArrayList<FriendData> friendDataList, Context context, RelativeLayout recyclerLayout, boolean forSearchView){
+    public FriendListAdapter_ForSearchResult(ArrayList<FriendData> friendDataList, Context context){
         this.mFriendDataList = friendDataList;
         this.mContext = context;
-        this.mRecyclerLayout = recyclerLayout;
-        this.mForSearchView = forSearchView;
-    }
-
-    public FriendListAdapter(ArrayList<FriendData> friendDataList, Context context, boolean forSearchView){
-        this.mFriendDataList = friendDataList;
-        this.mContext = context;
-        this.mForSearchView = forSearchView;
     }
 
     @Override
@@ -56,38 +45,20 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         listViewHolder.vRecyclerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup = createDialog(friendData, mFriendDataList, mRecyclerLayout, mForSearchView);
+                popup = createDialog(friendData, mFriendDataList);
                 popup.show();
                 popup.setCanceledOnTouchOutside(true);
-
             }
         });
-        if(mForSearchView) {
-            if (position == 0) {
-                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
-                listViewHolder.vSearchResultTapText.setVisibility(View.VISIBLE);
-                listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
-                listViewHolder.vFriendTapText.setVisibility(View.GONE);
-            } else
-                listViewHolder.vFriendTap.setVisibility(View.GONE);
-        } else {
-            listViewHolder.vSearchResultTapText.setVisibility(View.GONE);
 
-            if (friendData.getBookMark() == 1 && position == 0) {
-                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
-                listViewHolder.vBookmarkTapText.setVisibility(View.VISIBLE);
-                listViewHolder.vFriendTapText.setVisibility(View.GONE);
-            } else if (friendData.getBookMark() == 0 && position == 0) {
-                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
-                listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
-                listViewHolder.vFriendTapText.setVisibility(View.VISIBLE);
-            } else if (friendData.getBookMark() == 0 && mFriendDataList.get(position - 1).getBookMark() == 1) {
-                listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
-                listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
-                listViewHolder.vFriendTapText.setVisibility(View.VISIBLE);
-            } else
-                listViewHolder.vFriendTap.setVisibility(View.GONE);
-        }
+        if(position == 0) {
+            listViewHolder.vFriendTap.setVisibility(View.VISIBLE);
+            listViewHolder.vSearchResultTapText.setVisibility(View.VISIBLE);
+            listViewHolder.vBookmarkTapText.setVisibility(View.GONE);
+            listViewHolder.vFriendTapText.setVisibility(View.GONE);
+        }else
+            listViewHolder.vFriendTap.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -117,7 +88,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         }
     }
 
-    private AlertDialog createDialog(final FriendData friendData, final ArrayList<FriendData> friendDataList, final RelativeLayout recyclerLayout, final boolean forSearchView){
+    private AlertDialog createDialog(final FriendData friendData, final ArrayList<FriendData> friendDataList){
         final LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = layoutInflater.inflate(R.layout.friend_list_popup_item, null);
 
@@ -163,10 +134,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
 
                     friendData.setBookMark(0);
 
-                    if(forSearchView)
-                        bookmarkFunc(friendData);
-                    else
-                        bookmarkAdapter(friendData, friendDataList, recyclerLayout);
+                    bookmarkFunc(friendData, friendDataList);
 
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에서 제거되었습니다.", Toast.LENGTH_SHORT);
@@ -183,10 +151,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
 
                     friendData.setBookMark(1);
 
-                    if(forSearchView)
-                        bookmarkFunc(friendData);
-                    else
-                        bookmarkAdapter(friendData, friendDataList, recyclerLayout);
+                    bookmarkFunc(friendData, friendDataList);
 
                     popup.dismiss();
                     Toast toast = Toast.makeText(mContext,"즐겨찾기에 등록되었습니다.", Toast.LENGTH_SHORT);
@@ -197,50 +162,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         return  pop.create();
     }
 
-    private void bookmarkAdapter(FriendData friendData, ArrayList<FriendData> friendDataList, RelativeLayout recyclerLayout){
-
-        RecyclerView bookmarkRecyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.friend_recycler_view);
-
-        LinearLayoutManager bookmarkLayoutManager = new LinearLayoutManager(recyclerLayout.getContext());
-        bookmarkLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        bookmarkRecyclerView.setLayoutManager(bookmarkLayoutManager);
+    private void bookmarkFunc(FriendData friendData, ArrayList<FriendData> friendDataList){
 
         FriendListMain.getFriendListDB().updateFriendData(friendData);
 
         ArrayList<FriendData> tempList = friendDataList;
-        ArrayList<FriendData> bookmarkedList = new ArrayList<>();
-
-        Collections.sort(tempList, new Comparator<FriendData>() {
-            @Override
-            public int compare(FriendData lhs, FriendData rhs) {
-                return (lhs.getName().compareToIgnoreCase(rhs.getName()));
-            }
-        });
-
-        for(int i = 0; i < tempList.size(); i++)
-            if(tempList.get(i).getBookMark() == 1)
-                bookmarkedList.add(tempList.get(i));
-            else if(i == tempList.size() - 1)
-                for(int j = 0; j < tempList.size(); j++)
-                    if(tempList.get(j).getBookMark() == 0)
-                        bookmarkedList.add(tempList.get(j));
-
-        FriendListMain.getFriendListDB().deleteAll();
-
-        for(int i = 0; i < bookmarkedList.size(); i++)
-            FriendListMain.getFriendListDB().addFriendData(bookmarkedList.get(i));
-
-        FriendListAdapter friendListAdapter = new FriendListAdapter(bookmarkedList, recyclerLayout.getContext(), recyclerLayout, false);
-        bookmarkRecyclerView.setAdapter(friendListAdapter);
-        friendListAdapter.notifyDataSetChanged();
-        FriendListMain.getFriendListDB().close();
-    }
-
-    private void bookmarkFunc(FriendData friendData){
-
-        FriendListMain.getFriendListDB().updateFriendData(friendData);
-
-        ArrayList<FriendData> tempList = FriendListMain.getFriendListDB().getAllFriendData();
         ArrayList<FriendData> bookmarkedList = new ArrayList<>();
 
         Collections.sort(tempList, new Comparator<FriendData>() {

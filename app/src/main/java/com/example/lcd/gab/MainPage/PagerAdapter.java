@@ -24,7 +24,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
         if(position<0 || MAX_PAGE<position)
             return null;
 
-
         switch (position){
             case 0:
                 cur_fragement = new FriendListMain();
@@ -40,7 +39,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 break;
         }
 
-
         return cur_fragement;
     }
 
@@ -48,7 +46,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public int getCount(){
         return MAX_PAGE;
     }
-
 
 }
 
