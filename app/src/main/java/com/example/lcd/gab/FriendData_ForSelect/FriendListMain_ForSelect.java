@@ -75,7 +75,7 @@ public class FriendListMain_ForSelect extends Activity{
             for (int i = 0; i < fromPayRoomPartyList.size(); i++) {
                 for (int j = 0; j < friendDataList.size(); j++) {
                     //만약 fromPayRoomList에서 온 phoneNum 과 friendData 에 있는 phoneNu을 검색해서, 매칭하는 것은 selected를 true로 바꾼다.
-                    if (fromPayRoomPartyList.get(i).getPartyPhonenum().equals(friendDataList.get(j).getPhoneNum())) {
+                    if (fromPayRoomPartyList.get(i).getPartyPhonenum().equals(friendDataList.get(j).getPhoneNum().replaceAll("-",""))) {
                         friendDataList.get(j).setMoney(fromPayRoomPartyList.get(i).getPartyMoney());
                         friendDataList.get(j).setSelected(true);
                     }

@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.lcd.gab.R;
 import com.kakao.auth.IApplicationConfig;
@@ -32,6 +34,8 @@ public class LogInPage extends AppCompatActivity {
     Activity TopActivity;
     Context TopContext;
     private SessionCallback callback;
+    private String GAB_Nanum_Bold = "NanumGothicBold.ttf";
+    private String GAB_Nanum_Pen = "NanumPen.ttf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,19 @@ public class LogInPage extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kakaologinlayout);
+
+        TextView kakao_textView1 = (TextView)findViewById(R.id.kakao_textView1);
+        kakao_textView1.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_Bold));
+
+        TextView kakao_textView2 = (TextView)findViewById(R.id.kakao_textView2);
+        kakao_textView2.setTypeface(Typeface.createFromAsset(getAssets(),GAB_Nanum_Pen));
+
+        TextView kakao_textView3 = (TextView)findViewById(R.id.kakao_textView3);
+        kakao_textView3.setTypeface(Typeface.createFromAsset(getAssets(),GAB_Nanum_Pen));
+
+        TextView kakao_textView4 = (TextView)findViewById(R.id.kakao_textView4);
+        kakao_textView4.setTypeface(Typeface.createFromAsset(getAssets(),GAB_Nanum_Pen));
+
 
 
         getAppKeyHash();

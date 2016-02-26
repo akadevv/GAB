@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -108,41 +109,27 @@ public class PayRoomMakingPage extends Activity {
     TextView partyTotalMoneyTextView;
     Button NDivideCalculatorBT;
     int itemNumber_int;
-
-    @Override //다시 불러졌을때, 모든 정보들 삭제
-    protected void onResume() {
-        Log.d(log, "this is onResume() called in PayRoomMain");
-        super.onResume();
-        selectedFriendList.clear();
-        DRoom_partyLists.clear();
-        roomname = "";
-        Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        if (mMonth < 9) {
-            mMonth_String = "0" + String.valueOf(mMonth + 1);
-        } else {
-            mMonth_String = String.valueOf(mMonth);
-        }
-        if (mDay < 10) {
-            mDay_String = "0" + String.valueOf(mDay);
-        } else {
-            mDay_String = String.valueOf(mDay);
-        }
-
-        TodayDate = String.valueOf(mYear) + mMonth_String + mDay_String;
-        DRoom_itemLists.clear();
-        totalRoomPrice = 0;
-        DRoom_partyLists.clear();
-
-    }
+    private String GAB_Nanum_Bold = "NanumGothicBold.ttf";
+    private String GAB_Nanum_Pen = "NanumPen.ttf";
+    private String GAB_Nanum_ExtraBold = "NanumGothicExtraBold.ttf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_room_making_page);
+
+
+        //폰트 설정
+        TextView DRoomMaking_textView1 = (TextView)findViewById(R.id.DRoomMaking_textView1);
+        DRoomMaking_textView1.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_ExtraBold));
+
+        TextView DRoomMaking_helpitemmessage =(TextView)findViewById(R.id.DRoomMaking_helpitemmessage);
+        DRoomMaking_helpitemmessage.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_Pen));
+
+        Button DRoom_makingbutton = (Button)findViewById(R.id.DRoom_makingbutton);
+        DRoom_makingbutton.setTypeface(Typeface.createFromAsset(getAssets(), GAB_Nanum_ExtraBold));
+
+
 
         //MasterContainer 의 정보를 넣는다 //로그인 시의 로그인 한 사람의 정보
         MasterNameText = (TextView) findViewById(R.id.MasterNameTextView);
@@ -166,6 +153,13 @@ public class PayRoomMakingPage extends Activity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+
+        //방제목 자동으로 삽입
+        EditText DRoomMaking_roomname_Edit = (EditText)findViewById(R.id.roomname_edit);
+        DRoomMaking_roomname_Edit.setText(mMonth+1+"월 "+mDay+"일 더치페이방");
+
 
 
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -303,8 +297,7 @@ public class PayRoomMakingPage extends Activity {
                         Log.d(log, "getTag is null");
                     } else {
                         if (newItemLayout.getTag().equals("newItemTAG")) {
-                            LinearLayout itemNameContainer = (LinearLayout) newItemLayout.getChildAt(0);
-                            TextView itemNameTextView = (TextView) itemNameContainer.findViewById(R.id.itemNameText);
+                            TextView itemNameTextView = (TextView) newItemLayout.findViewById(R.id.itemNameText);
                             newitemName_String = itemNameTextView.getText().toString();
                             EditText itemPriceView = (EditText) newItemLayout.findViewById(R.id.itemPriceEdit);
                             //price는 3자리마다 ,가 있으니 모든 콤마를 없애준후에 넣어준다.
@@ -375,9 +368,9 @@ public class PayRoomMakingPage extends Activity {
 //                new reviseDRoomFullToDB().execute(DRoom_fullinfo);
                 new InsertDRoomFullToDB().execute(DRoom_fullinfo);
                 Log.d(log, "방만들기 버튼 클릭 완료 후 ");
-//                Intent To_PayRoomMain_intent = new Intent(getApplicationContext(), PayRoomMainPage.class);
-//                startActivity(To_PayRoomMain_intent);
-//                finish();
+                Intent To_PayRoomMain_intent = new Intent(getApplicationContext(), PayRoomMainPage.class);
+                startActivity(To_PayRoomMain_intent);
+                finish();
 
             }
         });
@@ -410,9 +403,10 @@ public class PayRoomMakingPage extends Activity {
                     Log.d(log, "selectedFriendlist's name : " + selectedFriendList.get(i).getName() + logclass);
                     Log.d(log, "selectedFriendlist's phoenum : " + selectedFriendList.get(i).getPhoneNum() + logclass);
                 }
+                //selectedFriendList 에 모든 선택된 친구들 정보 받아 오면, 새로 생성, 이때는 오직 partymoney없이 선택
+                updatePartyContainer_withOnlyNameAndPhone();
             }
-            //selectedFriendList 에 모든 선택된 친구들 정보 받아 오면, 새로 생성, 이때는 오직 partymoney없이 선택
-            updatePartyContainer_withOnlyNameAndPhone();
+
         }
     }
 
@@ -805,8 +799,8 @@ public class PayRoomMakingPage extends Activity {
             } else {
                 if (newItemLayout.getTag().equals("newItemTAG")) {
 
-                    EditText itemprice = (EditText) newItemLayout.getChildAt(1);
-                    NumberPicker item_numPicker = (NumberPicker) newItemLayout.getChildAt(2);
+                    EditText itemprice = (EditText) newItemLayout.findViewById(R.id.itemPriceEdit);
+                    NumberPicker item_numPicker = (NumberPicker) newItemLayout.findViewById(R.id.numberPicker);
                     Log.d(log, "itemprice.getText() :" + itemprice.getText());
                     if (itemprice.getText().toString().trim().length() == 0) {
                         Log.d(log, "itemprice is null");
@@ -869,7 +863,7 @@ public class PayRoomMakingPage extends Activity {
     }
 
     //ITEM 항목의 가격 변동시에 itemPriceTotalTextView 에 Total Price를 바꿔주는  TextWatcher
-    public class itemTotalPriceTextWatcher implements TextWatcher {
+    private class itemTotalPriceTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -891,7 +885,7 @@ public class PayRoomMakingPage extends Activity {
     }
 
     //PARTY MONEY 분배 가격 변동시에 partyMoneyTotal Textview에 Total Price를 바꿔주는  TextWatcher
-    public class PartyTotalPriceTextWatcher implements TextWatcher {
+    private class PartyTotalPriceTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
