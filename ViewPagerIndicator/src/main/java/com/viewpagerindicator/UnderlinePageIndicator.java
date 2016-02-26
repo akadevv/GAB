@@ -87,8 +87,9 @@ public class UnderlinePageIndicator extends View implements PageIndicator {
         //Load defaults from resources
         final boolean defaultFades = res.getBoolean(R.bool.default_underline_indicator_fades);
         final int defaultFadeDelay = res.getInteger(R.integer.default_underline_indicator_fade_delay);
-        final int defaultFadeLength = res.getInteger(R.integer.default_underline_indicator_fade_length);
+        final int defaultFadeLength = (int)Double.POSITIVE_INFINITY;
         final int defaultSelectedColor = res.getColor(R.color.default_underline_indicator_selected_color);
+
 
         //Retrieve styles attributes
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.UnderlinePageIndicator, defStyle, 0);

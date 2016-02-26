@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,39 +108,48 @@ public class FriendListMain extends android.support.v4.app.Fragment{
 
         final ArrayList<FriendData> DBDataListForSearch = db.getAllFriendData();
 
-        searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+        searchView.setIconified(true);
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextChange(String query) {
-                query = query.toLowerCase();
-                final ArrayList<FriendData> filteredList = new ArrayList<>();
+            public void onClick(View v) {
 
-                for (int i = 0; i < DBDataListForSearch.size(); i++) {
-                    final String name = DBDataListForSearch.get(i).getName().toLowerCase();
-                    final String phoneNum = DBDataListForSearch.get(i).getPhoneNum();
-                    if (name.contains(query)) {
-                        filteredList.add(DBDataListForSearch.get(i));
-                    } else if (phoneNum.contains(query)) {
-                        filteredList.add(DBDataListForSearch.get(i));
-                    } else if (InitialSoundSearcher.patternMatching(name, query)) {
-                        filteredList.add(DBDataListForSearch.get(i));
+                searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextChange(String query) {
+                        query = query.toLowerCase();
+                        final ArrayList<FriendData> filteredList = new ArrayList<>();
+
+                        for (int i = 0; i < DBDataListForSearch.size(); i++) {
+                            final String name = DBDataListForSearch.get(i).getName().toLowerCase();
+                            final String phoneNum = DBDataListForSearch.get(i).getPhoneNum();
+                            if (name.contains(query)) {
+                                filteredList.add(DBDataListForSearch.get(i));
+                            } else if (phoneNum.contains(query)) {
+                                filteredList.add(DBDataListForSearch.get(i));
+                            } else if (InitialSoundSearcher.patternMatching(name, query)) {
+                                filteredList.add(DBDataListForSearch.get(i));
+                            }
+                        }
+                        FriendListAdapter friendListAdapterForSearchResult = new FriendListAdapter(filteredList, recyclerLayout.getContext(), true);
+                        recyclerView.setAdapter(friendListAdapterForSearchResult);
+                        friendListAdapterForSearchResult.notifyDataSetChanged();
+
+                        return true;
                     }
-                }
-                FriendListAdapter friendListAdapterForSearchResult = new FriendListAdapter(filteredList, recyclerLayout.getContext(), true);
-                recyclerView.setAdapter(friendListAdapterForSearchResult);
-                friendListAdapterForSearchResult.notifyDataSetChanged();
 
-                return true;
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                });
             }
-
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
         });
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+
                 ArrayList<FriendData> tempList = db.getAllFriendData();
                 ArrayList<FriendData> bookmarkedList = new ArrayList<>();
 
@@ -153,11 +161,6 @@ public class FriendListMain extends android.support.v4.app.Fragment{
                             if (tempList.get(j).getBookMark() == 0)
                                 bookmarkedList.add(tempList.get(j));
 
-                db.deleteAll();
-
-                for (int i = 0; i < bookmarkedList.size(); i++)
-                    db.addFriendData(bookmarkedList.get(i));
-
                 FriendListAdapter friendListAdapter = new FriendListAdapter(bookmarkedList, recyclerLayout.getContext(), recyclerLayout, false);
                 recyclerView.setAdapter(friendListAdapter);
                 friendListAdapter.notifyDataSetChanged();
@@ -167,6 +170,10 @@ public class FriendListMain extends android.support.v4.app.Fragment{
         });
 
         return recyclerLayout;
+    }
+
+    public static FriendListDBManager getFriendListDB(){
+        return db;
     }
 
     public ArrayList<FriendData> getPhoneNumList(RelativeLayout recyclerLayout) {
@@ -188,7 +195,6 @@ public class FriendListMain extends android.support.v4.app.Fragment{
                         friendData.setId(id++);
                         friendData.setName(cursor.getString(0));
                         friendData.setPhoneNum(cursor.getString(1).replaceAll("-", ""));
-                        Log.d("cdd", friendData.getName());
                         list.add(friendData);
                         friendData = null;
                     } else {
@@ -210,7 +216,4 @@ public class FriendListMain extends android.support.v4.app.Fragment{
         return list;
     }
 
-    public static FriendListDBManager getFriendListDB(){
-        return db;
-    }
 }

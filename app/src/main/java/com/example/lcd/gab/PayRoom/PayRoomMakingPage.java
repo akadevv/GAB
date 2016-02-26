@@ -50,7 +50,7 @@ import java.util.List;
  * Created by LCD on 2016-01-11.
  */
 public class PayRoomMakingPage extends Activity {
-    private static MasterInfo masterInfo=MasterInfo.getMasterInfo();
+    private MasterInfo masterInfo = MasterInfo.getMasterInfo();
     String logclass = "| in PayRoomMain |";
     Context PayRoomContext;
     Activity PayRoomActivity;

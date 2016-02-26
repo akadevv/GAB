@@ -52,7 +52,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         final FriendData friendData = mFriendDataList.get(position);
 
         listViewHolder.vName.setText(friendData.getName());
-        listViewHolder.vPhone.setText(friendData.getPhoneNum());
+        //listViewHolder.vPhone.setText(friendData.getPhoneNum());
         listViewHolder.vRecyclerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +98,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
 
     public static class ListViewHolder extends RecyclerView.ViewHolder{
         protected TextView vName;
-        protected TextView vPhone;
+        //protected TextView vPhone;
         protected TextView vFriendTapText;
         protected TextView vBookmarkTapText;
         protected TextView vSearchResultTapText;
@@ -108,7 +108,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
         public ListViewHolder(View v){
             super(v);
             vName = (TextView) v.findViewById(R.id.name);
-            vPhone = (TextView) v.findViewById(R.id.phone_number);
+            //vPhone = (TextView) v.findViewById(R.id.phone_number);
             vFriendTapText = (TextView) v.findViewById(R.id.friend_recycler_view_friend_tap_text);
             vBookmarkTapText = (TextView) v.findViewById(R.id.friend_recycler_view_bookmark_tap_text);
             vSearchResultTapText = (TextView) v.findViewById(R.id.friend_recycler_view_search_result_tap_text);
@@ -225,11 +225,6 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
                     if(tempList.get(j).getBookMark() == 0)
                         bookmarkedList.add(tempList.get(j));
 
-        FriendListMain.getFriendListDB().deleteAll();
-
-        for(int i = 0; i < bookmarkedList.size(); i++)
-            FriendListMain.getFriendListDB().addFriendData(bookmarkedList.get(i));
-
         FriendListAdapter friendListAdapter = new FriendListAdapter(bookmarkedList, recyclerLayout.getContext(), recyclerLayout, false);
         bookmarkRecyclerView.setAdapter(friendListAdapter);
         friendListAdapter.notifyDataSetChanged();
@@ -239,30 +234,6 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Li
     private void bookmarkFunc(FriendData friendData){
 
         FriendListMain.getFriendListDB().updateFriendData(friendData);
-
-        ArrayList<FriendData> tempList = FriendListMain.getFriendListDB().getAllFriendData();
-        ArrayList<FriendData> bookmarkedList = new ArrayList<>();
-
-        Collections.sort(tempList, new Comparator<FriendData>() {
-            @Override
-            public int compare(FriendData lhs, FriendData rhs) {
-                return (lhs.getName().compareToIgnoreCase(rhs.getName()));
-            }
-        });
-
-        for(int i = 0; i < tempList.size(); i++)
-            if(tempList.get(i).getBookMark() == 1)
-                bookmarkedList.add(tempList.get(i));
-            else if(i == tempList.size() - 1)
-                for(int j = 0; j < tempList.size(); j++)
-                    if(tempList.get(j).getBookMark() == 0)
-                        bookmarkedList.add(tempList.get(j));
-
-        FriendListMain.getFriendListDB().deleteAll();
-
-        for(int i = 0; i < bookmarkedList.size(); i++)
-            FriendListMain.getFriendListDB().addFriendData(bookmarkedList.get(i));
-
         FriendListMain.getFriendListDB().close();
     }
 }

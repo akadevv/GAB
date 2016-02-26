@@ -25,7 +25,7 @@ import java.util.ArrayList;
  */
 public class FriendListMain_ForSelect extends Activity{
     private String logclass = " |in FriendListMain_ForSelect.java| ";
-    public static String log = "jjunest";
+    public String log = "jjunest";
     private ArrayList<FriendData_ForSelect> friendDataList;
     private ArrayList<FriendData_ForSelect> list = new ArrayList<FriendData_ForSelect>();
     private FriendData_ForSelect friendData;

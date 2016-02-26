@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:gravity="end|center">
+        android:gravity="end|center"
+        android:background="#4A4A4C">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,16 +27,19 @@
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_weight="8"
-       android:gravity="center">
+       android:gravity="center"
+       android:background="#FFEC0A"
+       >
 
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Title"
            android:textSize="20dp"
+           android:textColor="#000000"
+           android:textStyle="bold"
            android:id="@+id/pay_room_title"
-           android:textColor="#ffff"
-           android:gravity="center"/>
+           />
 
    </RelativeLayout>
 
@@ -50,12 +54,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="#4A4A4C">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Item List"
+                android:text="아이템 목록"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -69,6 +77,7 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="10"
+            android:background="@drawable/list_background"
             >
 
             <RelativeLayout
@@ -80,7 +89,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Item"
+                    android:text="아이템"
+                    android:textSize="14dp"
                     android:gravity="center"
                     android:textColor="#ffff"
                     />
@@ -96,10 +106,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="price"
-                    android:gravity="center"
-                    android:layout_marginRight="10dp"
+                    android:text="개별 가격"
+                    android:textSize="14dp"
                     android:textColor="#ffff"
+                    android:gravity="center"
                     />
 
             </RelativeLayout>
@@ -113,12 +123,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="the number"
+                    android:text="개수"
+                    android:textSize="14dp"
                     android:textColor="#ffff"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    />
 
             </RelativeLayout>
-
 
         </LinearLayout>
 
@@ -133,7 +144,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:background="@drawable/list_background"
+            >
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -144,9 +157,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Result"
+                    android:text="총합"
                     android:textColor="#ffff"
-                    android:gravity="center"/>
+                    android:textSize="14dp"/>
 
             </RelativeLayout>
 
@@ -162,7 +175,7 @@
                     android:text="totalPrice"
                     android:textColor="#ffff"
                     android:id="@+id/pay_room_total_price"
-                    android:gravity="center" />
+                    android:textSize="14dp" />
 
             </RelativeLayout>
 
@@ -178,7 +191,7 @@
                     android:text="the number"
                     android:textColor="#ffff"
                     android:id="@+id/pay_room_total_the_number"
-                    android:gravity="center" />
+                    android:textSize="14dp" />
 
 
             </RelativeLayout>
@@ -203,7 +216,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Member and Cost List"
+                android:text="멤버 목록"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
@@ -293,7 +309,7 @@
                     android:layout_height="wrap_content"
                     android:text="Result"
                     android:textColor="#ffff"
-                    android:gravity="center"/>
+                    />
 
             </RelativeLayout>
 
@@ -309,7 +325,7 @@
                     android:text="totalCost"
                     android:textColor="#ffff"
                     android:id="@+id/pay_room_total_cost"
-                    android:gravity="center"/>
+                    />
 
             </RelativeLayout>
 
@@ -324,14 +340,14 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/finished"
                     android:id="@+id/pay_room_result_finished"
-                    android:gravity="center"/>
+                    />
 
                 <ImageView
                     android:layout_width="27dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/not_finished"
                     android:id="@+id/pay_room_result_not_finished"
-                    android:gravity="center"/>
+                    />
 
             </RelativeLayout>
 
@@ -344,7 +360,7 @@
         android:layout_height="0dp"
         android:layout_weight="7"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         >
 
         <RelativeLayout
@@ -356,12 +372,12 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="History"
-                android:id="@+id/history_button"
+                android:text="삭제"
+                android:id="@+id/delete_button"
                 android:gravity="center"
                 android:layout_alignParentTop="true" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -372,10 +388,26 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Modify"
+                android:text="수정"
                 android:id="@+id/modify_button"
                 android:gravity="center"
             />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카톡"
+                android:id="@+id/kakao_button"
+                android:gravity="center"
+                />
 
         </RelativeLayout>
 

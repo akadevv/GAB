@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.lcd.gab.Friend_list.FriendData;
 import com.example.lcd.gab.R;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2016-01-17.
  */
 public class FriendListAdapter_ForSelect extends RecyclerView.Adapter<FriendListAdapter_ForSelect.ListViewHolder> {
-    public static String log = "jjunest";
+    public  String log = "jjunest";
     private Context mContext;
     private static ArrayList<FriendData_ForSelect> mFriendDataList;
    // private static ArrayList<FriendData_ForSelect> filteredDataList = new ArrayList<>();

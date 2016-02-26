@@ -7,8 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.lcd.gab.KakaoLogIn.LogInPage;
-import com.example.lcd.gab.MainPage.MainPager;
-import com.example.lcd.gab.MasterInfo.MasterInfo;
+import com.example.lcd.gab.MainPage.MainPage;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
@@ -16,8 +15,6 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
  * Created by LCD on 2016-01-07.
  */
 public class MainActivity extends Activity {
-
-    private static MasterInfo masterInfo = MasterInfo.getMasterInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +28,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), MainPager.class);
+                Intent intent = new Intent(getApplicationContext(), MainPage.class);
                 startActivity(intent);
 
             }
@@ -70,12 +67,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        System.out.println("this is in MainActivity masterInfo. userid : " + masterInfo.getMasterID());
-        System.out.println("this is in MainActivity masterInfo. userName : "+masterInfo.getMasterName());
-    }
-
-    public static MasterInfo getMasterInfo(){
-        return masterInfo;
     }
 
     protected void redirectLoginActivity() {

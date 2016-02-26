@@ -1,7 +1,5 @@
 package com.example.lcd.gab.RoomList;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.InitialSoundSearcher;
-import com.example.lcd.gab.MainActivity;
+import com.example.lcd.gab.MasterInfo.MasterInfo;
 import com.example.lcd.gab.PayRoom.DRoomItemInfo;
 import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
@@ -34,16 +32,14 @@ import java.util.List;
 /**
  * Created by LCD on 2016-01-18.
  */
-public class RoomListMain extends Fragment {
+public class RoomListMain extends Fragment{
 
     String log = "이창대";
-    private String masterName = MainActivity.getMasterInfo().getMasterID(); // 마스터 핸드폰 번호 받기
+    private String masterId = MasterInfo.getMasterInfo().getMasterID(); //마스터 정보 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
     private android.widget.SearchView searchView;
-    private Context mycontext;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,6 @@ public class RoomListMain extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mycontext = inflater.getContext();
         recyclerLayout = (RelativeLayout) inflater.inflate(R.layout.room_list_main, container, false);
         recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.room_list_recycler_view);
         searchView = (android.widget.SearchView) recyclerLayout.findViewById(R.id.room_list_search_view);
@@ -67,38 +62,41 @@ public class RoomListMain extends Fragment {
     }
 
     //방목록 검색 리스너
-    android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener() {
+    android.widget.SearchView.OnQueryTextListener listener = new android.widget.SearchView.OnQueryTextListener(){
         @Override
-        public boolean onQueryTextChange(String query) {
+        public boolean onQueryTextChange(String query){
             query = query.toLowerCase();
             final ArrayList<DRoom_FullInfo> filteredList = new ArrayList<>();
 
-            for (int i = 0; i < roomListDatas.size(); i++) {
+            for(int i=0; i< roomListDatas.size(); i++){
                 final DRoom_FullInfo tempRoomInfos = roomListDatas.get(i);
 
                 final String name = tempRoomInfos.getDRoomName().toLowerCase();
                 final String date = Integer.toString(tempRoomInfos.getDRoomDate());
 
-                String[] phoneNum = new String[tempRoomInfos.getDRoomPartyList().size()];
-                String[] memberName = new String[tempRoomInfos.getDRoomPartyList().size()];
+                String [] phoneNum = new String[tempRoomInfos.getDRoomPartyList().size()];
+                String [] memberName = new String[tempRoomInfos.getDRoomPartyList().size()];
 
-                for (int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++) {
+                for(int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++){
                     phoneNum[j] = tempRoomInfos.getDRoomPartyList().get(j).getPartyPhonenum().replaceAll("-", "");
                     memberName[j] = tempRoomInfos.getDRoomPartyList().get(j).getParty_name();
                 }
-                if (name.contains(query)) {
+                if(name.contains(query)){
                     filteredList.add(roomListDatas.get(i));
-                } else if (date.contains(query)) {
+                }
+                else if(date.contains(query)){
                     filteredList.add(roomListDatas.get(i));
-                } else if (InitialSoundSearcher.patternMatching(name, query)) {
+                }
+                else if(InitialSoundSearcher.patternMatching(name, query)){
                     filteredList.add(roomListDatas.get(i));
-                } else {
-                    for (int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++) {
-                        if (phoneNum[j].contains(query))
+                }
+                else{
+                    for(int j = 0; j < tempRoomInfos.getDRoomPartyList().size(); j++){
+                        if(phoneNum[j].contains(query))
                             filteredList.add(roomListDatas.get(i));
-                        else if (memberName[j].contains(query))
+                        else if(memberName[j].contains(query))
                             filteredList.add(roomListDatas.get(i));
-                        else if (InitialSoundSearcher.patternMatching(memberName[j], query))
+                        else if(InitialSoundSearcher.patternMatching(memberName[j], query))
                             filteredList.add(roomListDatas.get(i));
                     }
                 }
@@ -109,19 +107,16 @@ public class RoomListMain extends Fragment {
             roomListAdapter.notifyDataSetChanged();
             return true;
         }
-
-        public boolean onQueryTextSubmit(String query) {
+        public boolean onQueryTextSubmit(String query){
             return false;
         }
     };
 
     //파싱 AsyncTask
     private class SendPost extends AsyncTask<Void, Void, Void> {
-        ProgressDialog asyncDialog = new ProgressDialog(mycontext);
-
         @Override
         protected Void doInBackground(Void... unused) {
-            String content = getRoomInfoFromDB(masterName, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
             //마스터 아이디 보내고 DB로 부터 정보 가져오는 함수
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
@@ -140,7 +135,7 @@ public class RoomListMain extends Fragment {
 
                 for (int i = 0; i < partyInfoJa.length(); i++) {
                     JSONArray ja = partyInfoJa.getJSONArray(i);
-                    int totalCost = 0;
+                    int totalCost=0;
                     ArrayList<DRoomPartyInfo> memberInfoList = new ArrayList<>();
 
                     for (int j = 0; j < ja.length(); j++) {
@@ -166,10 +161,10 @@ public class RoomListMain extends Fragment {
                         memberInfo.setPartyMoney(cost);
                         memberInfo.setParty_finished(finish);
 
-                        memberInfoList.add(memberInfo);
-                    }
+                          memberInfoList.add(memberInfo);
+                      }
 
-                    if (!roomPartyInfos.isEmpty()) {
+                      if (!roomPartyInfos.isEmpty()) {
                         for (int k = 0; k < roomPartyInfos.size(); k++) {
 
                             if (roomPartyInfos.get(k).getDRoomRcdNum() == memberInfoList.get(0).getRoomRcdNum()) {
@@ -229,9 +224,9 @@ public class RoomListMain extends Fragment {
                                     break;
                                 }
                             }
-                            roomInfos.add(new DRoom_FullInfo(roomRcdNum, roomDate, roomFinish, masterName, masterPhoneNum, roomName));
-                        } else {
-                            roomInfos.add(new DRoom_FullInfo(roomRcdNum, roomDate, roomFinish, masterName, masterPhoneNum, roomName));
+                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomFinish,masterName, masterPhoneNum, roomName));
+                        }else{
+                            roomInfos.add(new DRoom_FullInfo(roomRcdNum,roomDate,roomFinish,masterName, masterPhoneNum, roomName));
                         }
                     }
 
@@ -246,7 +241,7 @@ public class RoomListMain extends Fragment {
 
                 for (int i = 0; i < itemInfoJa.length(); i++) {
                     JSONArray ja = itemInfoJa.getJSONArray(i);
-                    int totalPrice = 0;
+                    int totalPrice=0;
                     ArrayList<DRoomItemInfo> itemInfoList = new ArrayList<>();
 
                     for (int j = 0; j < ja.length(); j++) {
@@ -282,20 +277,20 @@ public class RoomListMain extends Fragment {
                                 break;
                             }
                         }
-                        DRoom_FullInfo tempData = new DRoom_FullInfo(itemInfoList.get(0).getDRoomitem_roomRcdNum(), totalPrice, itemInfoList);
+                        DRoom_FullInfo tempData = new DRoom_FullInfo(itemInfoList.get(0).getDRoomitem_roomRcdNum(),totalPrice, itemInfoList);
                         roomItemInfos.add(tempData);
-                    } else {
+                    }else{
                         DRoom_FullInfo tempData = new DRoom_FullInfo(itemInfoList.get(0).getDRoomitem_roomRcdNum(), totalPrice, itemInfoList);
                         roomItemInfos.add(tempData);
                     }
                 }
-            } catch (Exception e) {
+            }catch(Exception e){
 
             }
 
-            for (int i = 0; i < roomPartyInfos.size(); i++)
-                for (int j = 0; j < roomInfos.size(); j++)
-                    for (int k = 0; k < roomItemInfos.size(); k++)
+            for(int i = 0; i<roomPartyInfos.size(); i++)
+                for(int j = 0; j < roomInfos.size(); j++ )
+                    for(int k = 0; k < roomItemInfos.size(); k++)
                         if (roomPartyInfos.get(i).getDRoomRcdNum() == roomInfos.get(j).getDRoomRcdNum() && roomPartyInfos.get(i).getDRoomRcdNum() == roomItemInfos.get(k).getDRoomRcdNum()) {
                             roomListDatas.add(new DRoom_FullInfo(roomPartyInfos.get(i).getDRoomRcdNum(), roomInfos.get(j).getmasterName(), roomInfos.get(j).getMasterPhoneNum(), roomInfos.get(j).getDRoomName(), roomInfos.get(j).getDRoomDate(), roomItemInfos.get(k).getDRoomItemList(), roomItemInfos.get(k).getTotalPrice(), roomPartyInfos.get(i).getDRoomPartyList()));
                             break;
@@ -304,22 +299,9 @@ public class RoomListMain extends Fragment {
             return null;
         }
 
-        @Override
-        protected void onPreExecute() {
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로딩중입니다..");
-
-            // show dialog
-            asyncDialog.show();
-
-
-            super.onPreExecute();
-        }
-
         //리사이클러 뷰 붙이기
         @Override
         protected void onPostExecute(Void unused) {
-            asyncDialog.dismiss();
 
             recyclerView.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerLayout.getContext());
@@ -367,29 +349,29 @@ public class RoomListMain extends Fragment {
         }
     }
 
-    public static ArrayList<DRoom_FullInfo> getRoomListDatas() {
+    public static ArrayList<DRoom_FullInfo> getRoomListDatas(){
         return roomListDatas;
     }
 
-    public static ArrayList<DRoomPartyInfo> getOwedListDatas() {
+    public static ArrayList<DRoomPartyInfo> getOwedListDatas(){
         ArrayList<DRoomPartyInfo> roomPartyInfos = new ArrayList<>();
 
-        for (int i = 0; i < roomListDatas.size(); i++) {
+        for(int i = 0; i < roomListDatas.size(); i++){
             DRoom_FullInfo roomListData = roomListDatas.get(i);
             List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
             DRoomPartyInfo partyInfo = new DRoomPartyInfo();
 
             String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-            if (!MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)) {
+            if(!MasterInfo.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
 
-                for (int j = 0; j < partyInfos.size(); j++) {
-                    if (!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())) {
-                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
-                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
+                for(int j = 0; j < partyInfos.size(); j++){
+                    if(!MasterInfo.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                        partyInfo.setPartyPhonenum(partyInfos.get(j).getPartyPhonenum());
+                        partyInfo.setRoomRcdNum(partyInfos.get(j).getRoomRcdNum());
+                        partyInfo.setParty_name(partyInfos.get(j).getParty_name());
+                        partyInfo.setPartyMoney(partyInfos.get(j).getPartyMoney());
+                        partyInfo.setParty_finished(partyInfos.get(j).getParty_finished());
 
                         roomPartyInfos.add(partyInfo);
                     }
@@ -399,24 +381,25 @@ public class RoomListMain extends Fragment {
         return roomPartyInfos;
     }
 
-    public static ArrayList<DRoomPartyInfo> getReceivableListDatas() {
+    public static ArrayList<DRoomPartyInfo> getReceivableListDatas(){
         ArrayList<DRoomPartyInfo> roomPartyInfos = new ArrayList<>();
 
-        for (int i = 0; i < roomListDatas.size(); i++) {
+        for(int i = 0; i < roomListDatas.size(); i++){
             DRoom_FullInfo roomListData = roomListDatas.get(i);
             List<DRoomPartyInfo> partyInfos = roomListData.getDRoomPartyList();
             DRoomPartyInfo partyInfo = new DRoomPartyInfo();
 
             String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-            if (MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)) {
-                for (int j = 0; j < partyInfos.size(); j++) {
-                    if (!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())) {
-                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
-                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
+            if(MasterInfo.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+
+                for(int j = 0; j < partyInfos.size(); j++){
+                    if(!MasterInfo.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                        partyInfo.setPartyPhonenum(partyInfos.get(j).getPartyPhonenum());
+                        partyInfo.setRoomRcdNum(partyInfos.get(j).getRoomRcdNum());
+                        partyInfo.setParty_name(partyInfos.get(j).getParty_name());
+                        partyInfo.setPartyMoney(partyInfos.get(j).getPartyMoney());
+                        partyInfo.setParty_finished(partyInfos.get(j).getParty_finished());
 
                         roomPartyInfos.add(partyInfo);
                     }
