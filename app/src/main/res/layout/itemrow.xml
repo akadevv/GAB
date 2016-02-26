@@ -33,6 +33,7 @@
         android:id="@+id/itemNameText"
         android:textSize = "15dp"
         android:text= "item Name "
+        android:textColor="#565656"
         android:gravity="center"
         android:layout_gravity="center"
         android:tag="ItemNameTAG"/>
@@ -60,7 +61,7 @@
     <Button
         android:id="@+id/remove"
         android:background="@drawable/button_graybackground"
-        android:textColor="#DCDCDC"
+        android:textColor="#565656"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/GAB_PlainTextView"

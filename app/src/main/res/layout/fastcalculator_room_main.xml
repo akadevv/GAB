@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/backgroundcolor_gray"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
 
         <TextView
@@ -19,11 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/titletextview_graybackground"
             android:gravity="center"
             android:padding="10dp"
             android:text="더치페이 계산기"
@@ -39,12 +37,15 @@
 
             <TextView
                 android:id="@+id/FastCalculator_roomname_text"
-                android:background="@drawable/normaltextview_graybackground"
-                android:padding="5dp"
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:gravity="left|center_vertical"
+                android:paddingTop = "5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft = "15dp"
+
                 android:text="방 이름" />
 
             <EditText
@@ -64,84 +65,326 @@
 
             <TextView
                 android:id="@+id/FastCalculator_roomdate_text"
-                android:background="@drawable/normaltextview_graybackground"
-                android:padding="5dp"
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:gravity="left|center_vertical"
+                android:paddingTop = "5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft = "15dp"
+
+
                 android:text="방 날짜" />
 
             <Button
                 android:id="@+id/FastCalculator_room_date_selector"
-                android:background="@drawable/button_graybackground"
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="#565656"
                 android:layout_weight="5"
+                android:background="@drawable/button_graybackground"
                 android:text="날짜 선택 버튼" />
         </LinearLayout>
 
         <LinearLayout
-            android:id = "@+id/FastCalculator_itemOptionLayout"
+            android:id="@+id/FastCalculator_itemOptionLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="100"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="20"
-                android:layout_width="0dp"
-                android:background="@drawable/normaltextview_graybackground"
-                android:padding="5dp"
-                android:layout_height="match_parent"
-                android:text = "항목"
-                android:gravity="center"
-                style="@style/GAB_PlainTextView"
-                />
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
-                android:id="@+id/FastCalculator_pizza_img"
-                android:layout_weight="15"
-                android:layout_width="0dp"
-                android:background="@drawable/imageview_circle"
-                android:layout_height="wrap_content"
-                android:src = "@drawable/pizza"
-                android:clickable="true"/>
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-            <ImageView
-                android:id="@+id/FastCalculator_hambuger_img"
-                android:layout_weight="15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src = "@drawable/hambuger"
-                android:clickable="true"/>
-            <ImageView
-                android:id="@+id/FastCalculator_etc_img"
-                android:layout_weight="15"
+            <TextView
+                style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:src = "@drawable/etc"
-                android:clickable="true"/>
-            <ImageButton
-                android:layout_weight="10"
+                android:layout_weight="20"
+                android:gravity="left|center_vertical"
+                android:paddingTop = "5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft = "15dp"
+                android:text="항목" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_pizza"
                 android:layout_width="0dp"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/pizza" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_chicken"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_chicken" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/etc_img"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="15"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/etc" />
+
+
+
+            <ImageButton
+                android:id = "@+id/itemOptionMoreBT"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:layout_gravity="right"
-                android:background="@drawable/float_button"/>
+                android:layout_weight="10"
+                android:background="@drawable/plus_button" />
 
         </LinearLayout>
-        <TextView
-            android:id = "@+id/FastCalculator_helpitemmessage"
+
+        <LinearLayout
+            android:id = "@+id/itemOptionLayout_hidden1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text = "위에 있는 더치페이 항목을 선택하세요."
-            android:gravity="center"/>
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="80">
+
+
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_hambuger"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_hambuger" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_hotdog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_hotdog" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_noodle"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_noodle" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_bread"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_bread" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_steak"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_steak" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_pig"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_pig" />
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_dougnut"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_dougnut" />
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_dining"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="wrap_content"
+            android:background="@drawable/imageview_circle"
+            android:clickable="true"
+            android:src="@drawable/item_dining" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id = "@+id/itemOptionLayout_hidden2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="80">
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_beer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_beer" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_soju"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_soju" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_coffee"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_coffee" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_icecream"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_icecream" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_cookies"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_cookies" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_birthday"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_birthday" />
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_bowling"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_bowling" />
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_carrent"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_carrent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id = "@+id/itemOptionLayout_hidden3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="80">
+
+
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_gas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_gas" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_movieticket"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_movieticket" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_pcroom"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_pcroom" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_taxi"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_taxi" />
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_chicken_raw"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_chicken_raw" />
+
+            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+                android:id="@+id/item_cow"
+                android:layout_width="0dp"
+                android:layout_weight="10"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imageview_circle"
+                android:clickable="true"
+                android:src="@drawable/item_cow" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/FastCalculator_helpitemmessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="위에 있는 더치페이 항목을 선택하세요." />
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/FastCalculator_ScrollView02"
+
             android:layout_width="match_parent"
-            android:layout_weight= "1"
             android:layout_height="wrap_content"
-            >
+            android:layout_weight="1">
 
             <LinearLayout
                 android:id="@+id/FastCalculator_dutchPayItemContainer"
@@ -162,26 +405,27 @@
             <TextView
                 android:id="@+id/FastCalculator_roomprice_text"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="4"
+                android:gravity="center"
                 android:text="항목 총합" />
 
             <TextView
                 android:id="@+id/FastCalculator_itemPriceTotal"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="5"
+                android:gravity="center"
                 android:text="0" />
+
             <TextView
                 android:layout_width="0dp"
-                android:gravity="left"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
+                android:gravity="left"
                 android:text="원" />
 
 
@@ -194,40 +438,44 @@
             android:weightSum="100">
 
 
-
             <TextView
-                android:background="@drawable/normaltextview_graybackground"
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
-                android:layout_weight="40"
                 android:layout_height="match_parent"
-                android:text = "총 인원"/>
+                android:layout_weight="40"
+                android:gravity="left|center_vertical"
+                android:paddingTop = "5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft = "15dp"
+
+                android:text="총 인원" />
 
 
             <EditText
-                android:id = "@+id/FastCalculator_totalPartyNum"
+                android:id="@+id/FastCalculator_totalPartyNum"
                 style="@style/GAB_PlainTextView"
-                android:inputType="number"
                 android:layout_width="0dp"
-                android:layout_weight="40"
                 android:layout_height="wrap_content"
-                android:hint = "총 인원"/>
+                android:layout_weight="40"
+                android:hint="총 인원"
+                android:inputType="number" />
 
             <TextView
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:gravity="left"
-                android:layout_height="wrap_content"
-                android:text = "명"/>
+                android:text="명" />
 
 
             <Button
-                android:background="@drawable/button_graybackground"
                 android:id="@+id/FastCalculator_DutchCalculateBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
+                android:background="@drawable/button_graybackground"
+                android:textColor="#565656"
                 android:text="1/n로 분배"></Button>
 
 
@@ -237,9 +485,10 @@
             android:id="@+id/FastCalculator_MasterContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_margin"
             android:layout_marginBottom="0dp"
+            android:layout_marginTop="@dimen/layout_margin"
             android:background="#787A79"
+            android:weightSum="100"
             android:orientation="horizontal">
 
             <TextView
@@ -247,32 +496,41 @@
                 style="@style/GAB_PlainTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_weight="30"
                 android:text="내 이름 " />
 
             <EditText
                 android:id="@+id/FastCalculator_MasterMoneyEditText"
-                android:inputType="number"
                 style="@style/GAB_PlainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:hint="내가 내는 금액"
+                android:inputType="number" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:hint="내가 내는 금액" />
-
+                android:layout_gravity="center"
+                android:text="원"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"/>
         </LinearLayout>
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/FastCalculator_ScrollView03"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight= "1">
+            android:layout_weight="1"
+            android:background="#787A79">
 
             <LinearLayout
                 android:id="@+id/FastCalculator_PartyContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/layout_margin"
-                android:background="@drawable/selectedcontainer_backgroundcolor_gray"
+                android:background="#787A79"
                 android:orientation="vertical">
 
 
@@ -287,45 +545,44 @@
             <TextView
                 android:id="@+id/FastCalculator_TotalPartyMoney_text"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="4"
+                android:gravity="center"
                 android:text="분배 총합" />
 
             <TextView
                 android:id="@+id/FastCalculator_partyMoneyTotal"
                 android:layout_width="0dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="5"
+                android:gravity="center"
                 android:text="0" />
 
             <TextView
                 android:layout_width="0dp"
-                android:gravity="left"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
+                android:gravity="left"
                 android:text="원" />
-
 
 
         </LinearLayout>
 
         <Button
-            android:drawableLeft="@drawable/gab_logo_whitebg"
-            android:background="@drawable/button_yellowbackground"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="5dp"
             android:id="@+id/FastCalculator_Kakao_sendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/button_yellowbackground"
+            android:drawableLeft="@drawable/gab_logo_whitebg"
             android:text="카카오톡으로 전달"
             android:textColor="#565656"
-            android:textSize="25dp"/>
+            android:textSize="25dp" />
 
 
     </LinearLayout>

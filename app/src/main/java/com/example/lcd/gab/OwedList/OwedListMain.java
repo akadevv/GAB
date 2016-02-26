@@ -1,8 +1,11 @@
 package com.example.lcd.gab.OwedList;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +34,17 @@ public class OwedListMain extends android.support.v4.app.Fragment{
     private List<DRoomPartyInfo> roomPartyInfos = RoomListMain.getOwedListDatas();
     private List<DRoom_FullInfo> roomListDatas = RoomListMain.getRoomListDatas();
     private OwedListAdapter owedListAdapter;
+    private Context mycontext;
+    private String log = "jjunest";
 
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        mycontext = inflater.getContext();
+
+        mycontext = inflater.getContext();
         recyclerLayout = (LinearLayout) inflater.inflate(R.layout.owed_list_main, container, false);
         recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.owed_list_recycler_view);
         searchView = (SearchView) recyclerLayout.findViewById(R.id.owed_list_search_view);
@@ -65,7 +73,6 @@ public class OwedListMain extends android.support.v4.app.Fragment{
         recyclerView.setAdapter(owedListAdapter);
 
         searchView.setOnQueryTextListener(listener);
-
         return recyclerLayout;
     }
 

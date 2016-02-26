@@ -51,6 +51,7 @@
         android:background="@drawable/button_graybackground"
         android:id="@+id/partyRemoved"
         android:layout_width="0dp"
+        android:textColor="#565656"
         android:layout_weight="20"
         style = "@style/GAB_PlainTextView"
         android:layout_height="wrap_content"

@@ -39,6 +39,7 @@
         android:id="@+id/FastCalculator_partyRemoved"
         android:layout_width="0dp"
         android:layout_weight="20"
+        android:textColor="#565656"
         style = "@style/GAB_PlainTextView"
         android:layout_height="wrap_content"
         android:text = "삭제"/>

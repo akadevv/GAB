@@ -1,6 +1,7 @@
 package com.example.lcd.gab.ReceivableList;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,12 +33,14 @@ public class ReceivableListMain extends android.support.v4.app.Fragment{
     private List<DRoomPartyInfo> roomPartyInfos = RoomListMain.getReceivableListDatas();
     private List<DRoom_FullInfo> roomListDatas = RoomListMain.getRoomListDatas();
     private ReceivableListAdapter receivableListAdapter;
+    private Context mycontext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        mycontext = inflater.getContext();
         recyclerLayout = (LinearLayout) inflater.inflate(R.layout.receivable_list_main, container, false);
         recyclerView = (RecyclerView) recyclerLayout.findViewById(R.id.receivable_list_recycler_view);
         searchView = (SearchView) recyclerLayout.findViewById(R.id.receivable_list_search_view);
