@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.lcd.gab.InitialSoundSearcher;
-import com.example.lcd.gab.MainActivity;
+import com.example.lcd.gab.MasterInfo.MasterInfo;
 import com.example.lcd.gab.PayRoom.DRoomItemInfo;
 import com.example.lcd.gab.PayRoom.DRoomPartyInfo;
 import com.example.lcd.gab.PayRoom.DRoom_FullInfo;
@@ -35,7 +35,7 @@ import java.util.List;
 public class RoomListMain extends Fragment{
 
     String log = "이창대";
-    private String masterName = MainActivity.getMasterInfo().getMasterID(); // 마스터 핸드폰 번호 받기
+    private String masterId = MasterInfo.getMasterInfo().getMasterID(); //마스터 정보 받기
     private RelativeLayout recyclerLayout; // 방 목록 만들 recyclerview
     private RecyclerView recyclerView;
     private static ArrayList<DRoom_FullInfo> roomListDatas = new ArrayList<>();
@@ -116,7 +116,7 @@ public class RoomListMain extends Fragment{
     private class SendPost extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... unused) {
-            String content = getRoomInfoFromDB(masterName, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
+            String content = getRoomInfoFromDB(masterId, "http://jjunest.cafe24.com/DB/getRoomInfo.php");
             //마스터 아이디 보내고 DB로 부터 정보 가져오는 함수
             ArrayList<DRoom_FullInfo> roomPartyInfos = new ArrayList<>();
             ArrayList<DRoom_FullInfo> roomInfos = new ArrayList<>();
@@ -363,15 +363,15 @@ public class RoomListMain extends Fragment{
 
             String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-            if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+            if(!MasterInfo.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
 
                 for(int j = 0; j < partyInfos.size(); j++){
-                    if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
-                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
-                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
+                    if(!MasterInfo.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                        partyInfo.setPartyPhonenum(partyInfos.get(j).getPartyPhonenum());
+                        partyInfo.setRoomRcdNum(partyInfos.get(j).getRoomRcdNum());
+                        partyInfo.setParty_name(partyInfos.get(j).getParty_name());
+                        partyInfo.setPartyMoney(partyInfos.get(j).getPartyMoney());
+                        partyInfo.setParty_finished(partyInfos.get(j).getParty_finished());
 
                         roomPartyInfos.add(partyInfo);
                     }
@@ -391,14 +391,15 @@ public class RoomListMain extends Fragment{
 
             String roomMasterPhone = roomListData.getMasterPhoneNum();
 
-            if(MainActivity.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+            if(MasterInfo.getMasterInfo().getMasterPhoneNum().equals(roomMasterPhone)){
+
                 for(int j = 0; j < partyInfos.size(); j++){
-                    if(!MainActivity.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
-                        partyInfo.setPartyPhonenum(partyInfos.get(i).getPartyPhonenum());
-                        partyInfo.setRoomRcdNum(partyInfos.get(i).getRoomRcdNum());
-                        partyInfo.setParty_name(partyInfos.get(i).getParty_name());
-                        partyInfo.setPartyMoney(partyInfos.get(i).getPartyMoney());
-                        partyInfo.setParty_finished(partyInfos.get(i).getParty_finished());
+                    if(!MasterInfo.getMasterInfo().getMasterPhoneNum().equals(partyInfos.get(j).getPartyPhonenum())){
+                        partyInfo.setPartyPhonenum(partyInfos.get(j).getPartyPhonenum());
+                        partyInfo.setRoomRcdNum(partyInfos.get(j).getRoomRcdNum());
+                        partyInfo.setParty_name(partyInfos.get(j).getParty_name());
+                        partyInfo.setPartyMoney(partyInfos.get(j).getPartyMoney());
+                        partyInfo.setParty_finished(partyInfos.get(j).getParty_finished());
 
                         roomPartyInfos.add(partyInfo);
                     }

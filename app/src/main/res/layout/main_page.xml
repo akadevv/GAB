@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
         android:background="#8F000000"
@@ -50,98 +51,165 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:background="#8F000000"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/original_layout">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="100"
+            android:id="@+id/original_layout"
+            >
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="100"
-    android:id="@+id/page"
-    >
+            <LinearLayout
+                android:id="@+id/tab_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10.5"
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:background="#e3e7eb"
+                >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/friend_list_page"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/friend_list_icon_unselected"
+                        android:background="@drawable/friend_list_icon_unselected"
+                        />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/friend_list_icon_selected"
+                        android:background="@drawable/friend_list_icon_selected"
+                        />
+
+                </RelativeLayout>
 
 
-    <LinearLayout
-        android:id="@+id/buttonLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:weightSum="4"
-        android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/room_list_page"
+                    >
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="button1"
-            android:id="@+id/B1"
-            />
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/room_list_icon_unselected"
+                        android:background="@drawable/room_list_icon_unselected"
+                        />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="button2"
-            android:id="@+id/B2"
-            />
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/room_list_icon_selected"
+                        android:background="@drawable/room_list_icon_selected"
+                        />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="button3"
-            android:id="@+id/B3"
-            />
+                </RelativeLayout>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="button4"
-            android:id="@+id/B4"
-            />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/receivable_list_page"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/receivable_list_icon_unselected"
+                        android:background="@drawable/receivable_list_icon_unselected"
+                        />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/receivable_list_icon_selected"
+                        android:background="@drawable/receivable_list_icon_selected"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/owed_list_page"
+                    >
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/owed_list_icon_unselected"
+                        android:background="@drawable/owed_list_icon_unselected"
+                        />
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/owed_list_icon_selected"
+                        android:background="@drawable/owed_list_icon_selected"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:background="#e3e7eb">
+
+                <com.viewpagerindicator.UnderlinePageIndicator
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/page_indicator"
+                    android:scrollbarAlwaysDrawHorizontalTrack="@bool/default_title_indicator_selected_bold"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="89">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
-
-    <com.viewpagerindicator.UnderlinePageIndicator
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/title"
-
-        />
-</LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_weight="89"
-        />
-</LinearLayout>
-
-    </RelativeLayout>
-
     <Button
-        android:layout_margin="10dp"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/float_button"
         android:id="@+id/menu_anim_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>
 
