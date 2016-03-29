@@ -8,6 +8,69 @@
     android:orientation="vertical"
     android:weightSum="100">
 
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id = "@+id/title_firstloginPopup_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[사용법]"
+        android:textSize="25dp"
+        android:gravity="center"
+
+        />
+
+
+    <TextView
+        android:id="@+id/noticetextview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1. 항목 그림을 선택 후, 가격과 수량을 입력하세요 "
+        android:textSize="15dp"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+
+        />
+    <TextView
+        android:id="@+id/noticetextview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2. 더치페이 총 금액을 설정한 후, 총 인원을 입력하세요 "
+        android:textSize="15dp"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <TextView
+        android:id="@+id/noticetextview3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3. 분배 금액을 세부 설정 후 카카오톡으로 전달하세요 "
+        android:textSize="15dp"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+
+        />
+
+    <TextView
+        android:id="@+id/noticetextview4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4. 항목명 / 친구이름을 누르면 직접 변경하실 수 있습니다"
+        android:textSize="15dp"
+        android:gravity="left"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+
+        />
+
+
+
     <TextView
         android:id = "@+id/title_firstloginPopup"
         android:layout_width="match_parent"
@@ -17,6 +80,8 @@
         android:gravity="center"
         style="@style/GAB_PlainTextView"
         />
+
+
     <TextView
         android:id="@+id/textview1_firstloginPopup"
         android:layout_width="match_parent"

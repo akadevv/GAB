@@ -9,7 +9,9 @@ import android.util.Log;
 import com.example.lcd.gab.ACCESS_TO_DB.Check_FirstLogin;
 import com.example.lcd.gab.ACCESS_TO_DB.Get_UserInfo_RegisterDB;
 import com.example.lcd.gab.ACCESS_TO_DB.Insert_UserInfo_DB;
+import com.example.lcd.gab.FastCalculator.FastCalculatorMainPage;
 import com.example.lcd.gab.MainActivity;
+import com.example.lcd.gab.MainPage.MainPage;
 import com.example.lcd.gab.MasterInfo.MasterInfo;
 import com.example.lcd.gab.R;
 import com.kakao.auth.ErrorCode;
@@ -126,7 +128,7 @@ public class SignUpActivity extends Activity {
 
     //로그인 성공시 이동하는 페이지
     protected void redirectMainActivity() {
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, FastCalculatorMainPage.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();

@@ -4,7 +4,7 @@
     android:id="@+id/firstLoginLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/backgroundcolor_gray"
+    android:background="@color/whiteGray"
     android:orientation="vertical"
     android:weightSum="100">
 
@@ -13,12 +13,15 @@
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/textGray"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="새로운 항목 이름을 입력하세요"
+        android:text="새로운 이름을 입력하세요"
         android:id="@+id/textView" />
 
     <EditText
         android:id="@+id/edittext_itemnamechange"
+        android:textColor="@color/textGray"
+        android:textColorHint="@color/textGray"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="이름 입력"

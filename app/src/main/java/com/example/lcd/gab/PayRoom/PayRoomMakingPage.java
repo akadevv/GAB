@@ -38,7 +38,7 @@ import com.example.lcd.gab.CommonListener.MoneyUnitListener_Edit;
 import com.example.lcd.gab.CommonListener.MoneyUnitListener_Text;
 import com.example.lcd.gab.FriendData_ForSelect.FriendData_ForSelect;
 import com.example.lcd.gab.FriendData_ForSelect.FriendListMain_ForSelect;
-import com.example.lcd.gab.MainPage.MainPager;
+import com.example.lcd.gab.MainPage.MainPage;
 import com.example.lcd.gab.MasterInfo.MasterInfo;
 import com.example.lcd.gab.R;
 
@@ -420,7 +420,8 @@ public class PayRoomMakingPage extends Activity {
                 //  DB에 전송 후 mainPage로 이동 & 끝내기
                 new InsertDRoomFullToDB().execute(DRoom_fullinfo);
                 Log.d(log, "방만들기 버튼 클릭 완료 후 ");
-                Intent intent = new Intent(getApplicationContext(), MainPager.class);
+                Intent intent = new Intent(getApplicationContext(), MainPage.class);
+                intent.putExtra("currentPager", 1);
                 startActivity(intent);
                 finish();
 

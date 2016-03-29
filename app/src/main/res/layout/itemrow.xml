@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:tag = "newItemTAG"
-    android:background="@drawable/selectedcontainer_backgroundcolor_gray"
+    android:background="@color/whiteGray"
     android:orientation="horizontal"
    >
 
@@ -33,7 +33,7 @@
         android:id="@+id/itemNameText"
         android:textSize = "15dp"
         android:text= "item Name "
-        android:textColor="#565656"
+        android:textColor="@color/textGray"
         android:gravity="center"
         android:layout_gravity="center"
         android:tag="ItemNameTAG"/>
@@ -45,6 +45,7 @@
         android:inputType="number"
         android:layout_height="wrap_content"
         android:hint = "항목 가격"
+        android:textColorHint="@color/textGray"
         style="@style/GAB_PlainTextView"
         android:id="@+id/itemPriceEdit"
         android:tag = "ItemPriceTAG"/>
@@ -56,12 +57,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/textGray"
         android:layout_gravity="center_vertical|left"
         android:text ="개"/>
     <Button
         android:id="@+id/remove"
         android:background="@drawable/button_graybackground"
-        android:textColor="#565656"
+        android:textColor="@color/textGray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/GAB_PlainTextView"

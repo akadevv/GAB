@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#787A79"
+    android:background="@color/whiteGray"
     android:tag = "FastCalculator_newPartyTAG"
     android:orientation="vertical">
 
@@ -12,14 +12,22 @@
     android:orientation="horizontal"
     android:weightSum="100">
 
+
+
     <TextView
+        android:id = "@+id/FastCalculator_partyNameTextView"
+        android:background="@drawable/button_graybackground"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "친구이름"
         android:layout_weight="30"
-        style = "@style/GAB_PlainTextView"
-        android:id = "@+id/FastCalculator_partyNameTextView"
-    />
+        android:textSize = "15dp"
+        android:text= "party Name "
+        android:textColor="@color/textGray"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:tag="ItemNameTAG"/>
 
     <EditText
         android:id="@+id/FastCalculator_partyMoneyEditView"
@@ -27,20 +35,23 @@
         android:layout_width="0dp"
         android:layout_weight="40"
         android:layout_height="wrap_content"
+        android:textColor="@color/textGray"
+        android:textColorHint="@color/textGray"
         style = "@style/GAB_PlainTextView"
         android:hint = "배분 금액" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/textGray"
         android:text="원"/>
     <Button
         android:background="@drawable/button_graybackground"
         android:id="@+id/FastCalculator_partyRemoved"
         android:layout_width="0dp"
         android:layout_weight="20"
-        android:textColor="#565656"
         style = "@style/GAB_PlainTextView"
+        android:textColor="@color/textGray"
         android:layout_height="wrap_content"
         android:text = "삭제"/>
 </LinearLayout>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#787A79"
+    android:background="@color/whiteGray"
     android:tag = "newPartyTAG"
     android:orientation="vertical">
 
@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:text = "친구이름"
         android:layout_weight="25"
+        android:textColor="@color/textGray"
         style = "@style/GAB_PlainTextView"
         android:id = "@+id/partyNameTextView"
         android:layout_toRightOf="@+id/partyPhoneNumTextView"/>
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="20"
         style = "@style/GAB_PlainTextView"
+        android:textColor="@color/textGray"
         android:text = "01072729771"
         android:id = "@+id/partyPhoneNumTextView"/>
     </LinearLayout>
@@ -41,18 +43,21 @@
         android:layout_height="wrap_content"
         style = "@style/GAB_PlainTextView"
         android:hint = "배분 금액"
+        android:textColor="@color/textGray"
+        android:textColorHint="@color/textGray"
         android:layout_toRightOf="@+id/partyNameTextView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/textGray"
         android:text="원"/>
     <Button
         android:background="@drawable/button_graybackground"
         android:id="@+id/partyRemoved"
         android:layout_width="0dp"
-        android:textColor="#565656"
         android:layout_weight="20"
+        android:textColor="@color/textGray"
         style = "@style/GAB_PlainTextView"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/partyMoneyEditView"

@@ -21,7 +21,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            z
+
         </activity>
 
 
@@ -33,8 +33,9 @@
             android:exported="true"
             android:windowSoftInputMode="stateHidden" />
         <!--android:exported="true"/>-->
-        <activity android:name=".PayRoom.PayRoomMainPage" />
+        <activity android:name=".SettingOption.SettingOptionMain"/>
         <activity android:name=".TransferRoom.TransferRoomMain" />
+        <activity android:name=".PayRoom.PayRoomMainPage" />
         <activity android:name=".PayRoom.inviteParty" />
         <activity android:name=".FriendData_ForSelect.FriendListMain_ForSelect" />
         <activity android:name=".MainActivity" />
@@ -44,9 +45,13 @@
             android:name=".FastCalculator.FastCalculatorMainPage"
             android:windowSoftInputMode="stateHidden" />
 
+
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
+
+
 
 
     </application>

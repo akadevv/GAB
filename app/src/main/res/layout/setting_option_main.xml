@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/DPayRoomMakingScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#4A4A4C"
+    android:layout_height="match_parent"
+    >
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   android:textSize = "30dp"
+android:gravity="center"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="20dp"
+    android:textColor="#FFFFFF"
+    android:text = "GAB 어플리케이션 설정"/>
+
+
+
+
+    <TextView
+        android:id="@+id/change_masterInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_graybackground"
+        style="@style/GAB_PlainTextView"
+        android:textColor="#4A4A4C"
+        android:text = "개인 정보 변경하기"/>
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_graybackground"
+        style="@style/GAB_PlainTextView"
+        android:textColor="#4A4A4C"
+        android:text = "로그아웃하기"/>
+
+</LinearLayout>
+    </ScrollView>

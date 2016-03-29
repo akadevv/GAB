@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:text="더치페이 방만들기"
             android:textColor="#ffff"
+            android:textSize = "20dp"
             android:id="@+id/pay_room_text"
             android:layout_above="@+id/transfer_room_text"
             android:layout_alignRight="@+id/setting_text"
@@ -22,11 +23,12 @@
             android:layout_marginBottom="23dp"
             />
         <TextView
+            android:id="@+id/transfer_room_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="계좌이체방 만들기"
+            android:textSize = "20dp"
             android:textColor="#ffff"
-            android:id="@+id/transfer_room_text"
             android:layout_above="@+id/FastCalculator_room_text"
             android:layout_alignRight="@+id/setting_text"
             android:layout_alignEnd="@+id/setting_text"
@@ -38,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="빠른 더치페이 계산기"
+            android:textSize = "20dp"
             android:textColor="#ffff"
 
             android:layout_above="@+id/setting_text"
@@ -47,11 +50,13 @@
             />
 
         <TextView
+            android:id="@+id/setting_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize = "20dp"
             android:text="설정"
             android:textColor="#ffff"
-            android:id="@+id/setting_text"
+
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="100dp"

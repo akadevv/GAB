@@ -16,8 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.lcd.gab.BackPressCloseHandler;
+import com.example.lcd.gab.FastCalculator.FastCalculatorMainPage;
 import com.example.lcd.gab.PayRoom.PayRoomMakingPage;
 import com.example.lcd.gab.R;
+import com.example.lcd.gab.SettingOption.SettingOptionMain;
 import com.example.lcd.gab.SoftKeyboardDectectorView;
 import com.example.lcd.gab.TransferRoom.TransferRoomMain;
 import com.viewpagerindicator.UnderlinePageIndicator;
@@ -52,6 +54,8 @@ public class MainPage extends FragmentActivity {
     private LinearLayout originalLayout;
     private TextView payRoomText;
     private TextView transferRoomText;
+    private TextView fastCalculatorRoomText;
+    private TextView setting_text;
     private Animation menuRotate;
     private Animation menuOrigin;
     private BackPressCloseHandler backPressCloseHandler;
@@ -85,6 +89,9 @@ public class MainPage extends FragmentActivity {
         originalLayout = (LinearLayout) findViewById(R.id.original_layout);
         payRoomText = (TextView) findViewById(R.id.pay_room_text);
         transferRoomText = (TextView) findViewById(R.id.transfer_room_text);
+        fastCalculatorRoomText = (TextView)findViewById(R.id.FastCalculator_room_text);
+        setting_text = (TextView)findViewById(R.id.setting_text);
+
         menuRotate = AnimationUtils.loadAnimation(this, R.anim.menu_rotate);
         menuOrigin = AnimationUtils.loadAnimation(this, R.anim.menu_origin);
 
@@ -92,6 +99,18 @@ public class MainPage extends FragmentActivity {
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), tabLayout.getContext()));
+
+        //만약에 pagerCurrent 라는 데이터가 설정되어 넘어온다면, viewPager의 setcurrentitem을 바꾸어준다.
+        Intent intent = getIntent();
+        if(intent!=null){
+            if(intent.hasExtra("currentPager")) {
+
+                int currentPage = intent.getExtras().getInt("currentPager");
+                viewPager.setCurrentItem(currentPage);
+            }
+
+        }
+
 
         backPressCloseHandler = new BackPressCloseHandler(this);
 
@@ -115,7 +134,7 @@ public class MainPage extends FragmentActivity {
             }
         });
 
-        roomListPage.setOnClickListener(new View.OnClickListener() {
+            roomListPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
@@ -200,6 +219,24 @@ public class MainPage extends FragmentActivity {
                         }
                     });
 
+                    fastCalculatorRoomText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), FastCalculatorMainPage.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                    setting_text.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Intent intent = new Intent(getApplicationContext(), SettingOptionMain.class);
+                            startActivity(intent);
+
+                        }
+                    });
+
                     shadowLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -209,6 +246,8 @@ public class MainPage extends FragmentActivity {
                             menuOnOff = false;
                         }
                     });
+
+
 
                     menuOnOff = true;
                 } else {
