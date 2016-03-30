@@ -34,7 +34,7 @@
             android:textSize="@dimen/textViewBigSize"
             android:textStyle="bold" />
 
-        <com.example.lcd.gab.Common.CustomImageViewCircleShape
+        <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
             android:id="@+id/settingimg"
             android:layout_margin="10dp"
             android:layout_width="0dp"
@@ -125,7 +125,7 @@
                 android:textColor="@color/textGray"
                 android:text="항목" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_pizza"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                 android:clickable="true"
                 android:src="@drawable/pizza" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_chicken"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_chicken" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/firsttime"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -174,7 +174,7 @@
 
 
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_hambuger"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_hambuger" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_hotdog"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_hotdog" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_noodle"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -201,7 +201,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_noodle" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_bread"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -210,7 +210,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_bread" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_steak"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -219,7 +219,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_steak" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_pig"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -227,7 +227,7 @@
                 android:background="@drawable/imageview_circle"
                 android:clickable="true"
                 android:src="@drawable/item_pig" />
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_dougnut"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -235,7 +235,7 @@
                 android:background="@drawable/imageview_circle"
                 android:clickable="true"
                 android:src="@drawable/item_dougnut" />
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_dining"
             android:layout_width="0dp"
             android:layout_weight="10"
@@ -254,7 +254,7 @@
             android:visibility="gone"
             android:weightSum="80">
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_beer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_beer" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_soju"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -272,7 +272,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_soju" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_coffee"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -281,7 +281,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_coffee" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_icecream"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -290,7 +290,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_icecream" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_cookies"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -299,7 +299,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_cookies" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_birthday"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -307,7 +307,7 @@
                 android:background="@drawable/imageview_circle"
                 android:clickable="true"
                 android:src="@drawable/item_birthday" />
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_bowling"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -315,7 +315,7 @@
                 android:background="@drawable/imageview_circle"
                 android:clickable="true"
                 android:src="@drawable/item_bowling" />
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_carrent"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -336,7 +336,7 @@
 
 
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_gas"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -345,7 +345,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_gas" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_movieticket"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -354,7 +354,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_movieticket" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_pcroom"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -363,7 +363,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_pcroom" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_taxi"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -371,7 +371,7 @@
                 android:background="@drawable/imageview_circle"
                 android:clickable="true"
                 android:src="@drawable/item_taxi" />
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_chicken_raw"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -380,7 +380,7 @@
                 android:clickable="true"
                 android:src="@drawable/item_chicken_raw" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/item_cow"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -390,7 +390,7 @@
                 android:src="@drawable/item_cow" />
 
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/secondtime"
                 android:layout_width="0dp"
                 android:layout_weight="10"
@@ -399,7 +399,7 @@
                 android:clickable="true"
                 android:src="@drawable/secondtime" />
 
-            <com.example.lcd.gab.Common.CustomImageViewCircleShape
+            <com.innovest.lcd.gab.Common.CustomImageViewCircleShape
                 android:id="@+id/thirdtime"
                 android:layout_width="0dp"
                 android:layout_weight="10"

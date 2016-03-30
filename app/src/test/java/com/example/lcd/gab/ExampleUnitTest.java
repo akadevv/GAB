@@ -1,4 +1,4 @@
-package com.example.lcd.gab;
+package com.innovest.lcd.gab;
 
 import org.junit.Test;
 

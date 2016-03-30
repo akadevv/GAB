@@ -203,7 +203,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="40"
             style="@style/GAB_PlainTextView"
-            android:text="7. 분배 총액 :"/>
+            android:text="7. 분배 총액"/>
         <TextView
             android:id = "@+id/lastconfirmDivideTotalMoney"
             android:layout_width="0dp"

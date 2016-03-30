@@ -4,7 +4,6 @@
     android:id="@+id/firstLoginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundcolor_gray"
     android:orientation="vertical"
    >
 
@@ -24,7 +23,7 @@
         android:id="@+id/noticetextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="* 공지사항 "
+        android:text="* 공지사항 * "
         android:textSize="15dp"
         android:gravity="center"
         android:layout_marginTop="0dp"
@@ -192,7 +191,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:textSize="15dp"
-            android:hint="ex)63501157102101"
+            android:hint="ex)123456789"
             style="@style/GAB_PlainTextView"
             />
     </LinearLayout>

@@ -3,19 +3,20 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
-        applicationId "com.example.lcd.gab"
+        applicationId 'com.innovest.lcd.gab'
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "5.0"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 
@@ -24,22 +25,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
-
     compile files('libs/gson-2.5.jar')
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile project(':ViewPagerIndicator')
-
-
-    compile group: 'com.kakao.sdk', name: 'kakaolink', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'auth', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'friends', version: '1.1.10'
-//    compile group: 'com.kakao.sdk', name: 'gradle', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'kakaostory', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'kakaotalk', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'network', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'push', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'storage', version: '1.1.10'
-    compile group: 'com.kakao.sdk', name: 'usermgmt', version: '1.1.10'
-
-
+    compile 'com.kakao.sdk:kakaolink:1.1.10'
+    compile 'com.kakao.sdk:auth:1.1.10'
+    compile 'com.kakao.sdk:friends:1.1.10'
+    //    compile group: 'com.kakao.sdk', name: 'gradle', version: '1.1.10'
+    compile 'com.kakao.sdk:kakaostory:1.1.10'
+    compile 'com.kakao.sdk:kakaotalk:1.1.10'
+    compile 'com.kakao.sdk:network:1.1.10'
+    compile 'com.kakao.sdk:push:1.1.10'
+    compile 'com.kakao.sdk:storage:1.1.10'
+    compile 'com.kakao.sdk:usermgmt:1.1.10'
 }
